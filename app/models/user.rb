@@ -12,12 +12,10 @@
 class User < ActiveRecord::Base
   attr_accessible :email, :name
 
-  before_save { |user| user.email = email.downcase }
-
   validates :name,  presence: true
   validates :name, length: { maximum: 50, minimum: 4 }
-  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
-  validates :email, presence: true, format: { with: VALID_EMAIL_REGEX },
-             uniqueness: { case_sensitive: false }
+  # using validates_email_format_of gem
+  validates :email, email_format: { message: 'is not valid' },
+            uniqueness: { case_sensitive: false }
 end
 
