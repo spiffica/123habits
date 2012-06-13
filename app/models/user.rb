@@ -10,12 +10,15 @@
 #
 
 class User < ActiveRecord::Base
-  attr_accessible :email, :name
+  attr_accessible :email, :name, :password, :password_confirmation 
 
   validates :name,  presence: true
   validates :name, length: { maximum: 50, minimum: 4 }
   # using validates_email_format_of gem
   validates :email, email_format: { message: 'is not valid' },
             uniqueness: { case_sensitive: false }
+  has_secure_password
+  validates :password, presence: true, length: { minimum: 6 }
+  validates :password_confirmation, presence: true 
 end
 
