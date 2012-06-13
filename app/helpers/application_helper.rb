@@ -1,11 +1,11 @@
 module ApplicationHelper
 
   def full_title page_title
-    base = 'Habit Buster'
+    base_title = 'Habit Buster'
     if page_title.empty?
-      base
+      base_title
     else
-      "#{base} | #{page_title}"
+      "#{base_title} | #{page_title}"
     end
   end
 end
