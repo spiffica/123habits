@@ -1,3 +1,8 @@
 <% provide :title, @user.name %>
 <h2><%= @user.name %></h2>
 <p><small><%= @user.email %></small></p>
+<h3>Habits(<%= @habits.count %>)</h3>
+<ol>
+  <%= render @habits %>
+</ol>
+<p><%= link_to "Create new habit", new_habit_path, class: "btn btn-primary" %></p>

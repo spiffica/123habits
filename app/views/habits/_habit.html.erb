@@ -1,0 +1,9 @@
+<li>
+  <span><%= link_to habit.statement, habit_path(habit.id) %></span>
+  <span>created <%= time_ago_in_words habit.created_at %> ago</span>
+  <span id='actions'><%= link_to "edit", edit_habit_path(habit.id) %> |
+  <%= link_to "view", habit_path(habit.id) %> |
+  <%= link_to "delete", habit, method: :delete %></span>
+
+
+</li>
