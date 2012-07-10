@@ -1,6 +1,7 @@
 class Habit < ActiveRecord::Base
   belongs_to :user
   has_many :reasons, dependent: :destroy
+  has_many :actions, dependent: :destroy
 
   attr_accessible :goal_date, :statement
 

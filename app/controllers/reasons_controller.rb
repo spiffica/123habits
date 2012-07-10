@@ -25,7 +25,7 @@ class ReasonsController < ApplicationController
     @reason = @habit.reasons.find(params[:id])
     if @reason.update_attributes(params[:reason])
         flash[:success] = "Reason successfully updated."
-        redirect_to @habit
+        redirect_to  habit_path(@habit)
     else
         render :edit
     end
@@ -35,7 +35,6 @@ class ReasonsController < ApplicationController
   def destroy
     @habit = current_user.habits.find(params[:habit_id])
     @reason = @habit.reasons.find(params[:id])
-    @reasons = @habit.reasons
     @reason.destroy
     respond_to do |format|
       format.html { redirect_to @habit, notice: "Reason successfully destroyed" }
