@@ -1,0 +1,5 @@
+    var counter = parseInt($('span#count').html());
+    $('#reasons').append('<%=j render @reason %>');
+    $('span#count').html(counter + 1);
+    $('input#reason_message').val("");
+    $('input#reason_message').focus();

@@ -12,6 +12,10 @@ gem 'simple_form', '~> 2.0.2'
 group :development do
   gem 'sqlite3', '1.3.5'
   gem 'annotate', '~> 2.4.1.beta'
+  #removes assets getinfo form log
+  gem 'quiet_assets'
+  # changes server from webrick to thin to avoid the error msg
+  gem 'thin'
 end
 
 # Gems used only for assets and not required

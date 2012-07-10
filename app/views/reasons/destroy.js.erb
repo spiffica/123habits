@@ -1,0 +1,11 @@
+
+    var counter = $('span#count').html();
+$('.delete_reason').on('ajax:success', function(){
+    var $this = $(this).closest('p');
+    $this.css({"background-color":"hsla(355, 100%, 50%, .5)"});//.delay(500);
+    $this.slideUp(500, function(){
+        $this.remove();
+    $('span#count').html(counter - 1);
+        
+    });
+});

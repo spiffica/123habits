@@ -1,0 +1,11 @@
+<li id="fat-menu" class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+    My Habits <b class="caret"></b>
+  </a>
+  <ul class="dropdown-menu">
+    
+    <li><%= link_to "CREATE NEW HABIT", new_habit_path %></li>
+    <li class="divider"></li>
+    <%= render "habits/list_habits" %>
+  </ul>
+</li>

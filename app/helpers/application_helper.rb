@@ -8,4 +8,8 @@ module ApplicationHelper
       "#{base_title} | #{page_title}"
     end
   end
+
+  def current_habits
+    @habits ||= current_user.habits.all
+  end
 end

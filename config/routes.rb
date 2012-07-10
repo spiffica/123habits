@@ -1,4 +1,5 @@
 Habits::Application.routes.draw do
+
   root to: 'static_pages#home'
 
   match '/about',    to: "static_pages#about"
@@ -7,7 +8,9 @@ Habits::Application.routes.draw do
   resources :users  
   match '/signup',   to: "users#new"
   
-  resources :habits
+  resources :habits do
+    resources :reasons
+  end
 
   resources :sessions, only: [:new, :create, :destroy]
   match '/signin', to: "sessions#new"

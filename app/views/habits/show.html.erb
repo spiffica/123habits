@@ -1,2 +1,6 @@
 <p><%= current_user.name %></p>
 <h1><%= @habit.statement %></h1>
+<div id="reasons">
+    <%= render "reasons/list_reasons" %>
+</div>
+    <%= render 'reasons/form' %>

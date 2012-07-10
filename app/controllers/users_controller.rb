@@ -1,7 +1,7 @@
 
 class UsersController < ApplicationController
 
-  before_filter :signed_in_user, except: :new 
+  before_filter :signed_in_user, except: [:new, :create] 
   #skip_before_filter :signed_in_user, only: :new
   before_filter :correct_user, only: [:show, :edit, :update]
 

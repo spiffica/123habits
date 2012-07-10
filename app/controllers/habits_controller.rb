@@ -1,21 +1,24 @@
 
 class HabitsController < ApplicationController
 
-  def show
-    @habit = current_user.habits.find(params[:id])
-  end
-
   def new
-    @habit = current_user.habits.build#(params[:habit])
+    @habit = current_user.habits.build
   end
 
   def create
     @habit = current_user.habits.build(params[:habit])
     if @habit.save
-      redirect_to current_user
+      redirect_to @habit
     else
       render :new
     end
+  end
+
+  def show
+    @habit = current_user.habits.find(params[:id])
+    #@habits = current_user.habits.all
+    @reason = @habit.reasons.build
+    @reasons = @habit.reasons.all
   end
 
   def edit

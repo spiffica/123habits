@@ -1,0 +1,5 @@
+<div class="reason">
+  <p><%= reason.message %>
+  <span id='actions'><%= link_to "edit", edit_habit_reason_path(@habit,reason) %> |
+  <%= link_to "delete", habit_reason_path(@habit,reason), method: :delete, remote: true, class: "delete_reason" %></span>
+</div>

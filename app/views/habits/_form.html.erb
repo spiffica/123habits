@@ -1,5 +1,5 @@
 <%= simple_form_for @habit do |f| %>
-  <%= f.input :statement, autofocus: true, input_html: {size: 100} %>
-  <%= f.input :goal_date %>
+  <%= f.input :statement, autofocus: true %>
+  <%= f.input :goal_date , start_year: Date.today.year %>
   <%= f.submit class: "btn btn-primary" %>
 <% end %>
