@@ -1,5 +1,5 @@
 <div id="reasons_form">
-    #TODO make this form editable inline and erase next line
+    <!-- temp until added ajax -->
     <% remote_option = true unless controller.action_name == 'edit' %>
     <%= simple_form_for [@habit,@reason], remote: remote_option, class: "reason_form" do |f| %>
       <%= f.input :message, label: false, autofocus: true %>

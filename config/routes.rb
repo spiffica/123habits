@@ -9,7 +9,8 @@ Habits::Application.routes.draw do
   match '/signup',   to: "users#new"
   
   resources :habits do
-    resources :reasons
+    resources :reasons, only: [:create, :edit, :update, :destroy]
+    resources :steps, only: [:create, :edit, :update, :destroy]
   end
 
   resources :sessions, only: [:new, :create, :destroy]

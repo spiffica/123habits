@@ -11,23 +11,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120710053411) do
-
-  create_table "actions", :force => true do |t|
-    t.string   "content"
-    t.integer  "habit_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  add_index "actions", ["habit_id"], :name => "index_actions_on_habit_id"
+ActiveRecord::Schema.define(:version => 20120711070525) do
 
   create_table "habits", :force => true do |t|
     t.string   "statement"
     t.date     "goal_date"
     t.integer  "user_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
+    t.string   "habit_type", :default => "kick"
+    t.string   "status",     :default => "pending"
+    t.date     "start_date"
   end
 
   add_index "habits", ["user_id", "created_at"], :name => "index_habits_on_user_id_and_created_at"
@@ -41,6 +35,15 @@ ActiveRecord::Schema.define(:version => 20120710053411) do
   end
 
   add_index "reasons", ["habit_id"], :name => "index_reasons_on_habit_id"
+
+  create_table "steps", :force => true do |t|
+    t.string   "content"
+    t.integer  "habit_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "steps", ["habit_id"], :name => "index_steps_on_habit_id"
 
   create_table "users", :force => true do |t|
     t.string   "name"

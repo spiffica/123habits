@@ -19,6 +19,8 @@ class HabitsController < ApplicationController
     #@habits = current_user.habits.all
     @reason = @habit.reasons.build
     @reasons = @habit.reasons.all
+    @step = @habit.steps.build
+    @steps = @habit.steps.all
   end
 
   def edit

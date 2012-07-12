@@ -1,12 +1,12 @@
 
-var counter = $('span#reasons_count').html();
-$('.delete_reason').on('ajax:success', function(){
+var counter = $('span#steps_count').html();
+$('.delete_step').on('ajax:success', function(){
     var $this = $(this).closest('li');
     console.log($(this));
     $this.css({"background-color":"hsla(355, 100%, 50%, .5)"});//.delay(500);
     $this.slideUp(500, function(){
         $this.remove();
-    $('span#reasons_count').html(counter - 1);
+    $('span#steps_count').html(counter - 1);
         
     });
 }); 

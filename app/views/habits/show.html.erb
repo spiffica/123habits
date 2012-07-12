@@ -1,11 +1,26 @@
 <p><%= current_user.name %></p>
 <h1><%= @habit.statement %></h1>
-<div id="reasons">
-    <%= render "reasons/list_reasons" %>
-</div>
-    <%= render 'reasons/form' %>
+<div id="reasons_steps">
 
-<div id="actions">
-    <%= render "actions/list_reasons" %>
+    <ul class="nav nav-tabs" id="reasons_steps_tabs">
+        <li class="active"><a href="#reasons">Reasons(<span id="reasons_count"><%= @reasons.count %></span>)</a></li>
+        <li><a href="#steps">Steps(<span id="steps_count"><%= @steps.count %></span>)</a></li>
+    </ul>
+
 </div>
-    <%= render 'actions/form' %>
+
+<div class="tab-content">
+    <div class="tab-pane active" id="reasons">
+      <ul id="list_reasons">
+        <%= render @reasons %>
+      </ul>
+      <%= render 'reasons/form' %>
+    </div>
+    
+    <div class="tab-pane" id="steps">
+      <ul id="list_steps">
+        <%= render @steps %>
+      </ul>
+      <%= render 'steps/form' %>
+    </div>
+</div>

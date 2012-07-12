@@ -4,11 +4,8 @@
 #habit_statement {
   width: 660px;
 }
-#actions {
-  float: right;
-  margin-right: 220px;
-}
-.reason:hover {
+
+.reason:hover, .step:hover {
     background-color: hsla(120, 80%, 10%, .1);
 }
 div.edit_form {
