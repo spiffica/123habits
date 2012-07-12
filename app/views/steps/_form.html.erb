@@ -2,7 +2,7 @@
       <!-- temp until added ajax -->
   <% remote_option = true unless controller.action_name == 'edit' %>
   <%= simple_form_for [@habit, @step], remote: remote_option do |f| %>
-    <%= f.input :content, label: false %>
+    <%= f.input :content, label: false, autofocus: true %>
     <%= f.submit class: "btn btn-primary" %>
   <% end %>
 </div>
