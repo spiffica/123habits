@@ -22,11 +22,16 @@ class StepsController < ApplicationController
     def update
       @habit = current_user.habits.find(params[:habit_id])
       @step = @habit.steps.find(params[:id])
-      if @step.update_attributes(params[:step])
-        flash[:success] = "Step successfully updated."
-        redirect_to @habit
-      else
-        render :edit
+      respond_to do |format|
+        if @step.update_attributes(params[:step])
+          format.html do 
+            flash[:success] = "Step successfully updated."
+            redirect_to @habit
+          end
+          format.js
+        else
+          render :edit
+        end
       end
 
     end
