@@ -37,6 +37,10 @@ textarea {
   resize: vertical;
 }
 
+ul {
+  list-style-type: none;
+}
+
 .center {
   text-align: center;
   h1 {
@@ -125,6 +129,11 @@ footer {
 .actions {
   float: right;
   margin-right: 220px;
+}
+ul {
+    border-bottom: 1px solid #EAEAEA;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
 }
 
 

@@ -1,8 +1,7 @@
-<div class="step id" id="step_<%= step.id %>">
-    <li><%= step.content %>
-        <span class="actions"><%= link_to 'edit', edit_habit_step_path(@habit, step) %>
-            |
-            <%= link_to 'delete', habit_step_path(@habit, step), method: :delete, remote: true, class: 'delete_step' %>
-        </span>
-    </li>
-</div>
+<li class="step id" id="step_<%= step.id %>">
+  <span id="content"><%= step.content %></span>
+    <span class="actions"><%= link_to 'edit', edit_habit_step_path(@habit, step) %>
+        |
+        <%= link_to 'delete', habit_step_path(@habit, step), method: :delete, remote: true, class: 'delete_step' %>
+    </span>
+</li>

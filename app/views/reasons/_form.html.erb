@@ -1,7 +1,5 @@
-<div id="reasons_form">
-    <!-- temp until added ajax -->
-    <% remote_option = true unless controller.action_name == 'edit' %>
-    <%= simple_form_for [@habit,@reason], remote: remote_option, class: "reason_form" do |f| %>
+<div id="reasons_form" >
+    <%= simple_form_for [@habit,@reason], remote: true, class: "reason_form" do |f| %>
       <%= f.input :message, label: false, autofocus: true %>
       <%= f.submit class: "btn btn-primary" %>
     <% end %>

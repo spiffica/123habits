@@ -11,6 +11,7 @@ class ReasonsController < ApplicationController
         format.js   
       else
         format.html { redirect_to @habit, notice: "New reason not created" }
+        format.js 
       end
     end
   end
@@ -18,16 +19,25 @@ class ReasonsController < ApplicationController
   def edit
     @habit = current_user.habits.find(params[:habit_id])
     @reason = @habit.reasons.find(params[:id])
+    respond_to do |format|
+      format.html
+      format.js
+    end   
   end
 
   def update
     @habit = current_user.habits.find(params[:habit_id])
     @reason = @habit.reasons.find(params[:id])
-    if @reason.update_attributes(params[:reason])
-        flash[:success] = "Reason successfully updated."
-        redirect_to  habit_path(@habit)
-    else
-        render :edit
+    respond_to do |format|
+      if @reason.update_attributes(params[:reason])
+        format.html do 
+          flash[:success] = "Reason successfully updated."
+          redirect_to  habit_path(@habit)
+        end
+        format.js
+      else
+          render :edit
+      end
     end
     
   end

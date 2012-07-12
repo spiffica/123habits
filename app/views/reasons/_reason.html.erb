@@ -1,7 +1,6 @@
-<div class="reason" id="reason_<%= reason.id %>">
-  <li><%= reason.message %>
-    <span class='actions'><%= link_to "edit", edit_habit_reason_path(@habit,reason) %> |
+  <li class="reason" id="reason_<%= reason.id %>">
+    <span id="message"><%= reason.message %></span>
+    <span class='actions'><%= link_to "edit", edit_habit_reason_path(@habit,reason), id: 'edit_reason', :'data-toggle'=>'modal', remote: true %> |
   <%= link_to "delete", habit_reason_path(@habit,reason), method: :delete, remote: true, class: "delete_reason" %>
     </span>
   </li>
-</div>

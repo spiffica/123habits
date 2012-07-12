@@ -1,0 +1,6 @@
+<% if @reason.errors.any? %>
+  <ul>
+      <% @reason.errors.each do |key, msg| %>
+          <li><%=key%><%= msg %></li>
+      <% end %>
+  </ul>
