@@ -9,6 +9,5 @@
               checked: @habit.habit_type,
               label: 'Habit Type', 
                as: :radio_buttons %>
-  <%= f.input :goal_date , start_year: Date.today.year %>
   <%= f.submit class: "btn btn-primary" %>
 <% end %>

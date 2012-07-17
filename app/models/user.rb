@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  attr_accessible :email, :name, :password, :password_confirmation 
+  attr_accessible :email, :name, :password, :password_confirmation, :time_zone 
 
   has_many :habits, dependent: :destroy
 

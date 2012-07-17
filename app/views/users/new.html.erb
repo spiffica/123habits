@@ -5,6 +5,7 @@
     <%= simple_form_for (@user) do |f| %>
       <%= f.input :name %>
       <%= f.input :email %>
+      <%= f.input :time_zone, priority: /US/ %>
       <%= f.input :password %>
       <%= f.input :password_confirmation %>
       <%= f.submit "Create my account", class: "btn btn-primary" %>

@@ -11,7 +11,7 @@ class Habit < ActiveRecord::Base
 
   before_save :reset_start_date
 
-  validate :future_date
+  #validate :future_date
   validates :statement, presence: true, length: { minimum: 6}
   validates :user_id, presence: true
   validates :habit_type, presence: true
@@ -25,7 +25,7 @@ class Habit < ActiveRecord::Base
   private
 
     def future_date
-      if goal_date <= Date.today
+      if goal_date <= Date.today#.to_time_in_current_zone.to_date
         errors.add(:goal_date, "can't be in the past")
       end
     end
