@@ -25,7 +25,7 @@ class Habit < ActiveRecord::Base
   private
 
     def future_date
-      if goal_date <= Date.today#.to_time_in_current_zone.to_date
+      if goal_date <= Date.today
         errors.add(:goal_date, "can't be in the past")
       end
     end

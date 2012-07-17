@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120717032203) do
+ActiveRecord::Schema.define(:version => 20120717041402) do
 
   create_table "habits", :force => true do |t|
     t.string   "statement"
@@ -48,11 +48,11 @@ ActiveRecord::Schema.define(:version => 20120717032203) do
   create_table "users", :force => true do |t|
     t.string   "name"
     t.string   "email"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.datetime "created_at",                                                :null => false
+    t.datetime "updated_at",                                                :null => false
     t.string   "password_digest"
     t.string   "remember_token"
-    t.string   "time_zone"
+    t.string   "time_zone",       :default => "Pacific Time (US & Canada)"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
