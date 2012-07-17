@@ -1,6 +1,9 @@
-    var counter = parseInt($('span#reasons_count').html());
-    $('ul#list_reasons').append('<%=j render @reason %>');
-    $('span#reasons_count').html(counter + 1);
-    $('input#reason_message').val("");
-    $('input#reason_message').focus();
- 
+removePreviousErrors();
+
+var counter = parseInt($('span#reasons_count').html());
+$('ul#list_reasons').append('<%=j render @reason %>');
+$('span#reasons_count').html(counter + 1);
+
+
+$('input#reason_message').val("");
+$('input#reason_message').focus();

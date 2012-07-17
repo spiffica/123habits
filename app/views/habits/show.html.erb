@@ -1,10 +1,29 @@
-<p><%= current_user.name %></p>
-<h1><%= @habit.statement %></h1>
+<h1><%= @habit.statement %> <small><%= link_to 'edit', edit_habit_path(@habit) %></small></h1>
+<h3>Status:<span class="status <%= @habit.status %>"><%= @habit.status %></span></h3>
+<% if @habit.status == "pending" %>
+  <%= simple_form_for @habit do |f| %>
+   
+    <%= f.hidden_field :status, 
+              value: "started"
+              %>
+    <%= f.hidden_field :start_date, 
+              value: Date.today
+    %>
+    <%= f.submit "Start Habit Now!!", class: "btn btn-primary" %>
+    <% end %>
+  <% end %>
+  <% if @habit.status == "started" %>
+    <div>
+      <h6 class="day_streak">Habit underway for <%= pluralize(@habit.day_streak, 'day') %></h6>
+      <small><%= days_in_habit(@habit) %></small>
+    </div>
+  <% end %>
 <div id="reasons_steps">
 
     <ul class="nav nav-tabs" id="reasons_steps_tabs">
         <li class="active"><a href="#reasons">Reasons(<span id="reasons_count"><%= @reasons.count %></span>)</a></li>
         <li><a href="#steps">Steps(<span id="steps_count"><%= @steps.count %></span>)</a></li>
+        <li><a href="#calendar">Calendar</a></li>
     </ul>
 
 </div>
@@ -22,5 +41,9 @@
         <%= render @steps %>
       </ul>
       <%= render 'steps/form' %>
+    </div>
+
+    <div class="tab-pane" id="calendar">
+      <p>Calendar view goes here</p>
     </div>
 </div>

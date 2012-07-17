@@ -8,4 +8,4 @@ $ ->
     $(this).tab "show"
 
   $('button[data-dismiss="modal"]').on 'click', ->
-    $('div.modal').hide()
+    $('div.modal').hide()  

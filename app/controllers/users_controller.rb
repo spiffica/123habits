@@ -16,7 +16,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @habits = @user.habits
+    @habits = @user.habits.order_status_start #order("status DESC, start_date DESC") 
   end
 
   def edit

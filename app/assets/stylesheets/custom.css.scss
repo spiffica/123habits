@@ -130,11 +130,25 @@ footer {
   float: right;
   margin-right: 220px;
 }
-ul {
-    border-bottom: 1px solid #EAEAEA;
-    padding-bottom: 20px;
-    margin-bottom: 20px;
+
+span.status {
+  color: white;
+  padding: 2px 5px;
+  border-radius: 5px;
+  text-align: right;
+
+  &.completed {
+    background-color: red;
+  }
+  &.status.pending {
+    background-color: yellow;
+    color: black;
+  }
+  &.started {
+    background-color: green;
+  }
 }
+
 
 
 

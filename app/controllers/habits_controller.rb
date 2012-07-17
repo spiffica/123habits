@@ -31,7 +31,7 @@ class HabitsController < ApplicationController
     @habit = current_user.habits.find(params[:id])
     if @habit.update_attributes(params[:habit])
       flash[:success] = "Habit successfully updated."
-      redirect_to current_user
+      redirect_to @habit
     else
       flash[:error] = "Please try again"
       render :edit

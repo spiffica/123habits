@@ -1,6 +1,6 @@
-<li>
+<li class="<%= habit.status %>-habit"><span class=" status <%= habit.status %>"><%= habit.status %></span>
   <span><%= link_to habit.statement, habit_path(habit.id) %>(<%= habit.reasons.count %> reasons)</span>
-  <span>created <%= time_ago_in_words habit.created_at %> ago</span>
+  <span>created <%= time_ago_in_words habit.created_at %></span>
   <span class='actions'><%= link_to "edit", edit_habit_path(habit.id) %> |
   <%= link_to "view", habit_path(habit.id) %> |
   <%= link_to "delete", habit, method: :delete %></span>

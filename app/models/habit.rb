@@ -1,7 +1,7 @@
 class Habit < ActiveRecord::Base
 
   TYPE = [['Start a healthy habit', 'start'],['Kick an ugly habit','kick']] #["grow", "break"]
-  STATUS  = ["started", "completed", "pending"]
+  STATUS  = ["started", "pending", "completed"]
 
   belongs_to :user
   has_many :reasons, dependent: :destroy
@@ -9,19 +9,30 @@ class Habit < ActiveRecord::Base
 
   attr_accessible :goal_date, :statement, :habit_type, :status, :start_date
 
+  before_save :reset_start_date
+
   validate :future_date
-  validates :statement, presence: true, length: { minimum: 10}
+  validates :statement, presence: true, length: { minimum: 6}
   validates :user_id, presence: true
   validates :habit_type, presence: true
 
-  #below not working, not sure why
-  #default_scope :order, 'habits.created_at DESC'
+  scope :order_status_start, order("status DESC, start_date DESC")
+
+  def day_streak
+    (Date.today - self.start_date).to_i + 1
+  end
 
   private
 
     def future_date
       if goal_date <= Date.today
         errors.add(:goal_date, "can't be in the past")
+      end
+    end
+
+    def reset_start_date
+      if self.status == "pending"
+        self.start_date = nil
       end
     end
 

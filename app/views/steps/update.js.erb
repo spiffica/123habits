@@ -1,4 +1,5 @@
 var updated_message = $('input#step_content').val();
 var step_selector = "li#step_<%= @step.id %> span#content";
 $(step_selector).html(updated_message);
+removePreviousErrors();
 $('div.modal').hide('slow');

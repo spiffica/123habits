@@ -15,6 +15,7 @@ class StepsController < ApplicationController
             format.js
           else
             format.html { redirect_to @habit, notice: "something went wrong." }
+            format.js   { render 'reload'}
           end
         end
     end
@@ -30,7 +31,8 @@ class StepsController < ApplicationController
           end
           format.js
         else
-          render :edit
+          format.html { render :edit }
+          format.js   { render 'edit'}
         end
       end
 

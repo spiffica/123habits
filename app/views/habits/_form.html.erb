@@ -1,9 +1,14 @@
 <%= simple_form_for @habit do |f| %>
   <%= f.input :statement, autofocus: true %>
+  <% unless @habit.new_record? %>
+  <%= f.input :status, collection: Habit::STATUS,
+              checked: @habit.status,
+              as: :radio_buttons %>
+              <% end %>
   <%= f.input :habit_type, collection: Habit::TYPE, 
-              checked: Habit::TYPE[1],
+              checked: @habit.habit_type,
               label: 'Habit Type', 
-               as: :radio %>
+               as: :radio_buttons %>
   <%= f.input :goal_date , start_year: Date.today.year %>
   <%= f.submit class: "btn btn-primary" %>
 <% end %>
