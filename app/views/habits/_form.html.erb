@@ -1,10 +1,11 @@
-<%= simple_form_for @habit do |f| %>
+<% is_remote = true unless @habit.id == nil %>
+<%= simple_form_for @habit, remote: is_remote do |f| %>
   <%= f.input :statement, autofocus: true %>
   <% unless @habit.new_record? %>
-  <%= f.input :status, collection: Habit::STATUS,
+    <%= f.input :status, collection: Habit::STATUS,
               checked: @habit.status,
               as: :radio_buttons %>
-              <% end %>
+  <% end %>
   <%= f.input :habit_type, collection: Habit::TYPE, 
               checked: @habit.habit_type,
               label: 'Habit Type', 

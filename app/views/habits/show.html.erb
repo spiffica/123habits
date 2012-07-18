@@ -1,23 +1,8 @@
-<h1><%= @habit.statement %> <small><%= link_to 'edit', edit_habit_path(@habit) %></small></h1>
-<h3>Status:<span class="status <%= @habit.status %>"><%= @habit.status %></span></h3>
-<% if @habit.status == "pending" %>
-  <%= simple_form_for @habit do |f| %>
-   
-    <%= f.hidden_field :status, 
-              value: "started"
-              %>
-    <%= f.hidden_field :start_date, 
-              value: Date.today
-    %>
-    <%= f.submit "Start Habit Now!!", class: "btn btn-primary" %>
-    <% end %>
-  <% end %>
-  <% if @habit.status == "started" %>
-    <div>
-      <h6 class="day_streak">Habit underway for <%= pluralize(@habit.day_streak, 'day') %></h6>
-      <small><%= days_in_habit(@habit) %></small>
-    </div>
-  <% end %>
+<h1 id="statement"><span><%= @habit.statement %></span> <small><%= link_to 'edit', edit_habit_path(@habit), remote: true, :'data-toggle'=>'modal' %></small></h1>
+<div id="status_related_info">
+  <%= render 'status_info' %>
+</div>
+
 <div id="reasons_steps">
 
     <ul class="nav nav-tabs" id="reasons_steps_tabs">

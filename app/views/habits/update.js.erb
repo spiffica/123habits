@@ -1,0 +1,20 @@
+var url = window.location.href;
+if(url.search('habits') > -1) {
+  var updated_statement = $('input#habit_statement').val();
+  var statement_selector = "h1#statement span";
+  $('div#status_related_info').html("<%=j render 'status_info'  %>");
+  $(statement_selector).html(updated_statement);
+}
+
+if(url.search('users') > -1) {
+  var habit_item = "li#habit-<%= @habit.id %>";
+  $(habit_item).replaceWith("<%=j render @habit %>");
+  $(habit_item)
+    .animate({'backgroundColor':'#93d5ec'}, 3000, function(){
+      $(this).css({'backgroundColor':''})
+    });
+}
+
+removePreviousErrors();
+$('div.modal').hide('slow');
+

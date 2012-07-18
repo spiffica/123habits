@@ -31,10 +31,18 @@ class Habit < ActiveRecord::Base
     end
 
     def reset_start_date
-      if self.status == "pending"
-        self.start_date = nil
+      if self.status_changed? 
+        case self.status 
+          when "started"
+          self.start_date = Date.today
+          when "pending"
+          self.start_date = nil
+        end
       end
     end
+
+    
+
 
 
 end

@@ -1,6 +1,7 @@
 var updated_message = $('input#reason_message').val();
 var reason_selector = "li#reason_<%= @reason.id %> span#message";
 $(reason_selector).html(updated_message);
+
 removePreviousErrors();
 $('div.modal').hide('slow');
 

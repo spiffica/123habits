@@ -1,0 +1,14 @@
+<h3>Status:<span class="status <%= @habit.status %>"><%= @habit.status %></span></h3>
+<% if @habit.status == "pending" %>
+  <%= simple_form_for @habit, remote: true do |f| %>
+   
+    <%= f.hidden_field :status, 
+              value: "started"
+              %>
+    <%= f.submit "Start Habit Now!!", class: "btn btn-primary" %>
+  <% end %>
+<% end %>
+<% if @habit.status == "started" %>
+  <h6 class="day_streak">Habit underway for <%= pluralize(@habit.day_streak, 'day') %></h6>
+  <small><%= days_in_habit(@habit) %></small>
+<% end %>
