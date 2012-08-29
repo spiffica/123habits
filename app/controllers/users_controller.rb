@@ -6,7 +6,7 @@ class UsersController < ApplicationController
   before_filter :correct_user, only: [:show, :edit, :update]
 
 
-  # def index
+  # def index 
   #   @users = User.all
   # end
 

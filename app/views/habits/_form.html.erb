@@ -1,4 +1,4 @@
-<% is_remote = true unless @habit.id == nil %>
+<% is_remote = true unless @habit.new_record? %>
 <%= simple_form_for @habit, remote: is_remote do |f| %>
   <%= f.input :statement, autofocus: true %>
   <% unless @habit.new_record? %>

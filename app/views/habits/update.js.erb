@@ -1,5 +1,6 @@
 var url = window.location.href;
 if(url.search('habits') > -1) {
+  console.log('I am in habits');
   var updated_statement = $('input#habit_statement').val();
   var statement_selector = "h1#statement span";
   $('div#status_related_info').html("<%=j render 'status_info'  %>");
@@ -7,12 +8,21 @@ if(url.search('habits') > -1) {
 }
 
 if(url.search('users') > -1) {
+
+  console.log('I am in users');
+
   var habit_item = "li#habit-<%= @habit.id %>";
+  var habit_status_class = "li.<%= @habit.status %>-habit";
+
+  console.log("habit_item is " + habit_item);
+  console.log('habit_status_class is ' + habit_status_class);
+  
   $(habit_item).replaceWith("<%=j render @habit %>");
   $(habit_item)
     .animate({'backgroundColor':'#93d5ec'}, 3000, function(){
       $(this).css({'backgroundColor':''})
     });
+  $(habit_status_class).last().after($(habit_item));//css({'backgroundColor':'blue'});
 }
 
 removePreviousErrors();
