@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   before_filter :signed_in_user, except: [:new, :create] 
   #skip_before_filter :signed_in_user, only: :new
   before_filter :correct_user, only: [:show, :edit, :update]
-
+ 
 
   # def index 
   #   @users = User.all
@@ -27,7 +27,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     if @user.update_attributes(params[:user])
       flash[:success] = "Update successful"
-      # remember token gets reset when saved, so resign user in
+      # remember token gets reset when saved, so re-sign user in
       sign_in @user
       redirect_to @user
     else

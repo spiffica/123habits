@@ -12,16 +12,21 @@ describe "UserPages" do
 
   describe "profile page" do
     let(:user) { FactoryGirl.create(:user) }
-    before { visit user_path(user) }
-
-    it { should have_selector('h2', text: user.name) }
+    before do #{ visit user_path(user) }
+      visit signin_path
+      fill_in "Email", with: user.email 
+      fill_in "Password", with: user.password 
+      click_button "Sign in"
+    end
+    it "should have selector h2" do
+      should have_selector('h2', text: user.name)
+    end
     it { should have_selector('title', text: user.name) }
   end 
 
   describe "signup" do
     before { visit signup_path }
-
-    let(:submit) { "Create my account" }
+    let(:submit) { "Create User" }
 
     describe "with invalid information" do
       it "should not create a user" do
@@ -36,6 +41,7 @@ describe "UserPages" do
         fill_in "Password confirmation",         with: "foobar"
       end
       it "should create a user" do
+        save_and_open_page
         expect { click_button submit }.to change(User, :count).by(1)
       end
       describe "after saving the user" do

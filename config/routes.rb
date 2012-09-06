@@ -5,8 +5,10 @@ Habits::Application.routes.draw do
   match '/about',    to: "static_pages#about"
   match '/help',    to: "static_pages#help"
 
-  resources :users  
-  match '/signup',   to: "users#new"
+  match 'signup',   to: "users#new"
+  # match 'signup',   to: "users#create", via: "post"
+  resources :users 
+
   
   resources :habits do
     resources :reasons, only: [:create, :edit, :update, :destroy]

@@ -4,21 +4,22 @@ describe ReasonsController do
 
   describe "GET 'new'" do
     it "returns http success" do
+      current_user = User.first
       get 'new'
       response.should be_success
     end
   end
 
-  describe "GET 'create'" do
+  describe "POST 'create'" do
     it "returns http success" do
-      get 'create'
+      post 'create'
       response.should be_success
     end
   end
 
-  describe "GET 'update'" do
+  describe "POST 'update'" do
     it "returns http success" do
-      get 'update'
+      post 'update'
       response.should be_success
     end
   end

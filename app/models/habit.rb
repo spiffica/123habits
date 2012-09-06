@@ -19,13 +19,13 @@ class Habit < ActiveRecord::Base
   scope :order_status_start, order("status DESC, start_date DESC")
 
   def day_streak
-    (Date.today - self.start_date).to_i + 1
+    (Time.zone.now.to_date - self.start_date).to_i + 1
   end
 
   private
 
     def future_date
-      if goal_date <= Date.today
+      if goal_date <= Time.zone.today
         errors.add(:goal_date, "can't be in the past")
       end
     end
@@ -34,7 +34,7 @@ class Habit < ActiveRecord::Base
       if self.status_changed? 
         case self.status 
           when "started"
-          self.start_date = Date.today
+          self.start_date = Time.zone.today
           when "pending"
           self.start_date = nil
         end

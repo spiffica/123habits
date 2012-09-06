@@ -46,9 +46,10 @@ describe "Static pages" do
     page.should have_selector('title', text: full_title('About Us')) 
     click_link "Help"
     page.should have_selector('title', text: full_title('Help')) 
-    click_link "Home"
+    click_link "Habit Buster"
     page.should have_selector('title', text: full_title('')) 
-    click_link "Sign Up Now"
+    click_button "Sign Up Now!"
+    save_and_open_page
     page.should have_selector('h1', text: 'Sign Up')
 
   end
