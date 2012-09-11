@@ -20,7 +20,7 @@
         <% unless @reasons.empty? %>
           <%= render @reasons %>
         <% else %>
-          <p>Instructions on how and why to input reasons</p>
+          <p id="instructions">Instructions on how and why to input reasons</p>
         <% end %>
       </ul>
       <%= render 'reasons/form' %>

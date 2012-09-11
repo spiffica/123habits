@@ -5,4 +5,5 @@
 <ol>
   <%= render @habits %>
 </ol>
-<p><%= link_to "Create new habit", new_habit_path, class: "btn btn-primary" %></p>
+<p><%= button_to "Create new habit", new_habit_path, method: :get, class: "btn btn-primary" %></p>
+ 

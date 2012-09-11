@@ -1,4 +1,4 @@
-
+ 
 class HabitsController < ApplicationController
 
   def new
