@@ -1,0 +1,6 @@
+<div id="affirmations_form" >
+    <%= simple_form_for [@habit,@affirmation], remote: true, class: "affirmation_form" do |f| %>
+      <%= f.input :message, label: false, autofocus: true %>
+      <%= f.submit class: "btn btn-primary" %>
+    <% end %>
+</div>

@@ -14,9 +14,14 @@ FactoryGirl.define do
   	end
   end
   factory :reason do
-  	sequence(:message) { |m| "message#{m}"}	
-  	user
-  	habit
+    sequence(:message) { |m| "message#{m}"} 
+    user
+    habit
+  end
+  factory :affirmation do
+    sequence(:message) { |m| "affirmation message#{m}"} 
+    user
+    habit
   end
 
 end

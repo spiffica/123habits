@@ -1,5 +1,6 @@
 Habits::Application.routes.draw do
 
+ 
   root to: 'static_pages#home'
 
   match '/about',    to: "static_pages#about"
@@ -13,6 +14,7 @@ Habits::Application.routes.draw do
   resources :habits do
     resources :reasons, only: [:create, :edit, :update, :destroy]
     resources :steps, only: [:create, :edit, :update, :destroy]
+    resources :affirmations, only: [:create, :edit, :update, :destroy]
   end
 
   resources :sessions, only: [:new, :create, :destroy]

@@ -8,6 +8,7 @@
     <ul class="nav nav-tabs" id="reasons_steps_tabs">
         <li class="active"><a href="#reasons">Reasons(<span id="reasons_count"><%= @reasons.count %></span>)</a></li>
         <li><a href="#steps">Steps(<span id="steps_count"><%= @steps.count %></span>)</a></li>
+        <li><a href="#affirmations">Affirmations(<span id="affirmations_count"><%= @affirmations.count %></span>)</a></li>
         <li><a href="#reward">Reward</a></li>
         <li><a href="#calendar">Calendar</a></li>
     </ul>
@@ -31,6 +32,12 @@
         <%= render @steps %>
       </ul>
       <%= render 'steps/form' %>
+    </div>
+    <div class="tab-pane" id="affirmations">
+      <ul id="list_affirmations">
+        <%= render @affirmations %>
+      </ul>
+      <%= render 'affirmations/form' %>
     </div>
 
     <div class="tab-pane" id="reward">

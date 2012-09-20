@@ -5,8 +5,8 @@ describe "Habits" do
   	before do
 	      @user = FactoryGirl.create(:user)
 	      @user2 = FactoryGirl.create(:user, email: "knob@here.com")
-	      @habits = FactoryGirl.create(:habit,:kicking, user: @user)
-	      @habits2 = FactoryGirl.create(:habit,:kicking, user: @user2)
+	      @habits = FactoryGirl.create(:habit, user: @user)
+	      @habits2 = FactoryGirl.create(:habit, user: @user2)
 	      visit signin_path
 	      fill_in "Email", with: @user.email 
 	      fill_in "Password", with: @user.password 

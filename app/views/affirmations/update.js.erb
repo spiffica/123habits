@@ -1,0 +1,11 @@
+var updated_message = $('input#affirmation_message').val();
+var affirmation_selector = "li#affirmation_<%= @affirmation.id %> span#message";
+$(affirmation_selector).html(updated_message);
+
+removePreviousErrors();
+fadeModal();
+
+$("li#affirmation_<%= @affirmation.id %>")
+  .animate({'backgroundColor':'#93d5ec'}, 2000, function(){
+    $(this).css({'backgroundColor':''})
+  });

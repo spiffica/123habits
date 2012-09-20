@@ -21,6 +21,8 @@ class HabitsController < ApplicationController
     @reasons = @habit.reasons.all
     @step = @habit.steps.build
     @steps = @habit.steps.all
+    @affirmation = @habit.affirmations.build
+    @affirmations = @habit.affirmations.all
   end
 
   def edit
