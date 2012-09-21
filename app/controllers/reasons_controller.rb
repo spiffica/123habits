@@ -7,6 +7,10 @@ class ReasonsController < ApplicationController
     @reason = @habit.reasons.build(params[:reason])
     respond_to do |format|
       if @reason.save
+          # following works, but need to figure js to update or trigger
+          # affirmations#create.js.erb and format highlight to notify
+          # user that it needs to be converted to affirmation
+        @habit.affirmations.create(params[:reason])
         format.html { redirect_to @habit, notice: "New reason created." }
         format.js   
       else
