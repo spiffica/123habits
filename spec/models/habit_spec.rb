@@ -16,18 +16,31 @@ describe Habit do
                 user_id: 5)
     end
     context "when status changed to 'started'" do
-      it "sets start date to today" do
+      before do
         @habit.status = "started"
         @habit.save
+      end
+      it "sets start date to today" do
         @habit.start_date.should == Time.zone.today
         # expect { @habit.save }.to change(@habit, :start_date).to(Time.zone.today)
       end
+      it "adds 21 trackers" do
+        @habit.trackers.count.should eq(21)
+      end
+
     end
     context "when status changed to 'pending'" do
-      it "sets start date to nil" do
+      before do
+        @habit.status = "started"
+        @habit.save
         @habit.status = "pending"
         @habit.save
+      end
+      it "sets start date to nil" do
         @habit.start_date.should == nil
+      end
+      it "deletes all trackers" do
+        @habit.trackers.count.should eq(0)
       end
     end
     context "when Habit saved" do
@@ -37,8 +50,14 @@ describe Habit do
       it "sets status to 'pending'" do
         @habit.status.should == 'pending'
       end
+      it "has no trackers" do
+        @habit.trackers.count.should eq(0)
+      end
     end
   end
+
+
+
 
 
 end

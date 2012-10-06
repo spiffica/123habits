@@ -9,11 +9,8 @@ describe "Affirmations" do
 	end
   describe "modal" do
   	before do
-  		visit signin_path
-  		fill_in "Email", with: @user.email
-  		fill_in "Password", with: @user.password
-  		click_button "Sign in"
-  		click_link "I will"
+  		sign_in @user
+  		click_link "#{@habit.statement}"
   	end
   	it "has a tab heading named 'Affirmations'" do
   		page.should have_content("Affirmations")

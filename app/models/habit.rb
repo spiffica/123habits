@@ -7,6 +7,7 @@ class Habit < ActiveRecord::Base
   has_many :reasons, dependent: :destroy
   has_many :steps, dependent: :destroy
   has_many :affirmations, dependent: :destroy
+  has_many :trackers, dependent: :destroy
 
   attr_accessible :goal_date, :statement, :habit_type, :status, :start_date
 
@@ -23,6 +24,8 @@ class Habit < ActiveRecord::Base
     (Time.zone.now.to_date - self.start_date).to_i + 1
   end
 
+  
+
   private
 
     def future_date
@@ -36,8 +39,10 @@ class Habit < ActiveRecord::Base
         case self.status 
           when "started"
           self.start_date = Time.zone.today
+          Tracker.add_initial_trackers(self)
           when "pending"
           self.start_date = nil
+          Tracker.delete_trackers(self)
         end
       end
     end

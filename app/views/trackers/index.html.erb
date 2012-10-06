@@ -1,0 +1,6 @@
+<h1><%= link_to @habit.statement, habit_path(@habit) %></h1>
+<p>Progress for "<%= @habit.statement %>"</p>
+<ul>
+	<%= render @trackers %>
+
+</ul>

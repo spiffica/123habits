@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120913065246) do
+ActiveRecord::Schema.define(:version => 20121006012827) do
 
   create_table "affirmations", :force => true do |t|
     t.string   "message"
@@ -51,6 +51,17 @@ ActiveRecord::Schema.define(:version => 20120913065246) do
   end
 
   add_index "steps", ["habit_id"], :name => "index_steps_on_habit_id"
+
+  create_table "trackers", :force => true do |t|
+    t.date     "day"
+    t.boolean  "success"
+    t.string   "notes"
+    t.integer  "habit_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "trackers", ["habit_id"], :name => "index_trackers_on_habit_id"
 
   create_table "users", :force => true do |t|
     t.string   "name"

@@ -3,6 +3,10 @@
   <%= render 'status_info' %>
 </div>
 
+<div id="tracking"> 
+       <%= link_to "Tracking", habit_trackers_path(@habit) %>
+</div>
+
 <div id="reasons_steps">
 
     <ul class="nav nav-tabs" id="reasons_steps_tabs">
@@ -10,7 +14,6 @@
         <li><a href="#steps">Steps(<span id="steps_count"><%= @steps.count %></span>)</a></li>
         <li><a href="#affirmations">Affirmations(<span id="affirmations_count"><%= @affirmations.count %></span>)</a></li>
         <li><a href="#reward">Reward</a></li>
-        <li><a href="#calendar">Calendar</a></li>
     </ul>
 
 </div>
