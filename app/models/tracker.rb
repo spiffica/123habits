@@ -19,7 +19,8 @@ class Tracker < ActiveRecord::Base
   		habit = Habit.find(self.habit_id)
 	  	date = habit.trackers.last.day
 	  	7.times do |n|
-	  		habit.trackers.create(day:(date + n.day))
+	  		date += 1.day
+	  		habit.trackers.create(day:date)
 	  	end
 	  end
   end

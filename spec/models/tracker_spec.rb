@@ -14,17 +14,12 @@ describe Tracker do
     it "add 7 days to the habits' day count" do
       @habit = FactoryGirl.create(:habit, statement: "indecisive", 
                 user_id: 5)
-      # Tracker.add_initial_trackers @habit
-      # Tracker.add_penalty_days(@habit)
 
       @habit.status = "started"
       @habit.save
       track1 = @habit.trackers.first
       track1.success = false
       track1.save
-
-      # @habit.trackers.first.success_changed?.should be_false
-      # @habit.trackers.first.save
 
       @habit.trackers.count.should eq(28)
     end

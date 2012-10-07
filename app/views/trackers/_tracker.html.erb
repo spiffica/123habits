@@ -1,6 +1,6 @@
-	<li><%= tracker.day %></li>
+	<li class = "tracker"><time><%= tracker.day %></time></li>
 	<%= simple_form_for [@habit, tracker], class: "tracker_form" do |f| %>
-		<%= f.collection_check_boxes :success, [[true, "Success"], [false, "Fail"]], :first, :last %>
-		<%= f.input :notes %>
+		<%= f.collection_radio_buttons :success, [[true, "success"], [false, "fail"]], :first, :last, class: "inline" %>
+ 		<%= f.input :notes %>
 		<%= f.submit class: "btn btn-primary" %>
 	<% end %>
