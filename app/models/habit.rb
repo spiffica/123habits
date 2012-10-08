@@ -9,7 +9,7 @@ class Habit < ActiveRecord::Base
   has_many :affirmations, dependent: :destroy
   has_many :trackers, dependent: :destroy
 
-  attr_accessible :goal_date, :statement, :habit_type, :status, :start_date
+  attr_accessible :goal_date, :statement, :habit_type, :status, :start_date, :reward
 
   before_save :reset_start_date
 

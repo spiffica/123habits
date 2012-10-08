@@ -1,4 +1,5 @@
 <h1 id="statement"><span><%= @habit.statement %></span> <small><%= link_to 'edit', edit_habit_path(@habit), remote: true, :'data-toggle'=>'modal' %></small></h1>
+<p class="reward"><i class = "icon-star-empty"></i>Reward: <span id="reward"><%= @habit.reward %></span></p>
 <div id="status_related_info">
   <%= render 'status_info' %>
 </div>
@@ -13,7 +14,6 @@
         <li class="active"><a href="#reasons">Reasons(<span id="reasons_count"><%= @reasons.count %></span>)</a></li>
         <li><a href="#steps">Steps(<span id="steps_count"><%= @steps.count %></span>)</a></li>
         <li><a href="#affirmations">Affirmations(<span id="affirmations_count"><%= @affirmations.count %></span>)</a></li>
-        <li><a href="#reward">Reward</a></li>
     </ul>
 
 </div>
@@ -43,11 +43,4 @@
       <%= render 'affirmations/form' %>
     </div>
 
-    <div class="tab-pane" id="reward">
-      <p>Reward view goes here</p>
-    </div>    
-
-    <div class="tab-pane" id="calendar">
-      <p>Calendar view goes here</p>
-    </div>
 </div>

@@ -11,7 +11,7 @@ describe "Habits" do
 	      fill_in "Email", with: @user.email 
 	      fill_in "Password", with: @user.password 
 	      click_button "Sign in"
-	    end
+	   end
     it "shows list of users habits" do
       page.should have_content("I will stop 1")
     end
@@ -19,6 +19,7 @@ describe "Habits" do
     	visit user_path(@user2)
     	page.should_not have_content(@habits2.statement)
     end
+    
 
   end
 end

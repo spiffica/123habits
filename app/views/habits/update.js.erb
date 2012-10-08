@@ -3,8 +3,13 @@ if(url.search('habits') > -1) {
   console.log('I am in habits');
   var updated_statement = $('input#habit_statement').val();
   var statement_selector = "h1#statement span";
-  $('div#status_related_info').html("<%=j render 'status_info'  %>");
   $(statement_selector).html(updated_statement);
+
+  var updated_reward = $('input#habit_reward').val();
+  var reward_selector = "span#reward";
+  $(reward_selector).html(updated_reward);
+
+  $('div#status_related_info').html("<%=j render 'status_info'  %>");
 }
 
 if(url.search('users') > -1) {
