@@ -1,0 +1,12 @@
+var tracker_form = $("form#edit_tracker_<%= @tracker.id %>");
+var article = $(tracker_form).closest("article");
+$(article).closest("td.day").removeClass('fail success unfilled');
+if (<%= @tracker.success? %>) {
+	$(article).closest("td.day").addClass('true');
+} else {
+	$(article).closest("td.day").addClass('false');
+}
+// $(article).html('');
+$(article).html("<%=j display_article(@tracker) %>")
+
+

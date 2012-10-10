@@ -1,6 +1,7 @@
 class Tracker < ActiveRecord::Base
   belongs_to :habit
   attr_accessible :day, :notes, :success, :habit_id
+  has_calendar :start_time => :day
 
   before_save :add_penalty_days
 

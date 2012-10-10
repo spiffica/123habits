@@ -65,6 +65,28 @@ describe "Trackers" do
 		end
 	end
 
+	describe "#index with calendar view" do
+		context "habit not yet started" do
+		end
+		context "habit started" do
+			context "today" do
+				before do
+				click_button "Start Habit Now!!"
+				click_link "Tracking"
+				end
+				it "displays 21 trackers" do
+					page.should have_css("article.tracker", count: 21)
+				end
+				it "displays 1 editable form" do
+					page.should have_css("form.tracker_form", count: 1)
+				end
+			end
+
+		end
+		context "habit completed" do
+		end
+	end
+
 
 
 end

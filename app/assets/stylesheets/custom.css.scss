@@ -156,7 +156,31 @@ span.status {
   font-style: italic;
 }
 
+.calendar td { height: 100px; width: 14.28%; }
 
+table.calendar td.day {
+  &.today { border-width: thick; }
+  &.false { background-color: red; }
+  &.true { background-color: green; }
+  &.future_tracker { background-color: lightblue; }
+  &.unfilled { background-color: yellow; }
+}
+
+//for ajax form hiding
+article form.tracker_form { margin-bottom: 0;}
+form.edit_tracker {
+  input#tracker_success_true, input#tracker_success_false,
+  input.btn-primary{
+    display:none;
+  } 
+}
+//input#tracker_success_true, input#tracker_success_false + label {
+img.click_pic {
+  cursor:pointer;
+  display: block;
+  float: left;
+  padding-right: 8px;
+}
 
 
 

@@ -1,5 +1,9 @@
-	<%= simple_form_for [@habit, @tracker], class: "tracker_form" do |f| %>
-		<%= f.collection_check_boxes :success, [[true, "Success"], [false, "Fail"]] %>
-		<%= f.input :notes %>
-		<%= f.submit class: "btn btn-primary" %>
-	<% end %>
+			<%= simple_form_for [@habit, tracker], remote: :true do |f| %>
+				<%= f.collection_radio_buttons(:success,
+					[[true, "good"], [false, "bad"]], 
+					:first, :last,
+					:item_wrapper_class => 'inline') do |success| %>
+					<% success.label { image_tag("#{success.text}.png", class: "click_pic") + success.radio_button } %>
+					<% end %>
+				<%= f.submit "Submit", class: "btn btn-primary" %>
+			<% end %>	

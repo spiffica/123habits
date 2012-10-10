@@ -1,2 +1,30 @@
 <h1>Trackers#show</h1>
 <p>Find me in app/views/trackers/show.html.erb</p>
+
+jsut storing from index
+
+<% if tracker.day <=  Time.zone.today && tracker.success == nil %>
+		<article class="unfilled tracker">
+			<%= simple_form_for [@habit, tracker], remote: :true do |f| %>
+				<%= f.collection_radio_buttons :success,
+					[[true, "good"], [false, "bad"]], 
+					:first, :last,
+					:item_wrapper_class => 'inline' %>
+				<%= f.submit "Submit", class: "btn btn-primary" %>
+			<% end %>
+			<i class="icon-list-alt" title="add or edit notes"></i>
+		</article>
+	<% end %>
+	<% if tracker.success == false %>
+		<article class="false tracker"></article>
+	<% end %>
+	<% if tracker.success ==  true %>
+		<article class="true tracker"></article>
+	<% end %>
+	<% if tracker.day > Time.zone.today %>
+		<article class="future tracker"></article>
+	<% end %>
+
+
+
+<% end %> 

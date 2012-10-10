@@ -21,13 +21,15 @@ if(url.search('users') > -1) {
 
   console.log("habit_item is " + habit_item);
   console.log('habit_status_class is ' + habit_status_class);
+  console.log($(habit_item + " span a").val());
   
+  // $(habit_item + "span:nth-child(2) a").html("<%= @habit.statement %>")
   $(habit_item).replaceWith("<%=j render @habit %>");
   $(habit_item)
     .animate({'backgroundColor':'#93d5ec'}, 3000, function(){
       $(this).css({'backgroundColor':''})
     });
-  $(habit_status_class).last().after($(habit_item));//css({'backgroundColor':'blue'});
+  // $(habit_status_class).last().after($(habit_item));//css({'backgroundColor':'blue'});
 }
 
 removePreviousErrors();

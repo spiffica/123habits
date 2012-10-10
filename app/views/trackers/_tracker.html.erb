@@ -1,6 +1,8 @@
 	<li class = "tracker"><time><%= tracker.day %></time></li>
-	<%= simple_form_for [@habit, tracker], class: "tracker_form" do |f| %>
-		<%= f.collection_radio_buttons :success, [[true, "success"], [false, "fail"]], :first, :last, class: "inline" %>
- 		<%= f.input :notes %>
-		<%= f.submit class: "btn btn-primary" %>
+	<% if tracker.day <=  Time.zone.today && tracker.success == nil %>
+		<%= simple_form_for [@habit, tracker], class: "tracker_form" do |f| %>
+			<%= f.collection_radio_buttons :success, [[true, "success"], [false, "fail"]], :first, :last, class: "inline" %>
+	 		<%= f.input :notes %>
+			<%= f.submit class: "btn btn-primary" %>
+		<% end %>
 	<% end %>

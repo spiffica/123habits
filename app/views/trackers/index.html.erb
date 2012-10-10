@@ -1,6 +1,10 @@
 <h1><%= link_to @habit.statement, habit_path(@habit) %></h1>
-<p>Progress for "<%= @habit.statement %>"</p>
-<ul>
-	<%= render @trackers %>
+<p class="test">Progress for "<%= @habit.statement %>"</p>
 
-</ul>
+
+<%= calendar @trackers do |tracker| %>
+
+	<%= display_article(tracker)  do %>
+		<%= render 'form', :tracker => tracker %>
+	<% end %>
+<% end %>
