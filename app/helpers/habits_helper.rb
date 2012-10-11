@@ -16,7 +16,7 @@ module HabitsHelper
   def habit_synopsis(habit)
     if habit.status == "started"
       link_to(habit_trackers_path(habit), title: "view progress", 
-        class: "block") do
+        id: "tracking_link") do
           content_tag(:p, "Habit underway for #{pluralize(habit.day_streak, 'day')}",
             class: 'day_streak') +
           progress_message_for(habit) 

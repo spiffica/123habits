@@ -3,7 +3,8 @@
 					[[true, "good"], [false, "bad"]], 
 					:first, :last,
 					:item_wrapper_class => 'inline') do |success| %>
-					<% success.label { image_tag("#{success.text}.png", class: "click_pic") + success.radio_button } %>
+					<% success.label { image_tag("#{success.text}.png", 
+					class: "click_pic_#{success.text}") + success.radio_button } %>
 					<% end %>
 				<%= f.submit "Submit", class: "btn btn-primary" %>
 			<% end %>	

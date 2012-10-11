@@ -24,4 +24,5 @@ describe Tracker do
       @habit.trackers.count.should eq(28)
     end
   end
+  describe "#reset_streak"
 end
