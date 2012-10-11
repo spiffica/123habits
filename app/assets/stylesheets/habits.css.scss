@@ -5,7 +5,7 @@
   width: 660px;
 } 
 
-.reason:hover, .step:hover {
+.reason:hover, .step:hover, .affirmation:hover {
     background-color: hsla(120, 80%, 10%, .1);
 }
 div.edit_form {
@@ -18,5 +18,12 @@ div.edit_form {
   margin-top: 20px;
 }
 h3 {
-  margin-bottom: 30px;
+  margin-bottom: 20px;
+}
+a.block:hover{
+//	display: block;
+	text-decoration: none;
+}
+a.block {
+	display: block;
 }

@@ -46,6 +46,7 @@ group :test do
   gem 'database_cleaner', '0.7.0'
   gem 'rb-fsevent', :require => false
   gem 'growl', '1.0.3'
+  gem 'timecop'
 end
 
 group :production do

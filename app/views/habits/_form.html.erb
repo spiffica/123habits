@@ -3,7 +3,7 @@
   <%= f.input :statement, autofocus: true %>
   <%= f.input :reward %>
   <% unless @habit.new_record? %>
-    <%= f.input :status, collection: Habit::STATUS,
+    <%= f.input :status, collection: ["pending","started"], #Habit::STATUS,
               checked: @habit.status,
               as: :radio_buttons %>
   <% end %>

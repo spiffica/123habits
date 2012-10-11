@@ -1,3 +1,6 @@
+// not currently using this. Makes more sense to just render with html
+// but this definately works!
+
 var tracker_form = $("form#edit_tracker_<%= @tracker.id %>");
 var article = $(tracker_form).closest("article");
 $(article).closest("td.day").removeClass('fail success unfilled');

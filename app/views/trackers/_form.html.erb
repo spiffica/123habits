@@ -1,4 +1,4 @@
-			<%= simple_form_for [@habit, tracker], remote: :true do |f| %>
+			<%= simple_form_for [@habit, tracker] do |f| %>
 				<%= f.collection_radio_buttons(:success,
 					[[true, "good"], [false, "bad"]], 
 					:first, :last,
