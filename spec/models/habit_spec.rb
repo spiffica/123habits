@@ -10,6 +10,22 @@ describe Habit do
     end    
   end
 
+  describe "#end_date" do
+    it "is the last trackers day value" do
+      habit = FactoryGirl.create(:habit)
+      habit.status = "started"
+      habit.save
+
+      habit.trackers.last.day.should == habit.end_date
+      habit.trackers.last.day.should == Date.today + 20
+    end
+  end
+
+  describe "#new_end_date" do
+    it "is 21 day"
+    
+  end
+
   describe "#reset_start_date" do
     before do
       @habit = FactoryGirl.create(:habit, statement: "indecisive", 

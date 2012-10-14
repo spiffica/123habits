@@ -5,6 +5,8 @@ class TrackersController < ApplicationController
   end
 
   def show
+    @habit = current_user.habits.find(params[:habit_id])
+    @tracker = @habit.trackers.find(params[:id])
   end
 
   def edit
@@ -15,15 +17,19 @@ class TrackersController < ApplicationController
   def update
   	@habit = current_user.habits.find(params[:habit_id])
   	@tracker = @habit.trackers.find(params[:id])
-  	if @tracker.update_attributes(params[:tracker])
-  		respond_to do |format|
+    respond_to do |format|
+  	  if @tracker.update_attributes(params[:tracker])
   			format.html do
 		  		if @tracker.success == false
-		  			flash[:notice] = "Sorry, we have added another 7 days for the failed day"
+		  			flash[:notice] = "Sorry, your 21 days will start again tomorrow."
 		  		end
   				redirect_to habit_trackers_path
   			end
   			format.js
+      else
+        format.html do
+          render "Ah shit!!!"
+        end
   		end
   	end
   end

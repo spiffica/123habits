@@ -24,7 +24,11 @@ class Habit < ActiveRecord::Base
     (Time.zone.now.to_date - self.start_date).to_i + 1
   end
 
+  def end_date
+    self.trackers.last.day unless self.status == "pending" 
+  end
   
+
 
   private
 
