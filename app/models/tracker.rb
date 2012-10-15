@@ -5,12 +5,23 @@ class Tracker < ActiveRecord::Base
 
   before_save :check_success
 
-  scope :unfilled, where(:success => nil)
+  scope :pending, where(:success => nil)
+  scope :current, where("day <= ?",Time.zone.today)
 
   HABIT_LENGTH = 21
 
   def get_habit
     self.habit
+  end
+
+  def first_pending
+     get_habit.trackers.pending.current.first
+  end
+
+  def first_pending?
+    trackers = get_habit.trackers
+    first = trackers.pending.current.first
+    self == first
   end
 
   def self.add_initial_trackers(habit)
@@ -33,7 +44,7 @@ class Tracker < ActiveRecord::Base
 
   def days_to_add
     # habitt = self.habit
-    (HABIT_LENGTH - get_habit.trackers.unfilled.count + 1).to_i
+    (HABIT_LENGTH - get_habit.trackers.pending.count + 1).to_i
   end    
 
   def check_success

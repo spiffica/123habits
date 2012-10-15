@@ -1,9 +1,9 @@
 require 'spec_helper'
 
 describe Tracker do
-	let(:habit) { FactoryGirl.create(:habit, statement: "indecisive", 
+  let(:habit) { FactoryGirl.create(:habit, statement: "indecisive", 
                 user_id: 5) }
-	describe "#add_initial_trackers" do
+  describe "#add_initial_trackers" do
     it "adds 21 tracker days to habit" do
       Tracker.add_initial_trackers habit
       habit.should have(21).trackers
@@ -28,28 +28,28 @@ describe Tracker do
     end
   end
   describe "#check_success" do
-		before do
-  		habit.status = "started"
-  		habit.save
-  		@trackers = habit.trackers
-  	end
-  	it "invokes #add_penalty_days when :success => false"  do
-  		tracker1 = @trackers[0]
-  		tracker1.success = false
-  		tracker1.save
+    before do
+      habit.status = "started"
+      habit.save
+      @trackers = habit.trackers
+    end
+    it "invokes #add_penalty_days when :success => false"  do
+      tracker1 = @trackers[0]
+      tracker1.success = false
+      tracker1.save
       tracker2 = @trackers[1]
       tracker2.success = false
       tracker2.save
-  		
-  		@trackers.count.should eq(23) 
-  	end
-  	it "does nothing when :success => true" do
-  		tracker10 = @trackers[9]
-  		tracker10.success = true
-  		tracker10.save
+      
+      @trackers.count.should eq(23) 
+    end
+    it "does nothing when :success => true" do
+      tracker10 = @trackers[9]
+      tracker10.success = true
+      tracker10.save
 
-  		@trackers.count.should eq 21
-  	end
+      @trackers.count.should eq 21
+    end
   end
   describe "#days_to_add" do
     before do
@@ -62,6 +62,26 @@ describe Tracker do
       @tracker.success = false
       @tracker.save
       @tracker.days_to_add.should == 1
+    end
+  end
+
+  describe "#first_pending?" do
+    it "returns true for first pending tracker" do
+      habit.status = "started"
+      habit.save
+      first_tracker = habit.trackers.first
+      first_tracker.first_pending?.should == true
+    end
+  end
+  describe "#first_pending" do
+    it "returns only first tracker not yet filled" do
+      habit.status = "started"
+      habit.save
+      habit.trackers.count.should == 21
+      Timecop.travel(Date.today + 5.days)
+      @trackers = habit.trackers
+      first_returned = @trackers.pending.first
+      @trackers.last.first_pending.should === first_returned
     end
   end
   

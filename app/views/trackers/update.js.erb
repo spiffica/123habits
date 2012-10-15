@@ -3,7 +3,7 @@
 
 var tracker_form = $("form#edit_tracker_<%= @tracker.id %>");
 var article = $(tracker_form).closest("article");
-$(article).closest("td.day").removeClass('fail success unfilled');
+$(article).closest("td.day").removeClass('fail success pending');
 if (<%= @tracker.success? %>) {
 	$(article).closest("td.day").addClass('true');
 } else {

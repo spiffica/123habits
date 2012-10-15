@@ -9,7 +9,7 @@ table.calendar td.day {
   &.false { background-color: red; }
   &.true { background-color: green; }
   &.future_tracker { background-color: lightblue; }
-  &.unfilled { background-color: yellow; }
+  &.pending, &.first_pending { background-color: yellow; }
 }
 
 //for ajax form hiding

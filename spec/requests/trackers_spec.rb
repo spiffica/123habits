@@ -34,7 +34,7 @@ describe "Trackers" do
 			
 		end
 
-		context "unfilled past days" do
+		context "pending past days" do
 			it "displays yellow background"
 			it "displays notice of uncharted days"
 		end
@@ -67,26 +67,29 @@ describe "Trackers" do
 					click_link "tracking_link"
 				end
 				describe "with no forms submitted" do
-					it "shows 6 forms" do
-						page.should have_css("form.edit_tracker", count: 6)
+					it "shows 1 form" do
+						page.should have_css("form.edit_tracker", count: 1)
 					end
 				end
 				describe "with 2 forms submitted", js: :true do 
-					it "shows 4 forms" do
-						# click "click_pic"
-						# click "click_pic"
+					before do
 						find("img.click_pic_bad").click
 						find("img.click_pic_bad").click
-						page.should have_css("form.edit_tracker", count: 4)
+					end
+					it "shows 1 form" do
+						# click "click_pic"
+						# click "click_pic"
+						page.should have_css("form.edit_tracker", count: 1)
 						page.should have_css("article.tracker", count: 23)
 					end
-					# it "shows modal containing tracker info when 'article' clicked" do
-					# 	find("img.click_pic_bad").click
-					# 	find("img.article").click
-
-					# 	page.should 
-					# end
+					it "displays only one form" do
+						page.should have_css("form.edit_tracker", count: 1)
+					end
+					it "displays 3 pending trackers(yellow bg for now)" do
+						page.should have_css("article.pending", count: 3)
+					end
 					it "redirects to #show" do
+						pending
 						@tracker = @habit.trackers.first
 						find("article.tracker").click
 

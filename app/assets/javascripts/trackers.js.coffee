@@ -6,7 +6,8 @@
 # status of tracker update
 
 $ ->
-	$("article.unfilled.tracker").closest("td.day").addClass "unfilled"
+	$("article.pending.tracker").closest("td.day").addClass "pending"
+	$("article.first_pending.tracker").closest("td.day").addClass "first_pending"
 	$("article.false.tracker").closest("td.day").addClass "false"
 	$("article.true.tracker").closest("td.day").addClass "true"
 	$("article.future.tracker").closest("td.day").addClass "future_tracker"

@@ -6,8 +6,10 @@ module TrackersHelper
 			class_list += " true"
 		elsif tracker.success == false
 			class_list += " false"
+		elsif tracker.first_pending?
+			class_list += " first_pending"
 		elsif tracker.day <= Time.zone.today
-			class_list += " unfilled"
+			class_list += " pending"
 		else
 			class_list += " future"
 		end
@@ -15,7 +17,7 @@ module TrackersHelper
 
 	def display_article(tracker)
 		content_tag(:article, class: get_class_list(tracker)) do 
-			yield if get_class_list(tracker) =~ /unfilled/
+			yield if get_class_list(tracker) =~ /first_pending/
 
 		end
 	end
