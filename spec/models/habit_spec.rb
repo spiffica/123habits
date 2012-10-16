@@ -5,9 +5,21 @@ describe Habit do
     before do
       @habit = FactoryGirl.create(:habit, start_date: Date.today)
     end
-    it "should return '1' for first day of habit" do
-      @habit.day_streak.should == 1
-    end    
+    context "with two failed days followed by 3 success days" do
+      it "should return 3" do
+        @habit.stub_chain(:trackers,:pending,:count).and_return(18)
+        @habit.day_streak.should == 3
+      end    
+    end
+  end
+
+  describe "#percent_success" do
+    it "returns success/unsuccessful" do
+      @habit = FactoryGirl.create(:habit, start_date: Date.today)
+      @habit.stub_chain(:trackers, :success_days, :count).and_return(3)
+      @habit.stub_chain(:trackers, :marked, :count).and_return(10)
+      @habit.percent_success.should == 30
+    end
   end
 
   describe "#end_date" do
@@ -21,10 +33,6 @@ describe Habit do
     end
   end
 
-  describe "#new_end_date" do
-    it "is 21 day"
-    
-  end
 
   describe "#reset_start_date" do
     before do

@@ -2,6 +2,7 @@ class Habit < ActiveRecord::Base
 
   TYPE = [['Start a healthy habit', 'start'],['Kick an ugly habit','kick']] #["grow", "break"]
   STATUS  = ["started", "pending", "completed"]
+  LENGTH = 21
 
   belongs_to :user
   has_many :reasons, dependent: :destroy
@@ -21,11 +22,20 @@ class Habit < ActiveRecord::Base
   scope :order_status_start, order("status DESC, start_date DESC")
 
   def day_streak
-    (Time.zone.now.to_date - self.start_date).to_i + 1
+    (Habit::LENGTH - self.trackers.pending.count)
   end
 
   def end_date
     self.trackers.last.day unless self.status == "pending" 
+  end
+
+  def percent_success
+    #TODO needs more logic ie. division by zero catch
+    begin
+      self.trackers.success_days.count * 100/ self.trackers.marked.count
+    rescue
+      puts "Fubar"
+    end
   end
   
 

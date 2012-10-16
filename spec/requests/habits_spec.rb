@@ -5,8 +5,8 @@ describe "Habits" do
   	before do
 	      @user = FactoryGirl.create(:user)
 	      @user2 = FactoryGirl.create(:user, email: "knob@here.com")
-	      @habits = FactoryGirl.create(:habit, user: @user)
-	      @habits2 = FactoryGirl.create(:habit, user: @user2)
+	      @habit = FactoryGirl.create(:habit, user: @user)
+	      @habit2 = FactoryGirl.create(:habit, user: @user2)
 	      visit signin_path
 	      fill_in "Email", with: @user.email 
 	      fill_in "Password", with: @user.password 
@@ -17,9 +17,7 @@ describe "Habits" do
     end
     it "doesn't allow access to other users habits" do
     	visit user_path(@user2)
-    	page.should_not have_content(@habits2.statement)
+    	page.should_not have_content(@habit2.statement)
     end
-    
-
   end
 end
