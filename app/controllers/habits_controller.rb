@@ -30,6 +30,7 @@ class HabitsController < ApplicationController
   end
 
   def update
+    # @habits = current_user.habits.all
     @habit = current_user.habits.find(params[:id])
     respond_to do |format|
       if @habit.update_attributes(params[:habit])
@@ -37,7 +38,7 @@ class HabitsController < ApplicationController
           flash[:success] = "Habit successfully updated."
           redirect_to @habit
         end
-        format.js
+        format.js { @habits = current_user.habits.order_status_start }
       else
         format.html do
           flash[:error] = "Please try again"

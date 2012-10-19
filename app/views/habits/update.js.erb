@@ -1,4 +1,4 @@
-var url = window.location.href;
+var url = window.location.href; 
 if(url.search('habits') > -1) {
   console.log('I am in habits');
   var updated_statement = $('input#habit_statement').val();
@@ -24,7 +24,10 @@ if(url.search('users') > -1) {
   console.log($(habit_item + " span a").val());
   
   // $(habit_item + "span:nth-child(2) a").html("<%= @habit.statement %>")
-  $(habit_item).replaceWith("<%=j render @habit %>");
+  // $(habit_item).replaceWith("<%=j render @habit %>");
+
+  $("article#habits_list ol").html("<%=j render @habits  %>");
+
   $(habit_item)
     .animate({'backgroundColor':'#93d5ec'}, 3000, function(){
       $(this).css({'backgroundColor':''})
