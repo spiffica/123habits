@@ -34,7 +34,7 @@ describe Habit do
   end
 
 
-  describe "#reset_start_date" do
+  describe "#check_status" do
     before do
       @habit = FactoryGirl.create(:habit, statement: "indecisive", 
                 user_id: 5)

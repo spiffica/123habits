@@ -25,7 +25,7 @@ class Tracker < ActiveRecord::Base
     self == first
   end
 
-  def self.add_initial_trackers(habit)
+  def self.create_initial_trackers(habit)
   	date = Time.zone.now.to_date
     Habit::LENGTH.times do
       habit.trackers.create(day:date)
@@ -44,7 +44,6 @@ class Tracker < ActiveRecord::Base
   end
 
   def trackers_to_add
-    # habitt = self.habit
     (Habit::LENGTH - get_habit.trackers.pending.count + 1).to_i
   end    
 

@@ -3,9 +3,9 @@ require 'spec_helper'
 describe Tracker do
   let(:habit) { FactoryGirl.create(:habit, statement: "indecisive", 
                 user_id: 5) }
-  describe "#add_initial_trackers" do
+  describe "#create_initial_trackers" do
     it "adds 21 tracker days to habit" do
-      Tracker.add_initial_trackers habit
+      Tracker.create_initial_trackers habit
       habit.should have(21).trackers
       habit.trackers.first.id.should_not be_nil
     end

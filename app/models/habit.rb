@@ -10,9 +10,10 @@ class Habit < ActiveRecord::Base
   has_many :affirmations, dependent: :destroy
   has_many :trackers, dependent: :destroy
 
-  attr_accessible :goal_date, :statement, :habit_type, :status, :start_date, :reward
+  attr_accessible :goal_date, :statement, :habit_type, :status, :start_date, 
+                  :reward
 
-  before_save :reset_start_date
+  before_save :status_check
 
   #validate :future_date
   validates :statement, presence: true, length: { minimum: 6}
@@ -48,12 +49,12 @@ class Habit < ActiveRecord::Base
       end
     end
 
-    def reset_start_date
+    def status_check
       if self.status_changed? 
         case self.status 
           when "started"
           self.start_date = Time.zone.today
-          Tracker.add_initial_trackers(self)
+          Tracker.create_initial_trackers(self)
           when "pending"
           self.start_date = nil
           Tracker.delete_trackers(self)
