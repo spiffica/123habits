@@ -2,8 +2,8 @@
 <h2><%= @user.name %></h2>
 <p><small><%= @user.email %></small></p>
 <h3>Habits(<span id="habit-count"><%= @habits.count %></span>)</h3>
-<ol>
-  <%= render @habits %>
-</ol>
+
+<%= render "habits/habits_list" %>
+
 <p><%= button_to "Create new habit", new_habit_path, method: :get, class: "btn btn-primary" %></p>
  

@@ -17,7 +17,7 @@ module TrackersHelper
 
 	def display_article(tracker)
 		content_tag(:article, class: get_class_list(tracker)) do 
-			yield if get_class_list(tracker) =~ /first_pending/
+			yield if block_given? && get_class_list(tracker) =~ /first_pending/
 
 		end
 	end
