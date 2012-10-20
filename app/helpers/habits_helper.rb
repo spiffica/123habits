@@ -13,14 +13,22 @@ module HabitsHelper
     content_tag(:small, msg)
   end
 
+  def when_habit_started(habit)
+    num = habit.days_ago_started
+    msg = ''
+    if num == 0
+      msg = "Today"
+    else
+      msg = "#{pluralize(num, 'day')} ago"
+    end
+    msg
+  end
+
   def habit_synopsis(habit)
     if habit.status == "started"
       link_to(habit_trackers_path(habit), title: "view progress", 
         id: "tracking_link") do
-          content_tag(:p, "Habit underway for #{pluralize(habit.day_streak,
-                       'day')}",
-            class: 'day_streak') +
-          progress_message_for(habit) 
+        render 'stats',:habit => habit
       end
     else
       if habit.status == "pending"

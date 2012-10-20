@@ -26,8 +26,16 @@ class Habit < ActiveRecord::Base
     (Habit::LENGTH - self.trackers.pending.count)
   end
 
+  def days_ago_started
+    (Time.zone.today - self.start_date).to_i
+  end
+
   def end_date
     self.trackers.last.day unless self.status == "pending" 
+  end
+
+  def days_left
+    (self.trackers.last.day - Time.zone.today).to_i 
   end
 
   def percent_success
@@ -35,7 +43,7 @@ class Habit < ActiveRecord::Base
     begin
       self.trackers.success_days.count * 100/ self.trackers.marked.count
     rescue
-      puts "Fubar"
+      0
     end
   end
   

@@ -14,22 +14,49 @@ describe Habit do
   end
 
   describe "#percent_success" do
-    it "returns success/unsuccessful" do
+    before do
       @habit = FactoryGirl.create(:habit, start_date: Date.today)
+    end
+    it "returns success/unsuccessful" do
       @habit.stub_chain(:trackers, :success_days, :count).and_return(3)
       @habit.stub_chain(:trackers, :marked, :count).and_return(10)
       @habit.percent_success.should == 30
     end
+    it "returns 0 when no successful days" do
+      @habit.stub_chain(:trackers, :success_days, :count).and_return(20)
+      @habit.stub_chain(:trackers, :marked, :count).and_return(0)
+      @habit.percent_success.should == 0
+      
+    end
   end
+  describe "date calculations" do
+    before do    
+      @habit = FactoryGirl.create(:habit)
+      @habit.status = "started"
+      @habit.save
+    end
+    describe "#end_date" do
+      it "is the last trackers day value" do
 
-  describe "#end_date" do
-    it "is the last trackers day value" do
-      habit = FactoryGirl.create(:habit)
-      habit.status = "started"
-      habit.save
+        @habit.trackers.last.day.should == @habit.end_date
+        @habit.trackers.last.day.should == Date.today + 20
+      end
+    end
+    describe "#days_left" do
+      it "returns number of days til end of habit" do
 
-      habit.trackers.last.day.should == habit.end_date
-      habit.trackers.last.day.should == Date.today + 20
+        @habit.stub_chain(:trackers, :last, :day).and_return(Time.zone.today + 12.days)
+        @habit.days_left.should == 12
+      end
+    end
+    describe "#days_ago_started" do
+      it "returns 0 on first day" do
+        @habit.days_ago_started.should == 0
+      end
+      it "returns 20 on the last day" do
+        Timecop.travel( 20.days)
+        @habit.days_ago_started.should == 20
+      end
     end
   end
 

@@ -12,4 +12,15 @@ module ApplicationHelper
   def current_habits
     @habits ||= current_user.habits.all
   end
+
+  # def when_habit_started(habit)
+  #   num = habit.days_ago_started
+  #   msg = ''
+  #   if num == 0
+  #     msg = "Today"
+  #   else
+  #     msg = "#{pluralize(num, 'day')} ago"
+  #   end
+  #   msg
+  # end
 end

@@ -8,7 +8,8 @@ class Tracker < ActiveRecord::Base
   scope :pending, where(:success => nil)
   scope :current, where("day <= ?",Time.zone.today)
   scope :success_days, where(:success => true)
-  scope :marked, where(:success != nil)
+  scope :failed_days, where(:success => false)
+  scope :marked, where("success IS NOT NULL")
   # scope :succeed, lambda { |listed| where(:success => listed)}
 
 

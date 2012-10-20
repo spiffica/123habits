@@ -47,10 +47,11 @@ describe "Habits" do
           page.should have_css "aside#stats"
         end
         it "displays streak of 2" do
+          #TODO not working here, but working in actual
           within(:css, "aside#stats") do
             page.should have_css "#streak"
             @habit.trackers.pending.count.should == 19
-            page.should have_content( "2 days")
+            page.should have_content("2 days")
           end
         end
         it "displays percent success" do
