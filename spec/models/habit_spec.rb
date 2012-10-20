@@ -99,7 +99,7 @@ describe Habit do
         @habit.start_date.should == nil
       end
       it "sets status to 'pending'" do
-        @habit.status.should == 'pending'
+        @habit.pending?.should == true
       end
       it "has no trackers" do
         @habit.trackers.count.should eq(0)
@@ -112,3 +112,19 @@ describe Habit do
 
 
 end
+# == Schema Information
+#
+# Table name: habits
+#
+#  id         :integer         not null, primary key
+#  statement  :string(255)
+#  goal_date  :date
+#  user_id    :integer
+#  created_at :datetime        not null
+#  updated_at :datetime        not null
+#  habit_type :string(255)     default("kick")
+#  status     :string(255)     default("pending")
+#  start_date :date
+#  reward     :string(255)
+#
+

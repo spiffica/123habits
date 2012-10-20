@@ -2,11 +2,7 @@
 <%= simple_form_for @habit, remote: is_remote do |f| %>
   <%= f.input :statement, autofocus: true %>
   <%= f.input :reward %>
-  <% unless @habit.new_record? %>
-    <%= f.input :status, collection: ["pending","started"], #Habit::STATUS,
-              checked: @habit.status,
-              as: :radio_buttons %>
-  <% end %>
+  
   <%= f.input :habit_type, collection: Habit::TYPE, 
               checked: @habit.habit_type,
               label: 'Habit Type', 

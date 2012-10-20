@@ -1,7 +1,7 @@
 class Habit < ActiveRecord::Base
 
-  TYPE = [['Start a healthy habit', 'start'],['Kick an ugly habit','kick']] #["grow", "break"]
-  STATUS  = ["started", "pending", "completed"]
+  TYPE = %w(kick start)  #[['Start a healthy habit', 'start'],['Kick an ugly habit','kick']] #["grow", "break"]
+  STATUS  = %w(started pending completed) #["started", "pending", "completed"]
   LENGTH = 21
 
   belongs_to :user
@@ -19,8 +19,34 @@ class Habit < ActiveRecord::Base
   validates :statement, presence: true, length: { minimum: 6}
   validates :user_id, presence: true
   validates :habit_type, presence: true
+  validates :status, inclusion: { in: STATUS }
 
   scope :order_status_start, order("status DESC, start_date DESC")
+
+  STATUS.each do |status|
+    define_method "#{status}?" do
+      self.status == status
+    end
+  end
+
+  TYPE.each do |type|
+    define_method "#{type}?" do
+      self.type == type
+    end
+  end
+
+  class << self
+    STATUS.each do |status|
+      define_method "#{status}" do
+        where(:status => status)
+      end
+    end
+    TYPE.each do |type|
+      define_method "#{type}" do
+        where(:habit_type => type)
+      end
+    end
+  end
 
   def day_streak
     (Habit::LENGTH - self.trackers.pending.count)
@@ -31,7 +57,7 @@ class Habit < ActiveRecord::Base
   end
 
   def end_date
-    self.trackers.last.day unless self.status == "pending" 
+    self.trackers.last.day unless self.pending?
   end
 
   def days_left
@@ -75,3 +101,19 @@ class Habit < ActiveRecord::Base
 
 
 end
+# == Schema Information
+#
+# Table name: habits
+#
+#  id         :integer         not null, primary key
+#  statement  :string(255)
+#  goal_date  :date
+#  user_id    :integer
+#  created_at :datetime        not null
+#  updated_at :datetime        not null
+#  habit_type :string(255)     default("kick")
+#  status     :string(255)     default("pending")
+#  start_date :date
+#  reward     :string(255)
+#
+

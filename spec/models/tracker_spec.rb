@@ -86,3 +86,16 @@ describe Tracker do
   end
   
 end
+# == Schema Information
+#
+# Table name: trackers
+#
+#  id         :integer         not null, primary key
+#  day        :date
+#  success    :boolean
+#  notes      :string(255)
+#  habit_id   :integer
+#  created_at :datetime        not null
+#  updated_at :datetime        not null
+#
+

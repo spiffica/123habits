@@ -25,16 +25,16 @@ module HabitsHelper
   end
 
   def habit_synopsis(habit)
-    if habit.status == "started"
+    if habit.started?
       link_to(habit_trackers_path(habit), title: "view progress", 
         id: "tracking_link") do
         render 'stats',:habit => habit
       end
     else
-      if habit.status == "pending"
+      if habit.pending?
         yield if block_given?
       end
-      if habit.status == "completed"
+      if habit.completed?
         content_tag(:p, "Congratulations")
       end
     end

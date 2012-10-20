@@ -6,6 +6,6 @@
   <%= link_to "delete", habit, method: :delete, remote: true, class: 'delete-habit' %></span>
 </li>
 <!-- <meter>75</meter> -->
-<% unless habit.status == "pending" %>
+<% unless habit.pending? %>
 	<progress id="stats-for<%= habit.id %>" value="<%= habit.day_streak %>" max="21" rel="popover" data-original-title="<%= habit.statement %>" data-content="<%= render 'habits/stats',:habit=>habit %>"></progress>
 <% end %>
