@@ -17,6 +17,9 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @habits = @user.habits.order_status_start #order("status DESC, start_date DESC") 
+    # to show habits with overdue trackers via Tracker#after_initialize callback
+    # seems clunky, FIX
+    @trackers = @user.trackers.all 
   end
 
   def edit

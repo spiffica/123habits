@@ -5,9 +5,10 @@ class Tracker < ActiveRecord::Base
 
   STATES = %w{pending current overdue pass fail}
 
-  before_save :check_outcome
-  after_initialize :check_pending
+  before_save :add_penalty_on_fail
+  after_initialize :mark_todays_tracker_current, :mark_overdue_trackers
 
+  validates :outcome, :inclusion => { :in => STATES }
   # scope :pending, where(:success => nil)
   # scope :current, where("day <= ?",Time.zone.today)
   # scope :success_days, where(:success => true)
@@ -66,26 +67,31 @@ class Tracker < ActiveRecord::Base
     (Habit::LENGTH - self.habit.trackers.unmarked.count + 1).to_i
   end    
 
-  def check_outcome
-    if self.outcome_changed? && self.fail?
-      add_penalty_trackers(trackers_to_add)
-      # extend_trackers
-    end
-  end
-
-  def check_pending
-    if self.pending? && self.day == Time.zone.today
-      self.update_attribute(:outcome, "current")
-    end
-    if (self.pending? || self.current?) && self.day < Time.zone.today
-      self.update_attribute(:outcome, "overdue")
-    end
-
-  end
 
   def self.delete_trackers(habit)
-  	habit.trackers.delete_all
+    habit.trackers.delete_all
   end
+
+  private
+  
+    def mark_todays_tracker_current
+      if self.pending? && self.day == Time.zone.today
+        self.update_attribute(:outcome, "current")
+      end
+    end
+
+    def mark_overdue_trackers
+      if (self.pending? || self.current?) && self.day < Time.zone.today
+        self.update_attribute(:outcome, "overdue")
+      end
+    end
+
+    def add_penalty_on_fail
+      if self.outcome_changed? && self.fail?
+        add_penalty_trackers(trackers_to_add)
+        # extend_trackers
+      end
+    end
 end
 # == Schema Information
 #
