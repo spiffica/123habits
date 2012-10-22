@@ -1,21 +1,18 @@
 class TrackersController < ApplicationController
+  before_filter :set_habit
   def index
-  	@habit = current_user.habits.find(params[:habit_id])
   	@trackers = @habit.trackers.all
   end
 
   def show
-    @habit = current_user.habits.find(params[:habit_id])
     @tracker = @habit.trackers.find(params[:id])
   end
 
   def edit
-  	@habit = current_user.habits.find(params[:habit_id])
   	@tracker = @habit.trackers.find(params[:id])
   end
 
   def update
-  	@habit = current_user.habits.find(params[:habit_id])
   	@tracker = @habit.trackers.find(params[:id])
     respond_to do |format|
   	  if @tracker.update_attributes(params[:tracker])
@@ -33,4 +30,10 @@ class TrackersController < ApplicationController
   		end
   	end
   end
+
+  private
+  
+    def set_habit
+      @habit = current_user.habits.find(params[:habit_id])
+    end
 end

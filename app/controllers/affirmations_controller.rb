@@ -1,14 +1,15 @@
 class AffirmationsController < ApplicationController
+
+  before_filter :set_habit
+
   def index
   end
 
   def edit
-    @habit = current_user.habits.find(params[:habit_id])
     @affirmation = @habit.affirmations.find(params[:id])
   end
 
   def update
-    @habit = current_user.habits.find(params[:habit_id])
     @affirmation = @habit.affirmations.find(params[:id])
     respond_to do |format|
       if @affirmation.update_attributes(params[:affirmation])
@@ -26,7 +27,6 @@ class AffirmationsController < ApplicationController
   end
 
   def create
-    @habit = current_user.habits.find(params[:habit_id])
     @affirmation = @habit.affirmations.build(params[:affirmation])
     respond_to do |format|
       if @affirmation.save
@@ -40,7 +40,6 @@ class AffirmationsController < ApplicationController
   end
 
   def destroy
-    @habit = current_user.habits.find(params[:habit_id])
     @affirmation = @habit.affirmations.find(params[:id])
     @affirmation.destroy
     respond_to do |format|
@@ -48,4 +47,10 @@ class AffirmationsController < ApplicationController
       format.js   
     end 
   end
+    private
+  
+    def set_habit
+      @habit = current_user.habits.find(params[:habit_id])
+    end
+
 end

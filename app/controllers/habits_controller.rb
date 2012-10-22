@@ -30,7 +30,6 @@ class HabitsController < ApplicationController
   end
 
   def update
-    # @habits = current_user.habits.all
     @habit = current_user.habits.find(params[:id])
     respond_to do |format|
       if @habit.update_attributes(params[:habit])

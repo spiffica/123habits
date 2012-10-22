@@ -6,9 +6,6 @@ class UsersController < ApplicationController
   before_filter :correct_user, only: [:show, :edit, :update]
  
 
-  # def index 
-  #   @users = User.all
-  # end
 
   def new
     @user = User.new
@@ -16,10 +13,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @habits = @user.habits.order_status_start #order("status DESC, start_date DESC") 
-    # to show habits with overdue trackers via Tracker#after_initialize callback
-    # seems clunky, FIX
-    @trackers = @user.trackers.all 
+    @habits = @user.habits.order_status_start #order("status DESC, start_date DESC")     
   end
 
   def edit

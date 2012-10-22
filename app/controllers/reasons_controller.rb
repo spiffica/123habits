@@ -1,16 +1,11 @@
 
 class ReasonsController < ApplicationController
 
-
+  before_filter :set_habit
   def create
-    @habit = current_user.habits.find(params[:habit_id])
     @reason = @habit.reasons.build(params[:reason])
     respond_to do |format|
       if @reason.save
-          # following works, but need to figure js to update or trigger
-          # affirmations#create.js.erb and format highlight to notify
-          # user that it needs to be converted to affirmation
-        #@habit.affirmations.create(params[:reason])
         format.html { redirect_to @habit, notice: "New reason created." }
         format.js   
       else
@@ -21,12 +16,10 @@ class ReasonsController < ApplicationController
   end
 
   def edit
-    @habit = current_user.habits.find(params[:habit_id])
     @reason = @habit.reasons.find(params[:id])
   end
 
   def update
-    @habit = current_user.habits.find(params[:habit_id])
     @reason = @habit.reasons.find(params[:id])
     respond_to do |format|
       if @reason.update_attributes(params[:reason])
@@ -44,7 +37,6 @@ class ReasonsController < ApplicationController
   end
 
   def destroy
-    @habit = current_user.habits.find(params[:habit_id])
     @reason = @habit.reasons.find(params[:id])
     @reason.destroy
     respond_to do |format|
@@ -52,4 +44,9 @@ class ReasonsController < ApplicationController
       format.js   
     end   
   end
+
+  private
+    def set_habit
+      @habit = current_user.habits.find(params[:habit_id])
+    end
 end
