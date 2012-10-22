@@ -104,9 +104,15 @@ describe Tracker do
     end
   end
   describe "scope :marked" do
-    it  do
+    it "concats fail and pass" do
       20.times { |x| Tracker.create(habit_id: 44)}
       Tracker.count.should == 20
+      Tracker.marked.count.should == 0
+      Tracker.update_all(outcome: "pass")
+      Tracker.last.update_attribute(:outcome, "fail")
+      Tracker.marked.count.should == 20
+      Tracker.last.update_attribute(:outcome, "pending")
+      Tracker.marked.count.should == 19
     end
   end
   describe "#current" do

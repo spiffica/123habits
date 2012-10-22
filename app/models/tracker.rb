@@ -17,11 +17,6 @@ class Tracker < ActiveRecord::Base
   # scope :marked, where("success IS NOT NULL")
   # scope :succeed, lambda { |listed| where(:success => listed)}
 
-  scope :marked, fail.merge(pass)  #where(:outcome => ['fail','pass'])
-  scope :unmarked, where(:outcome => ['overdue','current','pending'])
-  scope :markable, where(:outcome => ['overdue','current'])
-  scope :day_is_today, lambda { where("day = ?",Time.zone.today) }
-  scope :day_is_past, lambda { where("day < ?", Time.zone.today)}
 
   STATES.each do |state|
     define_method "#{state}?" do 
@@ -36,6 +31,12 @@ class Tracker < ActiveRecord::Base
       end
     end
   end
+
+  scope :marked, lambda { fail + pass } #where(:outcome => ['fail','pass'])
+  scope :unmarked, where(:outcome => ['overdue','current','pending'])
+  scope :markable, where(:outcome => ['overdue','current'])
+  scope :day_is_today, lambda { where("day = ?",Time.zone.today) }
+  scope :day_is_past, lambda { where("day < ?", Time.zone.today)}
 
   def self.first_markable
     markable.first
