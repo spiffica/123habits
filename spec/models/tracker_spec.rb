@@ -92,7 +92,7 @@ describe Tracker do
   
   #Testing the new states of Tracker 
   #scopes
-  describe "#unmarked" do
+  describe "scope :unmarked" do
     it "returns 21 on new habit" do
       habit.update_attribute(:status,"started")
       habit.trackers.unmarked.count.should == 21
@@ -101,6 +101,12 @@ describe Tracker do
       # habit.trackers.all
       habit.trackers.current.count.should == 1
       habit.trackers.markable.count.should == 1
+    end
+  end
+  describe "scope :marked" do
+    it  do
+      20.times { |x| Tracker.create(habit_id: 44)}
+      Tracker.count.should == 20
     end
   end
   describe "#current" do
@@ -121,6 +127,42 @@ describe Tracker do
       habit.trackers.pending.count.should == 16
     end
 
+  end
+  describe "::update_to_current" do
+    it "shows count" do
+      100.times { Tracker.create :habit_id => 8888, :day => Time.zone.today }
+      50.times { Tracker.create(:habit_id => 8888, :day => Date.yesterday) }
+      Tracker.pending.count.should == 150
+      Tracker.pending.day_is_today.count.should == 100
+      Tracker.update_to_current
+      Tracker.current.count.should == 100
+    end
+  end
+  describe "scope :day_is_today" do
+    it "returns all trackers with day =to today" do
+      100.times { Tracker.create :habit_id => 8888, :day => Time.zone.today }
+      50.times { Tracker.create(:habit_id => 8888, :day => Date.yesterday) }
+      # Timecop.travel 5.days
+      # Tracker.last.day.should == Date.tomorrow
+      # Time.zone.today.should == 'oct 5'
+      Tracker.day_is_today.count.should == 100
+    end
+  end
+  describe "scope :day_is_past" do
+    it "returns all trackers with :day in past" do
+      100.times { Tracker.create :habit_id => 8888, :day => Time.zone.today }
+      50.times { Tracker.create(:habit_id => 8888, :day => Date.yesterday) }
+      Tracker.day_is_past.count.should == 50      
+    end
+  end
+  describe "::update_to_overdue" do
+    it "updates trackers' :outcome to 'overdue' if in past" do
+      100.times { Tracker.create :habit_id => 8888, :day => Time.zone.today }
+      50.times { Tracker.create(:habit_id => 8888, :day => Date.yesterday) }
+      Tracker.update_to_overdue
+      Tracker.overdue.count.should == 50
+      
+    end
   end
 end
 # == Schema Information

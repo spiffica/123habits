@@ -5,10 +5,11 @@ class Tracker < ActiveRecord::Base
 
   STATES = %w{pending current overdue pass fail}
 
-  before_save :add_penalty_on_fail
-  after_initialize :mark_todays_tracker_current, :mark_overdue_trackers
+  # before_save :add_penalty_on_fail
+  # after_initialize :mark_todays_tracker_current, :mark_overdue_trackers
 
   validates :outcome, :inclusion => { :in => STATES }
+  validates :habit_id, :presence => true
   # scope :pending, where(:success => nil)
   # scope :current, where("day <= ?",Time.zone.today)
   # scope :success_days, where(:success => true)
@@ -16,9 +17,11 @@ class Tracker < ActiveRecord::Base
   # scope :marked, where("success IS NOT NULL")
   # scope :succeed, lambda { |listed| where(:success => listed)}
 
-  scope :marked, where(:outcome => ['fail','pass'])
+  scope :marked, fail.merge(pass)  #where(:outcome => ['fail','pass'])
   scope :unmarked, where(:outcome => ['overdue','current','pending'])
   scope :markable, where(:outcome => ['overdue','current'])
+  scope :day_is_today, lambda { where("day = ?",Time.zone.today) }
+  scope :day_is_past, lambda { where("day < ?", Time.zone.today)}
 
   STATES.each do |state|
     define_method "#{state}?" do 
@@ -85,6 +88,18 @@ class Tracker < ActiveRecord::Base
         self.update_attribute(:outcome, "overdue")
       end
     end
+
+    #TODO make these specific to current user time zone
+    def self.update_to_current
+      p = self.pending.day_is_today
+      p.each { |t| t.update_attribute :outcome, "current"}
+    end
+
+    def self.update_to_overdue
+      pasts = self.unmarked.day_is_past
+      pasts.each { |p| p.update_attribute :outcome, "overdue"}
+    end
+
 
     def add_penalty_on_fail
       if self.outcome_changed? && self.fail?
