@@ -2,7 +2,7 @@
 
 
 <%= calendar @trackers do |tracker| %>
-	<%# just a test %>
+	<p><%= tracker.outcome %></p>
 	<%= display_article(tracker)  do %>
 		<%= render 'form', :tracker => tracker %>
 	<% end %>

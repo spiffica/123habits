@@ -8,3 +8,9 @@ li {
 ol {
   margin-top: 30px;
 }
+progress.up-to-date-false, em.overdue_notice {
+	box-shadow: 0 0 2px 2px red;
+}
+em.overdue_notice {
+	padding: 0 5px;
+}

@@ -7,7 +7,7 @@ describe Habit do
     end
     context "with two failed days followed by 3 success days" do
       it "should return 3" do
-        @habit.stub_chain(:trackers,:pending,:count).and_return(18)
+        @habit.stub_chain(:trackers,:unmarked,:count).and_return(18)
         @habit.day_streak.should == 3
       end    
     end
@@ -18,12 +18,12 @@ describe Habit do
       @habit = FactoryGirl.create(:habit, start_date: Date.today)
     end
     it "returns success/unsuccessful" do
-      @habit.stub_chain(:trackers, :success_days, :count).and_return(3)
+      @habit.stub_chain(:trackers, :pass, :count).and_return(3)
       @habit.stub_chain(:trackers, :marked, :count).and_return(10)
       @habit.percent_success.should == 30
     end
     it "returns 0 when no successful days" do
-      @habit.stub_chain(:trackers, :success_days, :count).and_return(20)
+      @habit.stub_chain(:trackers, :pass, :count).and_return(20)
       @habit.stub_chain(:trackers, :marked, :count).and_return(0)
       @habit.percent_success.should == 0
       
@@ -32,8 +32,7 @@ describe Habit do
   describe "date calculations" do
     before do    
       @habit = FactoryGirl.create(:habit)
-      @habit.status = "started"
-      @habit.save
+      @habit.update_attribute(:status, "started")
     end
     describe "#end_date" do
       it "is the last trackers day value" do
@@ -103,6 +102,24 @@ describe Habit do
       end
       it "has no trackers" do
         @habit.trackers.count.should eq(0)
+      end
+    end
+    describe "#up_to_date" do
+      before do
+        @habit.update_attribute :status, "started"
+      end
+      it "returns true when first started" do
+        @habit.up_to_date?.should == true
+      end
+      it "returns false with one unmarked yesterday" do
+        Timecop.travel 1.day
+        @habit.trackers.all
+        @habit.up_to_date?.should == false
+      end
+      it "returns false with two unmarked days in past" do
+        Timecop.travel 2.days
+        @habit.trackers.all
+        @habit.up_to_date?.should == false
       end
     end
   end

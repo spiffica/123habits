@@ -1,9 +1,12 @@
 <aside id='stats'>
 	<ul>
+		<% unless habit.up_to_date? %>
+			<em class='overdue_notice'>Not up to date</em>
+		<% end %>
 		<li id='started'>Started: <%= when_habit_started habit %>(<%= habit.start_date.to_formatted_s(:short) %>)</li>
 		<li id='end_date'>Ending: in <%= pluralize(habit.days_left,'day')%> (<%= habit.end_date.to_formatted_s(:short) %>)</li>
 		<li id='percent'> Ratio: <%= habit.percent_success %>% (<%= habit.trackers.
-		success_days.count %>/<%= habit.trackers.marked.count %>)</li>
+		pass.count %>/<%= habit.trackers.marked.count %>)</li>
 		<li id='streak'>Streak: <%= pluralize(habit.day_streak,'day') %> </li>  
 	</ul>
 </aside>

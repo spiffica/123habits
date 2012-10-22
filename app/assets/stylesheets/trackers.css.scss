@@ -5,22 +5,22 @@
 .calendar td { height: 100px; width: 14.28%; }
 
 table.calendar td.day {
-  &.today { border-width: thick; }
-  &.false { background-color: red; }
-  &.true { background-color: green; }
-  &.future_tracker { background-color: lightblue; }
-  &.pending, &.first_pending { background-color: yellow; }
+  &.current { border-width: thick; background-color: orange }
+  &.fail { background-color: red; }
+  &.pass { background-color: green; }
+  &.pending { background-color: lightblue; }
+  &.overdue { background-color: yellow; }
 }
 
 //for ajax form hiding
 article form.tracker_form { margin-bottom: 0;}
 form.edit_tracker {
-  input#tracker_success_true, input#tracker_success_false,
+  input#tracker_outcome_pass, input#tracker_outcome_fail,
   input.btn-primary{
     display:none;
   } 
 }
-img.click_pic_good, img.click_pic_bad {
+img.click_pic_pass, img.click_pic_fail {
   cursor:pointer;
   display: block;
   float: left;

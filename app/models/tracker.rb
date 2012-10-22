@@ -1,43 +1,61 @@
 class Tracker < ActiveRecord::Base
   belongs_to :habit
-  attr_accessible :day, :notes, :success, :habit_id
+  attr_accessible :day, :notes, :success, :habit_id, :outcome
   has_calendar :start_time => :day
 
-  before_save :check_success
+  STATES = %w{pending current overdue pass fail}
 
-  scope :pending, where(:success => nil)
-  scope :current, where("day <= ?",Time.zone.today)
-  scope :success_days, where(:success => true)
-  scope :failed_days, where(:success => false)
-  scope :marked, where("success IS NOT NULL")
+  before_save :check_outcome
+  after_initialize :check_pending
+
+  # scope :pending, where(:success => nil)
+  # scope :current, where("day <= ?",Time.zone.today)
+  # scope :success_days, where(:success => true)
+  # scope :failed_days, where(:success => false)
+  # scope :marked, where("success IS NOT NULL")
   # scope :succeed, lambda { |listed| where(:success => listed)}
 
+  scope :marked, where(:outcome => ['fail','pass'])
+  scope :unmarked, where(:outcome => ['overdue','current','pending'])
+  scope :markable, where(:outcome => ['overdue','current'])
 
-  def get_habit
-    self.habit
+  STATES.each do |state|
+    define_method "#{state}?" do 
+      self.outcome == state
+    end
   end
 
-  def first_pending
-     get_habit.trackers.pending.current.first
+  class << self
+    STATES.each do |state|
+      define_method "#{state}" do
+        where(:outcome => state)
+      end
+    end
   end
 
-  def first_pending?
-    first = get_habit.trackers.pending.current.first
-    self == first
+  def self.first_markable
+    markable.first
   end
+
+
+  def first_markable?
+    self == self.habit.trackers.markable.first
+  end
+
 
   def self.create_initial_trackers(habit)
   	date = Time.zone.now.to_date
-    Habit::LENGTH.times do
+    (Habit::LENGTH).times do
+      # state = date == Time.zone.today ? "current" : "pending"
       habit.trackers.create(day:date)
-      # Tracker.create(day:date,habit_id:self.id)
+      # state = date == Time.zone.today ? "current" : "pending"
+      # habit.trackers.create(day:date, outcome: state)
       date += 1.day
     end
   end
 
   def add_penalty_trackers(number)
-    # habit = self.habit
-    date = get_habit.trackers.last.day
+    date = self.habit.trackers.last.day
     number.times do |n|
       date += 1.day
       habit.trackers.create(day:date)
@@ -45,14 +63,24 @@ class Tracker < ActiveRecord::Base
   end
 
   def trackers_to_add
-    (Habit::LENGTH - get_habit.trackers.pending.count + 1).to_i
+    (Habit::LENGTH - self.habit.trackers.unmarked.count + 1).to_i
   end    
 
-  def check_success
-    if self.success_changed? && self.success == false
+  def check_outcome
+    if self.outcome_changed? && self.fail?
       add_penalty_trackers(trackers_to_add)
       # extend_trackers
     end
+  end
+
+  def check_pending
+    if self.pending? && self.day == Time.zone.today
+      self.update_attribute(:outcome, "current")
+    end
+    if (self.pending? || self.current?) && self.day < Time.zone.today
+      self.update_attribute(:outcome, "overdue")
+    end
+
   end
 
   def self.delete_trackers(habit)
@@ -70,5 +98,6 @@ end
 #  habit_id   :integer
 #  created_at :datetime        not null
 #  updated_at :datetime        not null
+#  outcome    :string(255)
 #
 

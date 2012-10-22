@@ -1,23 +1,10 @@
 module TrackersHelper
 
-	def get_class_list(tracker)
-		class_list = "tracker"
-		if tracker.success == true
-			class_list += " true"
-		elsif tracker.success == false
-			class_list += " false"
-		elsif tracker.first_pending?
-			class_list += " first_pending"
-		elsif tracker.day <= Time.zone.today
-			class_list += " pending"
-		else
-			class_list += " future"
-		end
-	end
+
 
 	def display_article(tracker)
-		content_tag(:article, class: get_class_list(tracker)) do 
-			yield if block_given? && get_class_list(tracker) =~ /first_pending/
+		content_tag(:article, class: "#{tracker.outcome} tracker") do 
+			yield if block_given? && tracker == @habit.trackers.markable.first
 
 		end
 	end

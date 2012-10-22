@@ -6,11 +6,12 @@
 # status of tracker update
 
 $ ->
-	$("article.pending.tracker").closest("td.day").addClass "pending"
+	$("article.overdue.tracker").closest("td.day").addClass "overdue"
 	$("article.first_pending.tracker").closest("td.day").addClass "first_pending"
-	$("article.false.tracker").closest("td.day").addClass "false"
-	$("article.true.tracker").closest("td.day").addClass "true"
-	$("article.future.tracker").closest("td.day").addClass "future_tracker"
+	$("article.fail.tracker").closest("td.day").addClass "fail"
+	$("article.pass.tracker").closest("td.day").addClass "pass"
+	$("article.pending.tracker").closest("td.day").addClass "pending"
+	$("article.current.tracker").closest("td.day").addClass "current"
 
 # submit the form as soon as the image is clicked
 	$('form.edit_tracker').change ->

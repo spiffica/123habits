@@ -31,7 +31,7 @@ class Habit < ActiveRecord::Base
 
   TYPE.each do |type|
     define_method "#{type}?" do
-      self.type == type
+      self.habit_type == type
     end
   end
 
@@ -49,7 +49,7 @@ class Habit < ActiveRecord::Base
   end
 
   def day_streak
-    (Habit::LENGTH - self.trackers.pending.count)
+    (Habit::LENGTH - self.trackers.unmarked.count)
   end
 
   def days_ago_started
@@ -65,12 +65,15 @@ class Habit < ActiveRecord::Base
   end
 
   def percent_success
-    #TODO needs more logic ie. division by zero catch
     begin
-      self.trackers.success_days.count * 100/ self.trackers.marked.count
+      self.trackers.pass.count * 100/ self.trackers.marked.count
     rescue
       0
     end
+  end
+
+  def up_to_date?
+    self.trackers.overdue.any? ? false : true
   end
   
 

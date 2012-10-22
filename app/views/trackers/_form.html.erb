@@ -1,10 +1,10 @@
 			<%= simple_form_for [@habit, tracker] do |f| %>
-				<%= f.collection_radio_buttons(:success,
-					[[true, "good"], [false, "bad"]], 
-					:first, :last,
-					:item_wrapper_class => 'inline') do |success| %>
-					<% success.label { image_tag("#{success.text}.png", 
-					class: "click_pic_#{success.text}") + success.radio_button } %>
+				<%= f.collection_radio_buttons(:outcome,
+					[["pass","pass"],["fail","fail"]], 
+				  :first, :last,
+					:item_wrapper_class => 'inline') do |outcome| %>
+					<% outcome.label { image_tag("#{outcome.text}.png", 
+					class: "click_pic_#{outcome.text}") + outcome.radio_button } %>
 					<% end %>
 				<%= f.submit "Submit", class: "btn btn-primary" %>
 			<% end %>	
