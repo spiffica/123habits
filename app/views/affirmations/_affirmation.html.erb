@@ -1,7 +1,10 @@
   <li class="affirmation" id="affirmation_<%= affirmation.id %>">
     <span id="message"><%= affirmation.message%></span>
-    <span class='actions'><%= link_to "edit", edit_habit_affirmation_path(@habit,affirmation), id: 'edit_affirmation', :'data-toggle'=>'modal', remote: true %> |
-  <%= link_to "delete", habit_affirmation_path(@habit,affirmation), method: :delete, remote: true, class: "delete_affirmation" %>
+    <span class='actions'><%= link_to "edit", 
+    	edit_habit_affirmation_path(@habit,affirmation), id: 'edit_affirmation',
+     	:'data-toggle'=>'modal', remote: true %> |
+		  <%= link_to "delete", [@habit,affirmation], 
+		  	method: :delete, remote: true, class: "delete_affirmation" %>
     </span>
   </li>
  

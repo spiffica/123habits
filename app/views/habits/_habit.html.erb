@@ -1,13 +1,22 @@
-<li class="<%= habit.status %>-habit" id="habit-<%= habit.id %>"><span class=" status <%= habit.status %>"><%= habit.status %></span>
-  <span><%= link_to truncate(habit.statement,length: 50), habit_path(habit.id) %></span>
+<li class="<%= habit.status %>-habit" id="habit-<%= habit.id %>">
+	<span class=" status <%= habit.status %>"><%= habit.status %></span>
+  <span><%= link_to truncate(habit.statement,length: 50), 
+  	habit_path(habit.id) %></span>
   <small>(created <%= time_ago_in_words habit.created_at %> ago)</small>
-  <span class='actions'><%= link_to "edit", edit_habit_path(habit.id), remote: true %> |
-  <%= link_to "view", habit_path(habit.id) %> |
-  <%= link_to "delete", habit, method: :delete, remote: true, class: 'delete-habit' %></span>
+  <span class='actions'>
+  	<%= link_to "edit", edit_habit_path(habit.id), remote: true %> |
+	  <%= link_to "view", habit_path(habit.id) %> |
+	  <%= link_to "delete", habit, method: :delete, remote: true, 
+	  	class: 'delete-habit' %>
+	</span>
 </li>
-<!-- <meter>75</meter> -->
 <% unless habit.pending? %>
 	<% habit.trackers.all # updates tracker state via after_initialize %>
-	<%= link_to habit_trackers_path(habit) do %>		      	<progress class="up-to-date-<%= habit.up_to_date? %>" value="<%= habit.day_streak %>" max="21" rel="popover" data-original-title="<%= habit.statement %>" data-content="<%= render 'habits/stats',:habit=>habit %>"></progress>
+	<%= link_to habit_trackers_path(habit) do %>
+		<progress class="up-to-date-<%= habit.up_to_date? %>" 
+			value="<%= habit.day_streak %>" max="21" rel="popover" 
+			data-original-title="<%= habit.statement %>" 
+			data-content="<%= render 'habits/stats',:habit=>habit %>">
+		</progress>
 	<% end %>
 <% end %>
