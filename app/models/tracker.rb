@@ -5,8 +5,8 @@ class Tracker < ActiveRecord::Base
 
   STATES = %w{pending current overdue pass fail}
 
-  # before_save :add_penalty_on_fail
-  # after_initialize :mark_todays_tracker_current, :mark_overdue_trackers
+   before_save :add_penalty_on_fail
+   after_initialize :mark_todays_tracker_current, :mark_overdue_trackers
 
   validates :outcome, :inclusion => { :in => STATES }
   validates :habit_id, :presence => true
@@ -90,15 +90,15 @@ class Tracker < ActiveRecord::Base
       end
     end
 
-    #TODO make these specific to current user time zone
+    #TODO make these specific to current user time zone and use in cron
     def self.update_to_current
-      p = self.pending.day_is_today
-      p.each { |t| t.update_attribute :outcome, "current"}
+      #currently done ahead in after_initialize :mark_todays_tracker_current
+      self.pending.day_is_today.update_all :outcome => "current"
     end
 
     def self.update_to_overdue
-      pasts = self.unmarked.day_is_past
-      pasts.each { |p| p.update_attribute :outcome, "overdue"}
+      #currently done ahead in after_initialize :mark_overdue_trackers
+      self.unmarked.day_is_past.update_all :outcome => "overdue"
     end
 
 

@@ -34,24 +34,24 @@ describe "Habits" do
           Timecop.travel 5.days
           @habit.trackers.count.should == 21
           3.times do |x|
-            @habit.trackers[x-1].success = false
+            @habit.trackers[x-1].outcome = "fail"
             @habit.trackers[x-1].save
           end
           2.times do |x|
-            @habit.trackers[x+2].success = true
+            @habit.trackers[x+2].outcome = "pass"
             @habit.trackers[x+2].save
           end
         end
         it "shows stats box on habit#show page" do
-          @habit.trackers.success_days.count.should == 2
+          @habit.trackers.pass.count.should == 2
           page.should have_css "aside#stats"
         end
         it "displays streak of 2" do
           #TODO not working here, but working in actual
           within(:css, "aside#stats") do
             page.should have_css "#streak"
-            @habit.trackers.pending.count.should == 19
-            page.should have_content("2 days")
+            @habit.trackers.unmarked.count.should == 19
+            page.should have_content("Streak: 2 days")
           end
         end
         it "displays percent success" do

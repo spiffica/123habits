@@ -31,14 +31,14 @@ describe Tracker do
       @trackers = habit.trackers
     end
     it "invokes #add_penalty_trackers when :outcome => 'fail'"  do
-      @trackers[0].update_attribute(:outcome, "pass")
-      @trackers[1].update_attribute(:outcome, "pass")
-      @trackers[2].update_attribute(:outcome, "pass")
-      @trackers[3].update_attribute(:outcome, "pass")
-      @trackers[4].update_attribute(:outcome, "pass")
-      @trackers[5].update_attribute(:outcome, "pass")
-      @trackers[6].update_attribute(:outcome, "pass")
-      @trackers[7].update_attribute(:outcome, "fail")
+      @trackers[0].update_attributes(:outcome => "pass")
+      @trackers[1].update_attributes(:outcome => "pass")
+      @trackers[2].update_attributes(:outcome => "pass")
+      @trackers[3].update_attributes(:outcome => "pass")
+      @trackers[4].update_attributes(:outcome => "pass")
+      @trackers[5].update_attributes(:outcome => "pass")
+      @trackers[6].update_attributes(:outcome => "pass")
+      @trackers[7].update_attributes(:outcome => "fail")
       # @trackers[3].update_attribute(:outcome, "fail")
       
       @trackers.count.should eq(29)
@@ -136,10 +136,9 @@ describe Tracker do
   end
   describe "::update_to_current" do
     it "shows count" do
+      #currently already done ahead by mark_todays_tracker_current
       100.times { Tracker.create :habit_id => 8888, :day => Time.zone.today }
       50.times { Tracker.create(:habit_id => 8888, :day => Date.yesterday) }
-      Tracker.pending.count.should == 150
-      Tracker.pending.day_is_today.count.should == 100
       Tracker.update_to_current
       Tracker.current.count.should == 100
     end
@@ -154,20 +153,21 @@ describe Tracker do
       Tracker.day_is_today.count.should == 100
     end
   end
-  describe "scope :day_is_past" do
-    it "returns all trackers with :day in past" do
-      100.times { Tracker.create :habit_id => 8888, :day => Time.zone.today }
-      50.times { Tracker.create(:habit_id => 8888, :day => Date.yesterday) }
-      Tracker.day_is_past.count.should == 50      
-    end
-  end
   describe "::update_to_overdue" do
+      #currently already done ahead by mark_overdue_trackers
     it "updates trackers' :outcome to 'overdue' if in past" do
       100.times { Tracker.create :habit_id => 8888, :day => Time.zone.today }
       50.times { Tracker.create(:habit_id => 8888, :day => Date.yesterday) }
       Tracker.update_to_overdue
       Tracker.overdue.count.should == 50
       
+    end
+  end
+  describe "scope :day_is_past" do
+    it "returns all trackers with :day in past" do
+      100.times { Tracker.create :habit_id => 8888, :day => Time.zone.today }
+      50.times { Tracker.create(:habit_id => 8888, :day => Date.yesterday) }
+      Tracker.day_is_past.count.should == 50      
     end
   end
 end
