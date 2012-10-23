@@ -1,5 +1,5 @@
 <h1><%= link_to @habit.statement, habit_path(@habit) %></h1>
-
+<h2>Time.zone.today via day = <%= @trackers.first.day %></h2>
 
 <%= calendar @trackers do |tracker| %>
 	<p><%= tracker.outcome %></p>

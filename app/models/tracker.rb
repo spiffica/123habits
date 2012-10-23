@@ -6,7 +6,7 @@ class Tracker < ActiveRecord::Base
   STATES = %w{pending current overdue pass fail}
 
    before_save :add_penalty_on_fail
-   after_initialize :mark_todays_tracker_current, :mark_overdue_trackers
+   # after_initialize :mark_todays_tracker_current, :mark_overdue_trackers
 
   validates :outcome, :inclusion => { :in => STATES }
   validates :habit_id, :presence => true
@@ -35,8 +35,13 @@ class Tracker < ActiveRecord::Base
   scope :marked, lambda { fail + pass } #where(:outcome => ['fail','pass'])
   scope :unmarked, where(:outcome => ['overdue','current','pending'])
   scope :markable, where(:outcome => ['overdue','current'])
-  scope :day_is_today, lambda { where("day = ?",Time.zone.today) }
-  scope :day_is_past, lambda { where("day < ?", Time.zone.today)}
+  scope :day_is_today, lambda { |tz| where("day = ?", Time.now.in_time_zone(tz).to_date) }
+  scope :day_is_past, lambda { |tz| where("day < ?", Time.now.in_time_zone(tz).to_date) }
+  scope :day_is_future, lambda { |tz| where("day > ?", Time.now.in_time_zone(tz).to_date) }
+
+  # def user_date
+  #   Time.now.in_time_zone(self.habit.user.time_zone).to_date
+  # end
 
   def self.first_markable
     markable.first
@@ -78,29 +83,37 @@ class Tracker < ActiveRecord::Base
 
   private
   
-    def mark_todays_tracker_current
-      if self.pending? && self.day == Time.zone.today
-        self.update_attribute(:outcome, "current")
-      end
-    end
+    # def mark_todays_tracker_current
+    #   if (self.pending? || self.overdue?) && self.day == Time.zone.today
+    #     self.update_attribute(:outcome, "current")
+    #   end
+    # end
 
-    def mark_overdue_trackers
-      if (self.pending? || self.current?) && self.day < Time.zone.today
-        self.update_attribute(:outcome, "overdue")
-      end
-    end
-
+    # def mark_overdue_trackers
+    #   if (self.pending? || self.current?) && self.day < Time.zone.today
+    #     self.update_attribute(:outcome, "overdue")
+    #   end
+    # end
+#---- use for rake or command line ------
     #TODO make these specific to current user time zone and use in cron
-    def self.update_to_current
-      #currently done ahead in after_initialize :mark_todays_tracker_current
-      self.pending.day_is_today.update_all :outcome => "current"
+    def self.update_to_current(user_timezone)
+      self.unmarked.day_is_today(user_timezone).update_all :outcome => "current"
     end
 
-    def self.update_to_overdue
-      #currently done ahead in after_initialize :mark_overdue_trackers
-      self.unmarked.day_is_past.update_all :outcome => "overdue"
+    def self.update_to_overdue(user_timezone)
+      self.unmarked.day_is_past(user_timezone).update_all :outcome => "overdue"
     end
 
+    def self.update_to_pending(user_timezone)
+      self.unmarked.day_is_future(user_timezone).update_all :outcome => "pending"
+    end
+
+    def self.update_unmarked_trackers(user_timezone)
+      self.update_to_current(user_timezone)
+      self.update_to_overdue(user_timezone)
+      self.update_to_pending(user_timezone)
+    end
+#------ end ---------
 
     def add_penalty_on_fail
       if self.outcome_changed? && self.fail?

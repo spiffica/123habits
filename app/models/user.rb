@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  include UserTime
   attr_accessible :email, :name, :password, :password_confirmation, :time_zone 
 
   has_many :habits, dependent: :destroy
@@ -16,6 +17,14 @@ class User < ActiveRecord::Base
             uniqueness: { case_sensitive: false }
   validates :password, presence: true, length: { minimum: 6 }
   validates :password_confirmation, presence: true 
+
+
+  def self.midnight
+    self.all.find_all do |u|
+      u.is_midnight?
+    end
+  end
+
 
   private
     def create_remember_token

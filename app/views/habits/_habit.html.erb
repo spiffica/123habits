@@ -11,7 +11,6 @@
 	</span>
 </li>
 <% unless habit.pending? %>
-	<% habit.trackers.all # updates tracker state via after_initialize %>
 	<%= link_to habit_trackers_path(habit) do %>
 		<progress class="up-to-date-<%= habit.up_to_date? %>" 
 			value="<%= habit.day_streak %>" max="21" rel="popover" 

@@ -4,6 +4,7 @@
           <%= link_to "Habit Buster", root_path, id:"logo" %>
           <nav>
             <ol class="nav pull-right">
+              <li style="color: red"><%= Time.zone %></li>
               <li><%= link_to "Help",    help_path %></li>
               <% if signed_in? %>
                 <%= render 'layouts/habits_dropdown' %>

@@ -26,6 +26,6 @@ module SessionsHelper
     @current_user ||= User.find_by_remember_token(cookies[:remember_token])
   end
   def set_timezone
-    Time.zone = current_user.time_zone || 'Central Time (US & Canada)' if signed_in?
+    Time.zone = current_user.time_zone || 'Pacific Time (US & Canada)' if signed_in?
   end
 end
