@@ -55,11 +55,9 @@ class Tracker < ActiveRecord::Base
 
   def self.create_initial_trackers(habit)
   	date = Time.zone.now.to_date
-    (Habit::LENGTH).times do
-      # state = date == Time.zone.today ? "current" : "pending"
-      habit.trackers.create(day:date)
-      # state = date == Time.zone.today ? "current" : "pending"
-      # habit.trackers.create(day:date, outcome: state)
+    (Habit::LENGTH).times do |x|
+      state = x == 0? "current" : "pending"
+      habit.trackers.create(day:date, outcome: state)
       date += 1.day
     end
   end
@@ -94,7 +92,7 @@ class Tracker < ActiveRecord::Base
     #     self.update_attribute(:outcome, "overdue")
     #   end
     # end
-#---- use for rake or command line ------
+#---- use for rake or command line on all Trackers in app ------
     #TODO make these specific to current user time zone and use in cron
     def self.update_to_current(user_timezone)
       self.unmarked.day_is_today(user_timezone).update_all :outcome => "current"
