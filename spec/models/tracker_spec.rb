@@ -55,13 +55,13 @@ describe Tracker do
     end
     it "adds proper number of days" do
       # add_penalty_on_fail works properly and relies on this method
-      # not sure why this test not working
+      #TODO not sure why this test not working
       self.habit.trackers.stub_chain(:unmarked,:count).and_return(4)
       habit.trackers.unmarked.count.should == 4
       habit.trackers.count.should eq(21) 
       # habit.trackers.pending.count.should == 17
       (21-4+1).to_i.should == 18
-      habit.trackers[3].trackers_to_add.should == 18
+      habit.trackers.first.trackers_to_add.should == 18
     end
   end
 
@@ -109,6 +109,7 @@ describe Tracker do
       Tracker.count.should == 20
       Tracker.marked.count.should == 0
       Tracker.update_all(outcome: "pass")
+      #TODO won't pass with before_save filter, but will with it off
       Tracker.last.update_attribute(:outcome, "fail")
       Tracker.marked.count.should == 20
       Tracker.last.update_attribute(:outcome, "pending")
