@@ -3,6 +3,7 @@ trackers outcomes' "
 task :midnight_update_trackers => :environment do
 	msg = "Users affected: "
 	h_msg = "Habits affected: "
+	tz = ''
 	a = User.midnight.map do |u|
 		tz = u.time_zone
 		msg << "#{u.name}, "
@@ -15,7 +16,7 @@ task :midnight_update_trackers => :environment do
 	puts msg
 	puts h_msg
 	puts "#{Time.zone.now} on server"
-	puts "#{Time.in_time_zone(tz)} in #{tz}"
+	puts "#{Time.now.in_time_zone(tz)} in #{tz}"
 end
 
 desc "Update all Trackers to User timezone"
