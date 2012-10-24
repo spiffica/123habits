@@ -46,3 +46,6 @@ fi
 # then
 #   bundle install | GREP_OPTIONS= \grep -vE '^Using|Your bundle is complete'
 # fi
+
+# whenever gem recommends this
+rvm_trust_rvmrcs_flag=1

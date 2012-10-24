@@ -21,6 +21,6 @@
 
 set :output, "log/whenever_log.log"
 
-every 1.hours do
-	rake "midnight_update_trackers"
+every 1.minute do
+	rake "midnight_update_trackers --trace", environment => "development"
 end

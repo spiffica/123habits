@@ -6,7 +6,7 @@ module UserTime
 	end
 
 	def is_midnight?
-		self.is_hour? 13
+		self.is_hour? 0
 	end
 
 	def user_utc_offset

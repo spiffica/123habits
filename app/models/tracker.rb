@@ -92,6 +92,8 @@ class Tracker < ActiveRecord::Base
     #     self.update_attribute(:outcome, "overdue")
     #   end
     # end
+
+    
 #---- use for rake or command line on all Trackers in app ------
     #TODO make these specific to current user time zone and use in cron
     def self.update_to_current(user_timezone)
