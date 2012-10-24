@@ -16,7 +16,7 @@ task :midnight_update_trackers => :environment do
 	puts msg
 	puts h_msg
 	puts "#{Time.zone.now} on server"
-	puts "#{Time.now.in_time_zone(tz)} in #{tz}"
+	puts "#{Time.now.in_time_zone(tz)} in #{tz}" unless tz.blank?
 end
 
 desc "Update all Trackers to User timezone"
