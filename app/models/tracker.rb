@@ -34,7 +34,7 @@ class Tracker < ActiveRecord::Base
 
   scope :marked, lambda { fail + pass } #where(:outcome => ['fail','pass'])
   scope :unmarked, where(:outcome => ['overdue','current','pending'])
-  scope :markable, where(:outcome => ['overdue','current'])
+  scope :markable, where(:outcome => ['overdue','current']).order("id")
   scope :day_is_today, lambda { |tz| where("day = ?", Time.now.in_time_zone(tz).to_date) }
   scope :day_is_past, lambda { |tz| where("day < ?", Time.now.in_time_zone(tz).to_date) }
   scope :day_is_future, lambda { |tz| where("day > ?", Time.now.in_time_zone(tz).to_date) }
