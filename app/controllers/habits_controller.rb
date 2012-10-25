@@ -18,11 +18,11 @@ class HabitsController < ApplicationController
     @habit = current_user.habits.find(params[:id])
     #@habits = current_user.habits.all
     @reason = @habit.reasons.build
-    @reasons = @habit.reasons.all
+    @reasons = @habit.reasons.order("created_at ASC")
     @step = @habit.steps.build
-    @steps = @habit.steps.all
+    @steps = @habit.steps.order("created_at ASC")
     @affirmation = @habit.affirmations.build
-    @affirmations = @habit.affirmations.all
+    @affirmations = @habit.affirmations.order("created_at ASC")
   end
 
   def edit
