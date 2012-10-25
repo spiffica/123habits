@@ -8,16 +8,9 @@ class Tracker < ActiveRecord::Base
   STATES = %w{pending current overdue pass fail}
 
    before_save :add_penalty_on_fail
-   # after_initialize :mark_todays_tracker_current, :mark_overdue_trackers
 
   validates :outcome, :inclusion => { :in => STATES }
   validates :habit_id, :presence => true
-  # scope :pending, where(:success => nil)
-  # scope :current, where("day <= ?",Time.zone.today)
-  # scope :success_days, where(:success => true)
-  # scope :failed_days, where(:success => false)
-  # scope :marked, where("success IS NOT NULL")
-  # scope :succeed, lambda { |listed| where(:success => listed)}
 
 
   STATES.each do |state|
@@ -34,16 +27,14 @@ class Tracker < ActiveRecord::Base
     end
   end
 
-  scope :marked, lambda { fail + pass } #where(:outcome => ['fail','pass'])
+  scope :marked, lambda { fail + pass } 
   scope :unmarked, where(:outcome => ['overdue','current','pending'])
   scope :markable, where(:outcome => ['overdue','current']).order("id")
   scope :day_is_today, lambda { |tz| where("day = ?", Time.now.in_time_zone(tz).to_date) }
   scope :day_is_past, lambda { |tz| where("day < ?", Time.now.in_time_zone(tz).to_date) }
   scope :day_is_future, lambda { |tz| where("day > ?", Time.now.in_time_zone(tz).to_date) }
 
-  # def user_date
-  #   Time.now.in_time_zone(self.habit.user.time_zone).to_date
-  # end
+
 
   def self.first_markable
     markable.first
@@ -97,7 +88,6 @@ class Tracker < ActiveRecord::Base
 
 
     
-#---- used for rake or cron on all Trackers in app ------
     def self.update_to_current(user_timezone)
       self.unmarked.day_is_today(user_timezone).update_all :outcome => "current"
     end
@@ -110,15 +100,15 @@ class Tracker < ActiveRecord::Base
       self.unmarked.day_is_future(user_timezone).update_all :outcome => "pending"
     end
 
+    # used by rake or cron on all Trackers in app or by user
     def self.update_unmarked_trackers(user_timezone)
       self.update_to_current(user_timezone)
       self.update_to_overdue(user_timezone)
       self.update_to_pending(user_timezone)
     end
 
-#------ end ---------
-
-    def self.update_users_trackers(user)
+    # accessed by UserObserver
+    def self.update_a_users_trackers(user)
       self.update_to_current(user.time_zone)
       self.update_to_overdue(user.time_zone)
       self.update_to_pending(user.time_zone)
