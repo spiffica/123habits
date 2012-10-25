@@ -2,29 +2,21 @@ desc "Get all users whose local time is Midnight and update all unmarked \n
 trackers outcomes' "
 task :midnight_update_trackers => :environment do
 	msg = "Users affected: "
-	h_msg = "Habits affected: "
-	tz = ''
-	a = User.midnight.map do |u|
+	User.midnight.map do |u|
 		tz = u.time_zone
 		msg << "#{u.name}, "
-		u.habits.map do |h|
-			h_msg << "#{h.id}, "
-
-			h.trackers.update_unmarked_trackers(tz)
-		end
+		u.trackers.update_unmarked_trackers(tz)
 	end
 	puts msg
-	puts h_msg
+	puts "#{Time.now.utc} in Grenwich"
 	puts "#{Time.zone.now} on server"
-	puts "#{Time.now.in_time_zone(tz)} in #{tz}" unless tz.blank?
+	puts "#{Time.now.in_time_zone(tz)} in #{tz}" if defined? tz
 end
 
 desc "Update all Trackers to User timezone"
 task :update_trackers => :environment do
-	User.all.each do |u|
+	User.all.map do |u|
 		tz = u.time_zone
-		u.habits.each do |h|
-			h.trackers.update_unmarked_trackers(tz)
-		end
+		u.trackers.update_unmarked_trackers(tz)
 	end
 end

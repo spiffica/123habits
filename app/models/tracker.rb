@@ -1,7 +1,9 @@
 class Tracker < ActiveRecord::Base
-  belongs_to :habit
   attr_accessible :day, :notes, :success, :habit_id, :outcome
   has_calendar :start_time => :day
+
+  belongs_to :habit
+  has_one :user, through: :habit
 
   STATES = %w{pending current overdue pass fail}
 
@@ -93,6 +95,7 @@ class Tracker < ActiveRecord::Base
     #   end
     # end
 
+
     
 #---- used for rake or cron on all Trackers in app ------
     def self.update_to_current(user_timezone)
@@ -117,7 +120,6 @@ class Tracker < ActiveRecord::Base
     def add_penalty_on_fail
       if self.outcome_changed? && self.fail?
         add_penalty_trackers(trackers_to_add)
-        # extend_trackers
       end
     end
 end

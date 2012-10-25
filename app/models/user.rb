@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
   attr_accessible :email, :name, :password, :password_confirmation, :time_zone 
 
   has_many :habits, dependent: :destroy
+  has_many :trackers, through: :habits
 
   has_secure_password
 
