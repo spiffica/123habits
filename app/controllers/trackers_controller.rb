@@ -18,7 +18,7 @@ class TrackersController < ApplicationController
   	  if @tracker.update_attributes(params[:tracker])
   			format.html do
 		  		if @tracker.outcome == "fail"
-		  			flash[:notice] = "Sorry, your 21 days will start again tomorrow."
+		  			flash[:notice] = "Sorry, your habit will be extended."
 		  		end
   				redirect_to habit_trackers_path
   			end

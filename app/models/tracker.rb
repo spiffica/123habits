@@ -94,8 +94,7 @@ class Tracker < ActiveRecord::Base
     # end
 
     
-#---- use for rake or command line on all Trackers in app ------
-    #TODO make these specific to current user time zone and use in cron
+#---- used for rake or cron on all Trackers in app ------
     def self.update_to_current(user_timezone)
       self.unmarked.day_is_today(user_timezone).update_all :outcome => "current"
     end
