@@ -115,7 +115,17 @@ class Tracker < ActiveRecord::Base
       self.update_to_overdue(user_timezone)
       self.update_to_pending(user_timezone)
     end
+
 #------ end ---------
+
+    def self.update_users_trackers(user)
+      self.update_to_current(user.time_zone)
+      self.update_to_overdue(user.time_zone)
+      self.update_to_pending(user.time_zone)
+    end
+
+
+
 
     def add_penalty_on_fail
       if self.outcome_changed? && self.fail?

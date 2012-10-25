@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   include UserTime
-  attr_accessible :email, :name, :password, :password_confirmation, :time_zone 
+  attr_accessible :email, :name, :password, :password_confirmation, :time_zone,
+                  :last_visited 
 
   has_many :habits, dependent: :destroy
   has_many :trackers, through: :habits

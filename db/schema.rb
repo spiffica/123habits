@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121024233840) do
+ActiveRecord::Schema.define(:version => 20121025185159) do
 
   create_table "affirmations", :force => true do |t|
     t.string   "message"
@@ -72,6 +72,7 @@ ActiveRecord::Schema.define(:version => 20121024233840) do
     t.string   "password_digest"
     t.string   "remember_token"
     t.string   "time_zone",       :default => "Pacific Time (US & Canada)"
+    t.datetime "last_visited"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
