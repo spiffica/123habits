@@ -18,5 +18,7 @@ class UserObserver < ActiveRecord::Observer
 		def update_trackers_for(user)
 			user.trackers.update_a_users_trackers(user)
 			user.logger.info("\n\ntrackers have been updated for user: #{user.email}\n")
+			user.logger.info("\n\nlast visited #{user.last_visited}\n 
+				Time.now = #{Time.now}\nTznow = #{Time.zone.now}\n")
 		end
 end
