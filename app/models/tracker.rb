@@ -45,6 +45,11 @@ class Tracker < ActiveRecord::Base
     self == self.habit.trackers.markable.first
   end
 
+  def marked?
+     self.outcome == "fail" || self.outcome == "pass"
+  end
+
+
 
   def self.create_initial_trackers(habit)
   	date = Time.zone.now.to_date

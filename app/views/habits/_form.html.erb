@@ -9,3 +9,11 @@
                as: :radio_buttons %>
   <%= f.submit class: "btn btn-primary" %>
 <% end %>
+<% if @habit.started? %>
+  <%= simple_form_for @habit, remote: true do |f| %>   
+    <%= f.hidden_field :status, 
+              value: "pending"
+              %>
+    <%= f.submit "Stop habit", class: "btn btn-danger" %>
+  <% end %>
+<% end %>

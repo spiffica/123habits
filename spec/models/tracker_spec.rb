@@ -31,6 +31,7 @@ describe Tracker do
       @trackers = habit.trackers
     end
     it "invokes #add_penalty_trackers when :outcome => 'fail'"  do
+      habit.class.should == Habit
       @trackers[0].update_attributes(:outcome => "pass")
       @trackers[1].update_attributes(:outcome => "pass")
       @trackers[2].update_attributes(:outcome => "pass")
@@ -67,9 +68,21 @@ describe Tracker do
 
   describe "#first_markable?" do
     it "returns true for first markable tracker" do
+      habit.class.should == Habit
       habit.update_attribute(:status, "started")
       first_tracker = habit.trackers.first
       first_tracker.first_markable?.should == true
+    end
+  end
+  describe "#marked" do
+    it "returns true for all marked trackers in habit" do
+      habit.update_attribute(:status, "started")
+      @trackers = habit.trackers      
+      @first = @trackers.first
+      @first.stub(:outcome).and_return("pass")
+      @first.marked?.should == true
+      @first.stub(:outcome).and_return("fail")
+      @first.marked?.should == true
     end
   end
   describe "#first_markable" do

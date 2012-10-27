@@ -2,8 +2,19 @@
 <h2><%= Time.zone.now %></h2>
 
 <%= calendar @trackers do |tracker| %>
-	<p><%= tracker.outcome %></p>
 	<%= display_article(tracker)  do %>
-		<%= render 'form', :tracker => tracker %>
+		<% if tracker.first_markable? %>
+			<%= render 'form', :tracker => tracker %>
+		<% end %>
+		<% if tracker.marked? %>
+			<%= link_to edit_habit_tracker_path(@habit,tracker), 
+				class: "notes_link", id:"edit_notes", title:"view notes",
+				:'data-toggle' =>'modal', remote: true  do %>
+				<i class ="icon-list-alt notes-icon" rel="popover" 
+					 data-original-title="<%= tracker.outcome %>"
+					 data-content="<%= tracker.notes %>">
+				</i> 
+			<% end %>
+		<% end %>
 	<% end %>
 <% end %>

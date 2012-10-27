@@ -16,7 +16,7 @@ table.calendar td.day {
 article form.tracker_form { margin-bottom: 0;}
 form.edit_tracker {
   input#tracker_outcome_pass, input#tracker_outcome_fail,
-  input.btn-primary{
+  input.hide{
     display:none;
   } 
 }
@@ -25,4 +25,11 @@ img.click_pic_pass, img.click_pic_fail {
   display: block;
   float: left;
   padding-right: 8px;
+  padding-left: 12px;
+ // margin-bottom: 5px;
+}
+textarea {
+  height: 200px;
+  padding: 5px;
+
 }

@@ -101,13 +101,13 @@ class Habit < ActiveRecord::Base
     end
 
     #not working; don't really want it here anyway
-    def update_unmarked_trackers#(user_timezone)
-      if self.started? && (self.trackers.day_is_today(self.user.time_zone).first.day != Time.now.in_time_zone(self.user.time_zone).to_date)
-        self.trackers.update_to_current(self.user.time_zone)
-        self.trackers.update_to_pending(self.user.time_zone)
-        self.trackers.update_to_overdue(self.user.time_zone)
-      end
-    end
+    # def update_unmarked_trackers#(user_timezone)
+    #   if self.started? && (self.trackers.day_is_today(self.user.time_zone).first.day != Time.now.in_time_zone(self.user.time_zone).to_date)
+    #     self.trackers.update_to_current(self.user.time_zone)
+    #     self.trackers.update_to_pending(self.user.time_zone)
+    #     self.trackers.update_to_overdue(self.user.time_zone)
+    #   end
+    # end
     
 
 

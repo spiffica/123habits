@@ -4,7 +4,7 @@ module TrackersHelper
 
 	def display_article(tracker)
 		content_tag(:article, class: "#{tracker.outcome} tracker") do 
-			yield if block_given? && tracker == @habit.trackers.markable.first
+			yield if block_given? 
 
 		end
 	end

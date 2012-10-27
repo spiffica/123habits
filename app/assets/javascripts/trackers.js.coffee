@@ -17,3 +17,5 @@ $ ->
 	$('form.edit_tracker').change ->
 		$('form.edit_tracker').submit()
 
+	$('i.notes-icon').popover( placement: 'top')
+

@@ -9,10 +9,11 @@ ol {
   margin-top: 30px;
 }
 progress.up-to-date-false, em.overdue_notice {
+	box-shadow: 0 0 2px 2px red;
 	-moz-box-shadow: 0 0 2px 2px red;
 	-webkit-box-shadow: 0 0 2px 2px red;
-	box-shadow: 0 0 2px 2px red;
 }
 em.overdue_notice {
+	background-color: red;
 	padding: 0 5px;
 }
