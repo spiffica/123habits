@@ -1,0 +1,20 @@
+/*body.ui-overlay-c, .ui-body-c {
+	background: url(clouds.jpg);
+  background-repeat:repeat-y;
+  background-position:center center;
+  background-attachment:scroll;
+  background-size:100% 100%;	
+}*/
+.help-inline {
+	color:red;
+}
+.alert{
+	padding: 8px 5px;
+}
+	.alert-error{
+		background-color: #fc182a;
+	}
+	.alert-success{
+		background-color: green;
+	}
+}

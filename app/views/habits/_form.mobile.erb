@@ -1,0 +1,28 @@
+<%= simple_form_for @habit do |f| %>
+  <div data-role="fieldcontain">
+  <%= f.input :statement, autofocus: true %>
+  </div>
+  <div data-role="fieldcontain">
+  <%= f.input :reward %>
+  </div>
+  
+  <div data-role="fieldcontain">
+    <fieldset data-role="controlgroup" data-type="horizontal">
+  <%= f.input :habit_type, collection: Habit::TYPE, 
+              checked: @habit.habit_type,
+              label: 'Habit Type', 
+               as: :radio_buttons %>
+    </fieldset>
+  </div>
+  <div data-role="fieldcontain">
+  <%= f.submit class: "btn btn-primary" %>
+  </div>
+<% end %>
+<% if @habit.started? %>
+  <%= simple_form_for @habit, remote: true do |f| %>   
+    <%= f.hidden_field :status, 
+              value: "pending"
+              %>
+    <%= f.submit "Stop habit", class: "btn btn-danger" %>
+  <% end %>
+<% end %>

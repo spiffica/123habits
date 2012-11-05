@@ -10,6 +10,7 @@ gem 'validates_email_format_of', '~> 1.5.3'
 gem 'simple_form', '~> 2.0.2'
 gem 'simple_calendar', '~> 0.0.5'
 
+
 group :development do
   gem 'pg'
   gem 'annotate', '~> 2.4.1.beta'
