@@ -1,0 +1,21 @@
+
+    <%= simple_form_for (@user) do |f| %>
+    <div data-role="fieldcontain">
+      <%= f.input :name %>
+    </div>
+    <div data-role="fieldcontain">
+      <%= f.input :email %>
+    </div>
+    <div data-role="fieldcontain">
+      <%= f.input :time_zone, priority: /US/ %>
+    </div>
+    <div data-role="fieldcontain">
+      <%= f.input :password %>
+    </div>
+    <div data-role="fieldcontain">
+      <%= f.input :password_confirmation %>
+    </div>
+    <div data-role="fieldcontain">
+      <%= f.submit class: "btn btn-primary" %>
+    </div>
+    <% end %>

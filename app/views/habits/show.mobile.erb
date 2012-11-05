@@ -1,0 +1,26 @@
+<header data-role="header" data-theme="b">
+		<%= link_to 'Back', :back, "data-role"=>"button", "data-icon"=>"arrow-l"%>
+	<h1 id="statement"><%= @habit.statement %></h1>
+		<%= link_to 'Edit', edit_habit_path(@habit), "data-role"=>"button", "data-icon"=>"gear" %>
+
+</header>
+<div data-role="content">
+	<p class="reward">Reward: <span id="reward">
+	  <%= @habit.reward %></span>
+	</p>
+	<ul data-role="listview" data-inset="true">
+		<li><%= link_to "Progress", habit_trackers_path(@habit) %>
+		</li>
+		<li><%= link_to "Stats", "#stats" %>
+		</li>
+		<li><%= link_to "Reasons", habit_reasons_path(@habit) %>
+			<span class='ui-li-count'><%= @habit.reasons.count %></span>
+		</li>
+		<li><%= link_to "Steps", habit_steps_path(@habit) %>
+			<span class='ui-li-count'><%= @habit.steps.count %></span>
+		</li>
+		<li><%= link_to "Affirmations", habit_affirmations_path(@habit) %>
+			<span class='ui-li-count'><%= @habit.affirmations.count %></span>
+		</li>
+	</ul>
+</div>

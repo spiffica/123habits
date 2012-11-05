@@ -1,0 +1,26 @@
+<% provide :title, @user.name %>
+<header data-role="header" data-theme="c">
+	<h2>Habits(<%= @habits.count %>)
+		<%= button_to 'Add', new_habit_path, method: :get, "data-icon" => "plus", class: "ui-btn-right" %>
+	</h2>
+</header>
+<div data-role="content">
+	<ul data-role="listview" data-inset="true">
+
+		<% Habit::STATUS.each do |x| %>
+			<%#= #TODO check if any before heading; dif colors per status %>
+			<li data-role="list-divider" role="heading" data-theme="d">
+				<%= x.capitalize %>
+			</li>
+			<% @habits.send(x.to_sym).each do |h| %>
+				<li>
+					<%= link_to h.statement, h %>
+				</li>
+			<% end %>
+		<% end %>
+
+
+
+	</ul>
+</div>
+ 
