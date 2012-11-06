@@ -5,16 +5,16 @@
   background-attachment:scroll;
   background-size:100% 100%;	
 }*/
-.help-inline {
+body#mobile .help-inline {
 	color:red;
 }
-.alert{
+body#mobile .alert{
 	padding: 8px 5px;
 }
-	.alert-error{
+body#mobile	.alert-error{
 		background-color: #fc182a;
 	}
-	.alert-success{
+body#mobile	.alert-success{
 		background-color: green;
 	}
 }

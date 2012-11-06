@@ -1,13 +1,6 @@
-
-<%= habit_status(@habit) %>
-
-<%= habit_synopsis(@habit) do %>
-  <%= simple_form_for @habit, remote: true do |f| %>   
+<%= simple_form_for @habit, remote: true do |f| %>   
     <%= f.hidden_field :status, 
               value: "started"
               %>
     <%= f.submit "Start Habit Now!!", class: "btn btn-success" %>
   <% end %>
-<% end %>
-
-

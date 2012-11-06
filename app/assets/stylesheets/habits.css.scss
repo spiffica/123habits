@@ -1,8 +1,10 @@
 // Place all the styles related to the Habits controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+@import "bootstrap";
+
 #habit_statement {
-  width: 400px;
+  //width: 400px;
 } 
 
 .reason:hover, .step:hover, .affirmation:hover {
@@ -24,4 +26,31 @@ a#tracking_link:hover{
 }
 a#tracking_link {
 	display: block;
+}
+td.actions {
+	text-align: right;  
+}
+span.badge {
+	float: right;
+}
+.status_info {
+	text-align: center;
+	border-radius: 5px;
+	&.pending {
+		background-color: yellow;
+	}
+	&.started {
+		background-color: green;
+	}
+}
+#status_related_info{
+	text-align: left;
+}
+aside h6 {
+	margin-bottom: 0;
+	margin-top: 0;
+}
+aside p{
+	margin-bottom: 0;
+	margin-top: 0;
 }
