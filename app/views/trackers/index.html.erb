@@ -1,5 +1,5 @@
 <h1><%= link_to @habit.statement, habit_path(@habit) %></h1>
-
+<%= render "habits/stats_table" %>
 
 
 <%= calendar @trackers do |tracker| %>
