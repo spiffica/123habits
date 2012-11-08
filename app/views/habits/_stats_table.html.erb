@@ -1,0 +1,23 @@
+<div class="row-fluid span12 stats_table">
+    <table class="stats table">
+      <thead>
+        <tr>
+          <td>Started</td>
+          <td>Ending</td>
+          <td>Ratio</td>
+          <td>Streak</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><%= when_habit_started @habit %>
+              (<%= @habit.start_date.to_formatted_s(:short) %>)</td>
+          <td>in <%= pluralize(@habit.days_left,'day')%> 
+              (<%= @habit.end_date.to_formatted_s(:short) %>)</td>
+          <td><%= @habit.percent_success %>% (<%= @habit.trackers.
+              pass.count %>/<%= @habit.trackers.marked.count %>)</td>
+          <td><%= pluralize(@habit.day_streak,'day') %> </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>

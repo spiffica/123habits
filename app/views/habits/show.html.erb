@@ -1,9 +1,8 @@
 <%= content_for :info do %>
   <div class="span3 status_info <%= @habit.status %>">
-    <h3 class="status"><%= @habit.status.upcase %></h3>
-    <%= render 'start_form' if @habit.pending? %>
+    <%= render 'status_info' %>
   </div>
-  <div class="well span8">
+  <div class="well span9">
     <h1 id="statement">
       <span><%= @habit.statement %></span> 
       <small><%= link_to 'edit', edit_habit_path(@habit), remote: true,
@@ -13,31 +12,32 @@
         <span id="reward"><%= @habit.reward %></span>
       </p>
   </div>
+  <%#= render 'stats_table' %>
 <% end %>
 <%= content_for :left_sidebar do %>
-  <ul class="nav nav-list" id="reasons_steps_tabs">
+  <ul class="nav nav-tabs nav-stacked" id="habits_menu">
     <li class="active">
-      <a href="#reasons">Reasons
+      <a class="local" href="#reasons">Reasons
         <span id="reasons_count" class="badge">
           <%= @reasons.count %>
         </span>
       </a>
     </li>
     <li>
-      <a href="#steps">Steps
+      <a class="local" href="#steps">Steps
         <span id="steps_count" class="badge">
         <%= @steps.count %>
         </span>
       </a>
     </li>
     <li>
-      <a href="#affirmations">Affirmations
+      <a class="local" href="#affirmations">Affirmations
         <span id="affirmations_count" class="badge">
           <%= @affirmations.count %>
         </span>
       </a>
     </li>
-    <li><a href="#">Progress</a></li>
+    <li><%= link_to "Progress", habit_trackers_path(@habit) %></li>
   </ul>
   <div id="status_related_info">
     <%#= render 'status_info' %>

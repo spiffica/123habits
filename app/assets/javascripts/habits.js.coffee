@@ -3,7 +3,7 @@
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 
 $ ->
-  $('#reasons_steps_tabs a').on 'click', (e) ->
+  $('#habits_menu a.local').on 'click', (e) ->
     e.preventDefault()
     $(this).tab "show"
 

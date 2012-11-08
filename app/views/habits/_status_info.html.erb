@@ -1,0 +1,6 @@
+    <h3 class="status"><%= @habit.status.upcase %></h3>
+    <% if @habit.started? %>
+    	<p><%= when_habit_started @habit %></p>
+    <% else %>
+    	<%= render 'start_form' if @habit.pending? %>
+    <% end %>

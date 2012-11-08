@@ -1,5 +1,6 @@
 <h1><%= link_to @habit.statement, habit_path(@habit) %></h1>
-<h2><%= Time.zone.now %></h2>
+
+
 
 <%= calendar @trackers do |tracker| %>
 	<%= display_article(tracker)  do %>
