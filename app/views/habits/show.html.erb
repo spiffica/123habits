@@ -52,22 +52,31 @@
         <% unless @reasons.empty? %>
           <%= render @reasons %>
         <% else %>
-          <p id="instructions">Instructions on how and why to input reasons</p>
+          <p class="instructions">Instructions on how and why to input reasons</p>
         <% end %>
       </table>
       <%= render 'reasons/form' %>
     </div>
     
     <div class="tab-pane" id="steps">
-      <ul id="list_steps">
-        <%= render @steps %>
-      </ul>
+      <table id="steps_table" class="table table-striped table-hover">
+        <% unless @steps.empty? %>
+          <%= render @steps %>
+        <% else %>
+          <p class="instructions">Instructions on how and why to input steps</p>
+        <% end %>
+      </table>
       <%= render 'steps/form' %>
     </div>
+
     <div class="tab-pane" id="affirmations">
-      <ul id="list_affirmations">
-        <%= render @affirmations %>
-      </ul>
+      <table id="affirmations_table" class="table table-striped table-hover">
+        <% unless @affirmations.empty? %>
+          <%= render @affirmations %>
+        <% else %>
+          <p class="instructions">Instructions on how and why to input affirmations</p>
+        <% end %>
+      </table>      
       <%= render 'affirmations/form' %>
     </div>
 

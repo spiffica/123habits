@@ -9,3 +9,5 @@ $ ->
 
   $('button[data-dismiss="modal"]').on 'click', ->
     $('div.modal').hide()  
+
+  $

@@ -1,11 +1,11 @@
 var updated_message = $('input#reason_message').val();
-var reason_selector = "li#reason_<%= @reason.id %> span#message";
+var reason_selector = "td#reason_<%= @reason.id %>";
 $(reason_selector).html(updated_message);
 
 removePreviousErrors();
 fadeModal();
 
-$("li#reason_<%= @reason.id %>")
+$("td#reason_<%= @reason.id %>").closest('tr')
   .animate({'backgroundColor':'#93d5ec'}, 2000, function(){
     $(this).css({'backgroundColor':''})
   });

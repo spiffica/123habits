@@ -1,7 +1,7 @@
 
 var counter = $('span#steps_count').html();
 $('.delete_step').on('ajax:success', function(){
-    var $this = $(this).closest('li');
+    var $this = $(this).closest('tr');
 
     $this.css({"background-color":"hsla(355, 100%, 50%, .5)"});
 

@@ -1,8 +1,8 @@
 removePreviousErrors();
 
 var counter = parseInt($('span#affirmations_count').html());
-$('p#instructions').remove();
-$('ul#list_affirmations').append('<%=j render @affirmation %>');
+$('p.instructions').remove();
+$('table#affirmations_table').append('<%=j render @affirmation %>');
 $('span#affirmations_count').html(counter + 1);
 
 

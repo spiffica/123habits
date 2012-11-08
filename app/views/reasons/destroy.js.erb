@@ -1,7 +1,7 @@
 
 var counter = $('span#reasons_count').html();
 $('.delete_reason').on('ajax:success', function(){
-    var $this = $(this).closest('li');
+    var $this = $(this).closest('tr');
     console.log($(this));
     $this.css({"background-color":"hsla(355, 100%, 50%, .5)"});//.delay(500);
     $this.slideUp(500, function(){

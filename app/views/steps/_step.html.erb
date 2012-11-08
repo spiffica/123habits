@@ -1,7 +1,12 @@
-<li class="step" id="step_<%= step.id %>">
-  <span id="content"><%= step.content %></span>
-  <span class="actions"><%= link_to 'edit', edit_habit_step_path(@habit, step), :'data-toggle'=>'modal', remote: true %>
-      |
-      <%= link_to 'delete', habit_step_path(@habit, step), method: :delete, remote: true, class: 'delete_step' %>
-  </span>
-</li>
+	<tr>
+	  <td class="span7 step_msg" id="step_<%= step.id %>">
+	  	<%= step.content%>
+	  </td>
+	  <td class="span2 actions">
+    	<%= link_to "edit",edit_habit_step_path(@habit,step), 
+    	id: 'edit_step', :'data-toggle'=>'modal',class: "btn btn-mini", remote: true %>
+	  		<%= link_to "delete", [@habit,step], method: :delete, 
+	  		remote: true, class: "delete_step btn btn-danger btn-mini" %>
+   		
+	  </td>
+  </tr>

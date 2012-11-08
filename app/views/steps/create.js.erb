@@ -1,7 +1,7 @@
 removePreviousErrors();
 
 var counter = parseInt($('span#steps_count').html());
-$('ul#list_steps').append('<%=j render @step %>');
+$('table#steps_table').append('<%=j render @step %>');
 $('span#steps_count').html(counter + 1);
 $('input#step_content').val("");
 $('input#step_content').focus();
