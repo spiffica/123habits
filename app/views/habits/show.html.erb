@@ -11,8 +11,11 @@
       <p class="reward"><i class = "icon-star-empty"></i>Reward: 
         <span id="reward"><%= @habit.reward %></span>
       </p>
+      <% unless @habit.pending? %>
+        <%= render 'stats_table' %>
+      <% end %>
   </div>
-  <%#= render 'stats_table' %>
+
 <% end %>
 <%= content_for :left_sidebar do %>
   <ul class="nav nav-tabs nav-stacked" id="habits_menu">
@@ -84,7 +87,7 @@
 
     <div class="tab-pane active" id="trackers">
       <% unless @habit.pending? %>
-        <%= render 'stats_table' %>
+        <%#= render 'stats_table' %>
         <%= render 'trackers/calendar' %>
       <% end %>
     </div>
