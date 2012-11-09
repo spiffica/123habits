@@ -20,7 +20,7 @@ class TrackersController < ApplicationController
 		  		if @tracker.outcome == "fail"
 		  			flash[:notice] = "Sorry, your habit will be extended."
 		  		end
-  				redirect_to habit_trackers_path
+  				redirect_to @habit
   			end
   			format.js
       else

@@ -1,21 +1,6 @@
-<h1><%= link_to @habit.statement, habit_path(@habit) %></h1>
-<%= render "habits/stats_table" %>
+<div class="well">
+	<h1><%= link_to @habit.statement, habit_path(@habit) %></h1>
+</div>
+	<%= render "habits/stats_table" %>
 
-
-<%= calendar @trackers do |tracker| %>
-	<%= display_article(tracker)  do %>
-		<% if tracker.first_markable? %>
-			<%= render 'form', :tracker => tracker %>
-		<% end %>
-		<% if tracker.marked? %>
-			<%= link_to edit_habit_tracker_path(@habit,tracker), 
-				class: "notes_link", id:"edit_notes", title:"view notes",
-				:'data-toggle' =>'modal', remote: true  do %>
-				<i class ="icon-list-alt notes-icon" rel="popover" 
-					 data-original-title="<%= tracker.outcome %>"
-					 data-content="<%= tracker.notes %>">
-				</i> 
-			<% end %>
-		<% end %>
-	<% end %>
-<% end %>
+<%= render "calendar" %>

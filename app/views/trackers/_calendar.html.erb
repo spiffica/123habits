@@ -1,0 +1,17 @@
+<%= calendar @trackers do |tracker| %>
+	<%= display_article(tracker)  do %>
+		<% if tracker.first_markable? %>
+			<%= render 'trackers/form', :tracker => tracker %>
+		<% end %>
+		<% if tracker.marked? %>
+			<%= link_to image_tag('notes-icon.png', class: "notes-icon",
+						rel: "popover", :"data-original-title" => tracker.outcome, 
+						:"data-content"=>tracker.notes), 
+					edit_habit_tracker_path(@habit,tracker), 
+					class: "notes_link", id:"edit_notes", title:"view note",
+					:'data-toggle' =>'modal', remote: true   %>
+				
+				
+		<% end %>
+	<% end %>
+<% end %>

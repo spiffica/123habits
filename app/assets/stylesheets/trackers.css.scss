@@ -3,13 +3,20 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 .calendar td { height: 100px; width: 14.28%; }
-
-table.calendar td.day {
-  &.current { border-width: thick; background-color: orange }
-  &.fail { background-color: red; }
-  &.pass { background-color: green; }
-  &.pending { background-color: lightblue; }
-  &.overdue { background-color: yellow; }
+table.calendar {
+  //border-spacing:2px;
+  td.day {
+    &.current {background-color: hsl(60, 100%, 70%) }
+    &.fail { 
+      @include linear-gradient(hsl(0, 85%, 95%), hsl(0, 85%, 85%));
+    }
+    &.pass { 
+      @include linear-gradient(hsl(98, 63%, 50%),hsl(98, 63%, 80%),hsl(98, 63%, 50%))
+    }
+      //background-color: green; }
+    &.pending { background-color: lightblue; }
+    &.overdue { background-color: hsl(40, 100%, 70%); }
+  }
 }
 
 //for ajax form hiding
@@ -31,5 +38,14 @@ img.click_pic_pass, img.click_pic_fail {
 textarea {
   height: 200px;
   padding: 5px;
+
+}
+a.notes_link{
+  //float:right;
+  position:relative;
+  bottom:0px;
+  right:0px;
+}
+table.stats{
 
 }
