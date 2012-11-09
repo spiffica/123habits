@@ -4,7 +4,6 @@
 
 .calendar td { height: 100px; width: 14.28%; }
 table.calendar {
-  //border-spacing:2px;
   td.day {
     &.current {background-color: hsl(60, 100%, 70%) }
     &.fail { 
