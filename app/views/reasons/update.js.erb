@@ -1,6 +1,8 @@
-var updated_message = $('input#reason_message').val();
+var updated_message = "<%= @reason.message %>";
 var reason_selector = "td#reason_<%= @reason.id %>";
-$(reason_selector).html(updated_message);
+    console.log(updated_message);
+
+$(reason_selector).html(updated_message).val();
 
 removePreviousErrors();
 fadeModal();

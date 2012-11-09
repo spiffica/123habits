@@ -1,4 +1,4 @@
-var updated_message = $('input#affirmation_message').val();
+var updated_message = "<%= @affirmation.message %>";
 var affirmation_selector = "td#affirmation_<%= @affirmation.id %>";
 $(affirmation_selector).html(updated_message);
 

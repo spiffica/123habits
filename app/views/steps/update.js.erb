@@ -1,5 +1,10 @@
-var updated_message = $('input#step_content').val();
-var step_selector = "li#step_<%= @step.id %> span#content";
+var updated_message = "<%= @step.content %>";
+var step_selector = "td#step_<%= @step.id %>";
 $(step_selector).html(updated_message);
 removePreviousErrors();
 fadeModal();
+
+$("td#step_<%= @step.id %>").closest('tr')
+  .animate({'backgroundColor':'#93d5ec'}, 2000, function(){
+    $(this).css({'backgroundColor':''})
+  });
