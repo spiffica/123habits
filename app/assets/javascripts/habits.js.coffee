@@ -6,8 +6,7 @@ $ ->
   $('#habits_menu a.local').on 'click', (e) ->
     e.preventDefault()
     $(this).tab "show"
+    $('div.alert').hide()
 
   $('button[data-dismiss="modal"]').on 'click', ->
     $('div.modal').hide()  
-
-  $

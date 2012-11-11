@@ -45,6 +45,12 @@
         </span>
       </a>
     </li>
+    <li>
+      <%= link_to "View all notes", "#notes", class: "local" %>
+    </li>
+    <li>
+      <%= link_to "View all habits", root_path %>
+    </li>
   </ul>
 
 <% end %>
@@ -91,5 +97,9 @@
         <%= render 'trackers/calendar' %>
       <% end %>
     </div>
-
+    <div class="tab-pane" id="notes">
+      <% unless @habit.pending? %>
+        <%= render 'trackers/notes'%>
+      <% end %>
+    </div>
 </div>

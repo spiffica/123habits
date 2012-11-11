@@ -1,0 +1,6 @@
+			<% if tracker.marked? %>
+			<%= simple_form_for [@habit, tracker], remote: true %>
+					<%= f.input :notes, as: :text,label: false, autofocus: true %>
+					<%= f.submit "Submit", id:"submit-notes", class: "btn btn-primary" %>
+				<% end %>
+			<% end %>

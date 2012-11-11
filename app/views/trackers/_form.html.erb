@@ -10,7 +10,7 @@
 					<%= f.submit "Submit", class: "hide btn btn-primary" %>
 				<% end %>	
 				<% if tracker.marked? %>
-					<%= f.input :notes, as: :text %>
+					<%= f.input :notes, as: :text,label: false, autofocus: true %>
 					<%= f.submit "Submit", id:"submit-notes", class: "btn btn-primary" %>
 				<% end %>
 			<% end %>

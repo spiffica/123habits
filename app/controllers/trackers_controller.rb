@@ -15,17 +15,17 @@ class TrackersController < ApplicationController
   def update
   	@tracker = @habit.trackers.find(params[:id])
     respond_to do |format|
-  	  if @tracker.update_attributes(params[:tracker])
+      if @tracker.update_attributes(params[:tracker])
   			format.html do
 		  		if @tracker.outcome == "fail"
-		  			flash[:notice] = "Sorry, your habit will be extended."
+		  			flash[:notice] = "This failed day extended your habit."
 		  		end
   				redirect_to @habit
   			end
   			format.js
       else
         format.html do
-          render "Ah shit!!!"
+          render "Ah!!!"
         end
   		end
   	end

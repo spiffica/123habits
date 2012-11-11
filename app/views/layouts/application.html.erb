@@ -17,13 +17,17 @@
           <% end %>
         </div>
       </div>
-      <div class="row-fluid info">
-        <%= yield :info %>
-      </div>
-      <div class="row-fluid main_content">
-        <div class="span3 left_sidebar">
-          <%= yield :left_sidebar %>
+      <% if content_for? :info %>
+        <div class="row-fluid info">
+          <%= yield :info %>
         </div>
+      <% end %>
+      <div class="row-fluid main_content">
+        <% if content_for? :left_sidebar %>
+          <div class="span3 left_sidebar">
+            <%= yield :left_sidebar %>
+          </div>
+        <% end %>
         <div class="span9 habit_data">
           <%= yield %>
         </div>
