@@ -1,12 +1,14 @@
 <% is_remote = true unless @habit.new_record? %>
 <%= simple_form_for @habit, remote: is_remote do |f| %>
   <%= f.input :statement, autofocus: true %>
-  <%= f.input :reward %>
+  <%= f.input :reward, hint: "Every habit worth starting or ending deserves a reward. It will help you keep your eye on the prize." %>
   
   <%= f.input :habit_type, collection: Habit::TYPE, 
               checked: @habit.habit_type,
               label: 'Habit Type', 
-               as: :radio_buttons %>
+              as: :radio_buttons,
+              hint: "Do you want to 'kick' a bad habit, or 'start' a new, positive habit?"
+               %>
   <%= f.submit class: "btn btn-primary" %>
 <% end %>
 <% if @habit.started? %>

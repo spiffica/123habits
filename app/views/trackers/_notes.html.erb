@@ -1,7 +1,7 @@
 <% @trackers.each do |t| %>
 	<% unless t.notes.blank? %>
-		<h4><%= t.day %></h4>
-		<p><%= t.notes %></p>
+		<h4 class="alert <%= t.outcome %>"><%= t.day %></h4>
+		<%= simple_format t.notes %>
 		<span><%= link_to "Edit",edit_habit_tracker_path(@habit,t),
 				:'data-toggle' => 'modal', remote: true, class: "btn btn-small" %></span>
 		<hr>

@@ -111,3 +111,12 @@ aside p{
 	margin-bottom: 0;
 	margin-top: 0;
 }
+div.instructions, p.help-block{
+    background-color: #FCF8E3;
+    border: 1px solid #FBEED5;
+    border-radius: 4px 4px 4px 4px;
+    color: #C09853;
+    margin-bottom: 20px;
+    padding: 8px 35px 8px 14px;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+}

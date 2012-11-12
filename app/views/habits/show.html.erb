@@ -63,7 +63,9 @@
         <% unless @reasons.empty? %>
           <%= render @reasons %>
         <% else %>
-          <p class="instructions">Instructions on how and why to input reasons</p>
+          <div class="instructions">
+            <%= render 'reasons/reason_instructions' %>
+          </div>
         <% end %>
       </table>
       <%= render 'reasons/form' %>
@@ -74,7 +76,9 @@
         <% unless @steps.empty? %>
           <%= render @steps %>
         <% else %>
-          <p class="instructions">Instructions on how and why to input steps</p>
+          <div class="instructions">
+            <%= render 'steps/step_instructions' %>
+          </div>
         <% end %>
       </table>
       <%= render 'steps/form' %>
@@ -85,7 +89,9 @@
         <% unless @affirmations.empty? %>
           <%= render @affirmations %>
         <% else %>
-          <p class="instructions">Instructions on how and why to input affirmations</p>
+          <div class="instructions">
+            <%= render 'affirmations/affirmation_instructions' %>
+          </div>
         <% end %>
       </table>      
       <%= render 'affirmations/form' %>

@@ -1,4 +1,4 @@
-			<%= simple_form_for [@habit, tracker] do |f| %>
+			<%= simple_form_for [@habit, tracker] do  |f| %>
 				<% unless tracker.marked? %>
 					<%= f.collection_radio_buttons(:outcome,
 						[["pass","pass"],["fail","fail"]], 
