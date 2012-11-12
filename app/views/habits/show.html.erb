@@ -45,9 +45,11 @@
         </span>
       </a>
     </li>
-    <li>
-      <%= link_to "View all notes", "#notes", class: "local" %>
-    </li>
+    <% unless @habit.pending? %>    
+      <li>
+        <%= link_to "View all notes", "#notes", class: "local" %>
+      </li>
+    <% end %>
     <li>
       <%= link_to "View all habits", root_path %>
     </li>
