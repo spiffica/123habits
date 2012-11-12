@@ -21,7 +21,7 @@ class Habit < ActiveRecord::Base
   validates :user_id, presence: true
   validates :habit_type, presence: true
   validates :status, inclusion: { in: STATUS }
-  validates :penalty, presence: true, inclusion: {in: 1..7}
+  validates :penalty, presence: true, :inclusion => 1..7
 
   scope :order_status_start, order("status DESC, start_date DESC")
 
