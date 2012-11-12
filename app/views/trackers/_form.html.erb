@@ -1,4 +1,4 @@
-			<%= simple_form_for [@habit, tracker] do  |f| %>
+			<%= simple_form_for [@habit, tracker] do |f| %>
 				<% unless tracker.marked? %>
 					<%= f.collection_radio_buttons(:outcome,
 						[["pass","pass"],["fail","fail"]], 
@@ -10,7 +10,8 @@
 					<%= f.submit "Submit", class: "hide btn btn-primary" %>
 				<% end %>	
 				<% if tracker.marked? %>
-					<%= f.input :notes, as: :text,label: false, autofocus: true %>
+					<%= f.input :notes, as: :text,
+											:hint => "Keep track of what helped or hurt your success for the day" %>
 					<%= f.submit "Submit", id:"submit-notes", class: "btn btn-primary" %>
 				<% end %>
 			<% end %>

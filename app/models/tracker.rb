@@ -27,7 +27,7 @@ class Tracker < ActiveRecord::Base
     end
   end
 
-  scope :marked, lambda { fail + pass } 
+  scope :marked, where(:outcome => ['fail','pass']).order("id")
   scope :unmarked, where(:outcome => ['overdue','current','pending'])
   scope :markable, where(:outcome => ['overdue','current']).order("id")
   scope :day_is_today, lambda { |tz| where("day = ?", Time.now.in_time_zone(tz).to_date) }
@@ -68,6 +68,7 @@ class Tracker < ActiveRecord::Base
     end
   end
 
+  # no longer being used as user selects penalty
   def trackers_to_add
     (Habit::LENGTH - self.habit.trackers.unmarked.count + 1).to_i
   end    
@@ -124,7 +125,7 @@ class Tracker < ActiveRecord::Base
 
     def add_penalty_on_fail
       if self.outcome_changed? && self.fail?
-        add_penalty_trackers(trackers_to_add)
+        add_penalty_trackers(self.habit.penalty)
       end
     end
 end

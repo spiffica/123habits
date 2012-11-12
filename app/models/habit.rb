@@ -11,7 +11,7 @@ class Habit < ActiveRecord::Base
   has_many :trackers, dependent: :destroy
 
   attr_accessible :goal_date, :statement, :habit_type, :status, :start_date, 
-                  :reward
+                  :reward, :penalty
 
   before_save :status_check
   # after_find :update_unmarked_trackers
@@ -21,6 +21,7 @@ class Habit < ActiveRecord::Base
   validates :user_id, presence: true
   validates :habit_type, presence: true
   validates :status, inclusion: { in: STATUS }
+  validates :penalty, presence: true, inclusion: {in: 1..7}
 
   scope :order_status_start, order("status DESC, start_date DESC")
 
@@ -48,9 +49,13 @@ class Habit < ActiveRecord::Base
       end
     end
   end
-
   def day_streak
-    (Habit::LENGTH - self.trackers.unmarked.count)
+    count = 0
+    self.trackers.marked.reverse.each do |t|
+      break if t.outcome =="fail"
+      count += 1
+    end
+    count
   end
 
   def days_ago_started

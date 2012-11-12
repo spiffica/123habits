@@ -1,7 +1,7 @@
 removePreviousErrors();
 
 var counter = parseInt($('span#reasons_count').html());
-$('div.instructions').remove();
+$('div#reason_instructions').remove();
 $('table#reasons_table').append('<%=j render @reason %>');
 $('span#reasons_count').html(counter + 1);
 

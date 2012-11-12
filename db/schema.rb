@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121025185159) do
+ActiveRecord::Schema.define(:version => 20121112051158) do
 
   create_table "affirmations", :force => true do |t|
     t.string   "message"
@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(:version => 20121025185159) do
     t.string   "status",     :default => "pending"
     t.date     "start_date"
     t.string   "reward"
+    t.integer  "penalty",    :default => 7
   end
 
   add_index "habits", ["user_id", "created_at"], :name => "index_habits_on_user_id_and_created_at"

@@ -1,7 +1,7 @@
 removePreviousErrors();
 
 var counter = parseInt($('span#steps_count').html());
-$('p.instructions').remove();
+$('div#step_instructions').remove();
 
 $('table#steps_table').append('<%=j render @step %>');
 $('span#steps_count').html(counter + 1);

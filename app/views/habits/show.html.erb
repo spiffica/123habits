@@ -63,7 +63,7 @@
         <% unless @reasons.empty? %>
           <%= render @reasons %>
         <% else %>
-          <div class="instructions">
+          <div class="instructions" id="reason_instructions">
             <%= render 'reasons/reason_instructions' %>
           </div>
         <% end %>
@@ -76,7 +76,7 @@
         <% unless @steps.empty? %>
           <%= render @steps %>
         <% else %>
-          <div class="instructions">
+          <div class="instructions" id="step_instructions">
             <%= render 'steps/step_instructions' %>
           </div>
         <% end %>
@@ -89,7 +89,7 @@
         <% unless @affirmations.empty? %>
           <%= render @affirmations %>
         <% else %>
-          <div class="instructions">
+          <div class="instructions" id="affirmation_instructions">
             <%= render 'affirmations/affirmation_instructions' %>
           </div>
         <% end %>
@@ -99,7 +99,6 @@
 
     <div class="tab-pane active" id="trackers">
       <% unless @habit.pending? %>
-        <%#= render 'stats_table' %>
         <%= render 'trackers/calendar' %>
       <% end %>
     </div>

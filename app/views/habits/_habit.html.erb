@@ -3,8 +3,7 @@
   <span><%= link_to truncate(habit.statement,length: 50), 
   	habit_path(habit.id) %></span>
   <% if habit.started? %>
-  	<%# TODO  not displaying proper timezone %>
-  	<small>(started <%= time_ago_in_words habit.start_date %> ago)</small>
+  	<small>(started <%= when_habit_started(habit)%>)</small>
   <% else habit.pending? %>
   	<small>(created <%= time_ago_in_words habit.created_at %> ago)</small>
   <% end %>

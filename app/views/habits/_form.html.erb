@@ -2,6 +2,11 @@
 <%= simple_form_for @habit, remote: is_remote do |f| %>
   <%= f.input :statement, autofocus: true %>
   <%= f.input :reward, hint: "Every habit worth starting or ending deserves a reward. It will help you keep your eye on the prize." %>
+  <%= f.input :penalty,
+              :label => "Penalty days",
+              :collection => 1..7,
+              :prompt => "Select your punishment",
+              hint: "Each failed day adds extra days to your habit length. The default is 7." %>
   
   <%= f.input :habit_type, collection: Habit::TYPE, 
               checked: @habit.habit_type,
