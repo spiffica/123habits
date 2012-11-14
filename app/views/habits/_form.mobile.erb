@@ -1,6 +1,6 @@
 <%= simple_form_for @habit do |f| %>
   <div data-role="fieldcontain">
-  <%= f.input :statement, autofocus: true, placeholder: "I want to ..." %>
+  <%= f.input :statement, as: :text, autofocus: true, placeholder: "I want to ..." %>
   </div>
   <div data-role="fieldcontain">
   <%= f.input :reward, placeholder: "A new ..." %>

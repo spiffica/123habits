@@ -6,9 +6,10 @@
 
 		<div data-role="content">
 			<ul data-role="listview" data-split-icon="delete">
+				<li data-role="list-divider" role="heading" data-theme="d">Reasons</li>
 				<% @habit.reasons.each do |r| %>
 				 	<li>
-				 		<%= link_to r.message, edit_habit_reason_path(@habit,r) %>
+				 		<%= link_to content_tag(:p,r.message,class:"list_content"), edit_habit_reason_path(@habit,r) %>
 				 			<%= link_to 'delete', [@habit, r], method: :delete, confirm: "Are you sure you want to delete this reason?" %>
 				 	</li>
 				<% end %>

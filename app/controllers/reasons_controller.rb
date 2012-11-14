@@ -38,7 +38,8 @@ class ReasonsController < ApplicationController
           flash[:success] = "Reason successfully updated."
           redirect_to  habit_path(@habit)
         end
-        format.mobile { redirect_to habit_reasons_path(@habit)}
+        format.mobile { redirect_to habit_reasons_path(@habit), notice: "Reason
+          updated"}
         format.js
       else
         format.html { render :edit }

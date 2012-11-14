@@ -21,7 +21,6 @@ class HabitsController < ApplicationController
 
   def show
     @habit = current_user.habits.find(params[:id])
-    #@habits = current_user.habits.all
     @reason = @habit.reasons.build
     @reasons = @habit.reasons.order("created_at ASC")
     @step = @habit.steps.build
