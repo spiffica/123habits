@@ -11,7 +11,8 @@
 	 	<% @started.each do |s| %>
 	 		<tr>
 	 			<td class="span6">
-	 				<%= link_to truncate(content_tag(:span,s.statement,class: "statement"),length: 50) + " (started #{ when_habit_started(s)})",habit_path(s.id) %>
+	 				<%= link_to content_tag(:span,truncate(s.statement,length:50),class: "statement"), habit_path(s.id) %>
+	 				<small>(<%= s.day_streak %> day streak)</small>
 	  		</td>	
 	  		<td class="span3 actions">
 	  			<%= render 'habits/action_links', :habit => s %>
@@ -24,7 +25,7 @@
 	 	<% @pending.each do |p| %>
 	 		<tr>
 	 			<td class="span6">
-	 				<%= link_to truncate(content_tag(:span,p.statement,class: "statement"),length: 50) + " (created #{time_ago_in_words p.created_at } ago)",habit_path(p.id) %>
+	 				<%= link_to content_tag(:span,truncate(p.statement,length: 50),class: "statement") ,habit_path(p.id) %>
 	  		</td>	
 	  		<td class="span3 actions">
 	  			<%= render 'habits/action_links', :habit => p %>
