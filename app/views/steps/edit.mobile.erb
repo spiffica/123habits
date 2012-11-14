@@ -1,0 +1,7 @@
+<header data-role="header">
+	<h2><%= @habit.statement %></h2>
+	<%= link_to "Cancel",:back, data:{role: 'button',icon: 'delete',} %>
+</header>
+<div data-role="content">
+	<%= render 'form' %>
+</div>

@@ -14,9 +14,9 @@ Habits::Application.routes.draw do
 
   
   resources :habits do
-    resources :reasons, only: [:create, :edit, :update, :destroy]
-    resources :steps, only: [:create, :edit, :update, :destroy]
-    resources :affirmations, only: [:create, :edit, :update, :destroy]
+    resources :reasons
+    resources :steps
+    resources :affirmations
     resources :trackers, only: [:index, :edit, :show, :update]
   end
 

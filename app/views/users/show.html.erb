@@ -38,7 +38,7 @@
 	 	<% @completed.each do |c| %>
 	 		<tr>
 	 			<td class="span6">
-	 				<%= link_to truncate(content_tag(:span,c.statement,class: "statement"),length: 50),habit_path(c.id) %>
+	 				<%= link_to content_tag(:span,truncate(c.statement,length: 50),class: "statement"),habit_path(c.id) %>
 	  		</td>	
 	  		<td class="span3 actions">
 	  			<%= render 'habits/action_links', :habit => c %>
@@ -47,4 +47,4 @@
 	 		<% end %>
 	 	<% end %>
  </table>
-<p><%= button_to "Create new habit", new_habit_path, method: :get, class: "btn btn-primary" %></p>
+<p><%= link_to "Create new habit", new_habit_path, class: "btn btn-primary" %></p>

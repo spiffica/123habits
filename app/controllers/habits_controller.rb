@@ -7,10 +7,15 @@ class HabitsController < ApplicationController
 
   def create
     @habit = current_user.habits.build(params[:habit])
-    if @habit.save
-      redirect_to @habit
-    else
-      render :new
+    respond_to do |format|
+      if @habit.save
+        format.html { redirect_to @habit }
+        format.mobile { redirect_to root_path }
+        
+      else
+        format.html { render :new }
+        format.mobile { render :new }
+      end
     end
   end
 
@@ -38,12 +43,17 @@ class HabitsController < ApplicationController
           flash[:success] = "Habit successfully updated."
           redirect_to @habit
         end
+        format.mobile do
+          flash[:success] = "Habit updated."
+          redirect_to @habit
+        end
         format.js { @habits = current_user.habits.order_status_start }
       else
         format.html do
           flash[:error] = "Please try again"
           render :edit
         end
+        format.mobile { render :edit }
         format.js { render 'edit' }
       end
     end
@@ -57,6 +67,7 @@ class HabitsController < ApplicationController
         flash[:success] = "Habit successfully destroyed"
         redirect_to current_user
       end
+      format.mobile { redirect_to current_user }
       format.js
     end
   end

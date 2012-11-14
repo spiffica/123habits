@@ -1,5 +1,5 @@
 <header data-role="header" data-theme="b">
-		<%= link_to 'Back', :back, "data-role"=>"button", "data-icon"=>"arrow-l"%>
+		<%= link_to 'Back', root_path, "data-role"=>"button", "data-icon"=>"arrow-l"%>
 	<h1 id="statement"><%= @habit.statement %></h1>
 		<%= link_to 'Edit', edit_habit_path(@habit), "data-role"=>"button", "data-icon"=>"gear" %>
 
@@ -9,11 +9,16 @@
 	<p class="reward">Reward: <span id="reward">
 	  <%= @habit.reward %></span>
 	</p>
+	<% if @habit.pending? %>
+		<%= render 'habits/start_form.html.erb' %>
+	<% end %>
 	<ul data-role="listview" data-inset="true">
-		<li><%= link_to "Progress", habit_trackers_path(@habit) %>
-		</li>
-		<li><%= link_to "Stats", "#stats" %>
-		</li>
+		<% if @habit.started? %>
+			<li><%= link_to "Progress", "habit_trackers_path(@habit)" %>
+			</li>
+			<li><%= link_to "Stats", "#stats" %>
+			</li>
+		<% end %>
 		<li><%= link_to "Reasons", habit_reasons_path(@habit) %>
 			<span class='ui-li-count'><%= @habit.reasons.count %></span>
 		</li>
@@ -26,8 +31,36 @@
 	</ul>
 </div>
 
-<div data-role="page" id="stats">
-	<div data-role="content">
-		<p>here are some stats</p>
-	</div>
-</div>
+<%= content_for :other_page do %>
+	<% if @habit.started? %>
+		<div data-role="page" id="stats">
+			<%= render 'layout/header' %>
+			<header data-role="header" data-theme="b">
+					<%= link_to 'Back', :back, "data-role"=>"button", "data-icon"=>"arrow-l"%>
+				<h1 id="statement"><%= @habit.statement %></h1>
+					<%= link_to 'Edit', edit_habit_path(@habit), "data-role"=>"button", "data-icon"=>"gear" %>
+			</header>
+
+			<div data-role="content">
+				<p>here are some stats</p>
+				<ul data-role="listview" data-inset="true">
+					<li>Started <%= when_habit_started @habit %>
+		              (<%= @habit.start_date.to_formatted_s(:short) %>)
+					</li>
+					<li>Ending in <%= pluralize(@habit.days_left,'day')%> 
+		              (<%= @habit.end_date.to_formatted_s(:short) %>)
+					</li>
+					<li>Ratio <%= @habit.percent_success %>% (<%= @habit.trackers.
+		              pass.count %>/<%= @habit.trackers.marked.count %>)
+					</li>
+					<li>Streak: <%= pluralize(@habit.day_streak,'day') %>
+					</li>
+					
+				</ul>
+				
+			</div>
+		</div>
+
+	<% end %>
+
+<% end %>

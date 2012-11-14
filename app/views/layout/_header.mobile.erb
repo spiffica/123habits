@@ -1,0 +1,22 @@
+<header data-role="header" data-position="fixed">
+	<h2>HabitBuster	<%= link_to 'Home',root_path, data:{role:"button",icon:"home",iconpos:"notext"}, class: "ui-btn-left" %>
+	<a href ="#popup-settings" data-icon ="gear" data-iconpos="notext" class= "ui-btn-right" data-rel="popup" data-role="button">Settings</a>
+
+	</h2>
+</header>
+<% flash.each do |key,value| %>
+  <div class="alert alert-<%= key %>"><%= value %></div>
+<% end %>
+		<div id="popup-settings" data-role="popup">
+			<% if signed_in? %>
+				<ul class="dropdown-menu" data-role="listview">
+			    <li><%= link_to "Profile", current_user %></li>
+			    <li><%= link_to "Settings", edit_user_path(current_user) %>
+			    </li>
+			    <li class="divider" data-role="list-divider"></li>
+			    <li><%= link_to 'Sign out', signout_path, method: :delete, 
+			    		:html =>{"data-ajax"=>"false"} %>
+			    </li>
+			  </ul>
+			<% end %>
+		</div>

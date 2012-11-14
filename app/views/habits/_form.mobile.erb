@@ -1,10 +1,18 @@
 <%= simple_form_for @habit do |f| %>
   <div data-role="fieldcontain">
-  <%= f.input :statement, autofocus: true %>
+  <%= f.input :statement, autofocus: true, placeholder: "I want to ..." %>
   </div>
   <div data-role="fieldcontain">
-  <%= f.input :reward %>
+  <%= f.input :reward, placeholder: "A new ..." %>
   </div>
+  
+  <div data-role="fieldcontain">
+      <%= f.input :penalty,
+              :label => "Penalty days",
+              :collection => 1..7,
+              :prompt => "Select your punishment" %>
+  </div>
+
   
   <div data-role="fieldcontain">
     <fieldset data-role="controlgroup" data-type="horizontal">
@@ -14,6 +22,7 @@
                as: :radio_buttons %>
     </fieldset>
   </div>
+
   <div data-role="fieldcontain">
   <%= f.submit class: "btn btn-primary" %>
   </div>

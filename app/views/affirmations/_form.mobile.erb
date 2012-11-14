@@ -1,0 +1,10 @@
+<div id="affirmations_form" >
+    <%= simple_form_for [@habit,@affirmation], class: "affirmation_form" do |f| %>
+    <div data-role="fieldcontain">
+      <%= f.input :message, label: false, autofocus: true %>
+    </div>
+    <div data-role="fieldcontain">
+      <%= f.submit class: "btn btn-primary" %>
+    </div>
+    <% end %>
+</div> 
