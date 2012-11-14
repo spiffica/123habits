@@ -14,7 +14,7 @@
 			</li>
 			<% @habits.send(x.to_sym).each do |h| %>
 				<li>
-					<%= link_to h.statement, h %>
+					<%= link_to content_tag(:p,h.statement,class:"list_content"), h %>
 					<%= link_to 'delete', h, method: :delete, confirm:
 						"Are you sure you want to delete this habit?" %>
 				</li>
