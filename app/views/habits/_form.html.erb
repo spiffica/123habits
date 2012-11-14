@@ -1,12 +1,16 @@
 <% is_remote = true unless @habit.new_record? %>
-<%= simple_form_for @habit, remote: is_remote do |f| %>
-  <%= f.input :statement, autofocus: true %>
-  <%= f.input :reward, hint: "Every habit worth starting or ending deserves a reward. It will help you keep your eye on the prize." %>
+<%= simple_form_for @habit do |f| %>
+  <%= f.input :statement, autofocus: true, 
+              :placeholder => "I want to ..."
+              %>
+  <%= f.input :reward,
+              :placeholder => "A new ...",
+               hint: "Every habit worth starting or ending deserves a reward. It will help you keep your eye on the prize." %>
   <%= f.input :penalty,
               :label => "Penalty days",
               :collection => 1..7,
               :prompt => "Select your punishment",
-              hint: "Each failed day adds extra days to your habit length. The default is 7." %>
+              hint: "To permanently change a behaviour, you must imprint this behaviour for a minimum of 21 days. This is the starting length of your habit. Each failed day adds extra days to your habit length. The default is 7 days, but you may choose between 1 and 7." %>
   
   <%= f.input :habit_type, collection: Habit::TYPE, 
               checked: @habit.habit_type,

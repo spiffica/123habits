@@ -2,6 +2,7 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 @import "bootstrap";
+@import "bourbon";
 
 #habit_statement {
   //width: 400px;
@@ -119,4 +120,8 @@ div.instructions, p.help-block{
     margin-bottom: 20px;
     padding: 8px 35px 8px 14px;
     text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+a#edit_statement_btn {
+	font-weight: normal;
+	letter-spacing: 0px;
 }

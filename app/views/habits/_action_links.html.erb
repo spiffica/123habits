@@ -1,6 +1,3 @@
-<span class='actions'>
-  	<%= link_to "edit", edit_habit_path(habit.id), remote: true %> |
-	  <%= link_to "view", habit_path(habit.id) %> |
-	  <%= link_to "delete", habit, method: :delete, remote: true, 
-	  	class: 'delete-habit' %>
-	</span>
+  	<%= link_to "edit", edit_habit_path(habit.id), remote: true, class: "btn btn-mini btn-action" %> 
+	  <%= link_to "view", habit_path(habit.id), class: "btn btn-mini btn-info" %> 
+	  <%= link_to "delete", habit, method: :delete, class: "delete-habit btn btn-mini btn-danger" %>

@@ -13,7 +13,10 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @habits = @user.habits.order_status_start 
+    @habits = @user.habits 
+    @started = @habits.started.start_order
+    @pending = @habits.pending
+    @completed = @habits.completed
     
   end
 

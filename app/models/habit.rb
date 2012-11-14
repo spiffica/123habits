@@ -24,6 +24,7 @@ class Habit < ActiveRecord::Base
   validates :penalty, presence: true, :inclusion => 1..7
 
   scope :order_status_start, order("status DESC, start_date DESC")
+  scope :start_order, order("start_date DESC")
 
   STATUS.each do |status|
     define_method "#{status}?" do

@@ -4,6 +4,7 @@
 		<%= link_to 'Edit', edit_habit_path(@habit), "data-role"=>"button", "data-icon"=>"gear" %>
 
 </header>
+
 <div data-role="content">
 	<p class="reward">Reward: <span id="reward">
 	  <%= @habit.reward %></span>
@@ -23,4 +24,10 @@
 			<span class='ui-li-count'><%= @habit.affirmations.count %></span>
 		</li>
 	</ul>
+</div>
+
+<div data-role="page" id="stats">
+	<div data-role="content">
+		<p>here are some stats</p>
+	</div>
 </div>

@@ -1,11 +1,49 @@
 <% provide :title, @user.name %>
-<h2><%= @user.name %></h2>
-<p><small><%= @user.email %></small></p>
-<h3>Habits(<span id="habit-count"><%= @habits.count %></span>)</h3>
-<article id="habits_list">
-	<ol>
-	  <%= render @habits %>
-	</ol>
-</article>
-<p><%= button_to "Create new habit", new_habit_path, method: :get, class: "btn btn-primary" %></p>
+<div class="well center">
+<h2><%= @user.name %>'s Habits(<%= @habits.count %>)</h2>
+<%= link_to "Create new habit", new_habit_path, method: :get, class: "btn btn-primary new_habit_link" %>
+</div>
+
  
+ <table id="habits_table" class="table table-stroped table-hover">
+ 	<% if @started.any? %>
+	 	<tr id="started_habits" class="success"><td class="span9"><h4>STARTED(<%= @started.count %>)</h4></td><td></td></tr>
+	 	<% @started.each do |s| %>
+	 		<tr>
+	 			<td class="span6">
+	 				<%= link_to truncate(content_tag(:span,s.statement,class: "statement"),length: 50) + " (started #{ when_habit_started(s)})",habit_path(s.id) %>
+	  		</td>	
+	  		<td class="span3 actions">
+	  			<%= render 'habits/action_links', :habit => s %>
+	  		</td>
+	 		</tr>
+	 		<% end %>
+	 	<% end %>
+ 	<% if @pending.any? %>
+	 	<tr id="pending_habits" class="warning"><td class="span9"><h4>PENDING(<%= @pending.count %>)</h4></td><td></td></tr>
+	 	<% @pending.each do |p| %>
+	 		<tr>
+	 			<td class="span6">
+	 				<%= link_to truncate(content_tag(:span,p.statement,class: "statement"),length: 50) + " (created #{time_ago_in_words p.created_at } ago)",habit_path(p.id) %>
+	  		</td>	
+	  		<td class="span3 actions">
+	  			<%= render 'habits/action_links', :habit => p %>
+	  		</td>
+	 		</tr>
+	 		<% end %>
+	 	<% end %>
+ 	<% if @completed.any? %>
+	 	<tr id="completed_habits" class="info"><td class="span9">Completed(<%= @completed.count %>)</td><td></td></tr>
+	 	<% @completed.each do |c| %>
+	 		<tr>
+	 			<td class="span6">
+	 				<%= link_to truncate(content_tag(:span,c.statement,class: "statement"),length: 50),habit_path(c.id) %>
+	  		</td>	
+	  		<td class="span3 actions">
+	  			<%= render 'habits/action_links', :habit => c %>
+	  		</td>
+	 		</tr>
+	 		<% end %>
+	 	<% end %>
+ </table>
+<p><%= button_to "Create new habit", new_habit_path, method: :get, class: "btn btn-primary" %></p>

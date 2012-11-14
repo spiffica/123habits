@@ -1,13 +1,15 @@
+<%= content_for :title, @habit.statement %>
+
 <%= content_for :info do %>
   <div class="span3 status_info <%= @habit.status %>">
     <%= render 'status_info' %>
   </div>
   <div class="well span9">
-    <h1 id="statement">
-      <span><%= @habit.statement %></span> 
-      <small><%= link_to 'edit', edit_habit_path(@habit), remote: true,
-       :'data-toggle'=>'modal' %></small>
-     </h1>
+    <h2 id="statement">
+      <%= @habit.statement %>
+      <%= link_to 'edit', edit_habit_path(@habit), remote: true,
+       :'data-toggle'=>'modal', class: "btn btn-small",id:"edit_statement_btn"%>
+     </h2>
       <p class="reward"><i class = "icon-star-empty"></i>Reward: 
         <span id="reward"><%= @habit.reward %></span>
       </p>
@@ -15,8 +17,8 @@
         <%= render 'stats_table' %>
       <% end %>
   </div>
-
 <% end %>
+
 <%= content_for :left_sidebar do %>
   <ul class="nav nav-tabs nav-stacked" id="habits_menu">
     <% unless @habit.pending? %>
