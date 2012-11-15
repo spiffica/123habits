@@ -1,7 +1,7 @@
 <div id="steps_form" >
     <%= simple_form_for [@habit,@step], class: "step_form" do |f| %>
     <div data-role="fieldcontain">
-      <%= f.input :content,as: :text, label: false, autofocus: true %>
+      <%= f.input :message,as: :text, label: false, autofocus: true %>
     </div>
     <div data-role="fieldcontain">
       <%= f.submit class: "btn btn-primary" %>

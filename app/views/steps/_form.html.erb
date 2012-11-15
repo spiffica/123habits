@@ -1,6 +1,6 @@
 <div id="steps_form">
   <%= simple_form_for [@habit, @step], remote: true,class: "step_form" do |f| %>
-    	<%= f.input :content, label: false, autofocus: true %>
+    	<%= f.input :message, label: false, autofocus: true %>
 	    <%= f.submit class: "btn btn-primary" %>
   <% end %>
 </div>

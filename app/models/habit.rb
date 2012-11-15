@@ -133,5 +133,6 @@ end
 #  status     :string(255)     default("pending")
 #  start_date :date
 #  reward     :string(255)
+#  penalty    :integer         default(7)
 #
 

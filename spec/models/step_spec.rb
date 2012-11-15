@@ -8,7 +8,7 @@ end
 # Table name: steps
 #
 #  id         :integer         not null, primary key
-#  content    :string(255)
+#  message    :string(255)
 #  habit_id   :integer
 #  created_at :datetime        not null
 #  updated_at :datetime        not null

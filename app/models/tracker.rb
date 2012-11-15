@@ -135,11 +135,10 @@ end
 #
 #  id         :integer         not null, primary key
 #  day        :date
-#  success    :boolean
 #  notes      :string(255)
 #  habit_id   :integer
 #  created_at :datetime        not null
 #  updated_at :datetime        not null
-#  outcome    :string(255)
+#  outcome    :string(255)     default("pending")
 #
 

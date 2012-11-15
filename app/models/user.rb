@@ -46,5 +46,6 @@ end
 #  password_digest :string(255)
 #  remember_token  :string(255)
 #  time_zone       :string(255)     default("Pacific Time (US & Canada)")
+#  last_visited    :datetime
 #
 
