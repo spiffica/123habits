@@ -1,0 +1,13 @@
+<header data-role="header">
+	<h2>Edit Note</h2>
+</header>
+<div id="notes_form" data-role="content" >
+    <%= simple_form_for [@habit,@tracker], class: "notes_form" do |f| %>
+    <div data-role="fieldcontain">
+      <%= f.input :notes, as: :text, label: false, autofocus: true %>
+    </div>
+    <div data-role="fieldcontain">
+      <%= f.submit class: "btn btn-primary" %>
+    </div>
+    <% end %>
+</div> 

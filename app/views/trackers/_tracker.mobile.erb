@@ -1,0 +1,14 @@
+<%= content_tag(:li, class: "#{tracker.outcome} tracker") do %>
+	<% if tracker.first_markable? %>
+		<%= render 'trackers/form.html.erb', :tracker => tracker %>
+	<% else %>
+		<%= content_tag(:p, class: "tracker_date") do %>
+			<% if tracker.marked? %>
+				<%= link_to(tracker.day.strftime("%A,%B %d"),
+						edit_habit_tracker_path(@habit,tracker),class:"note_link") %>
+			<% else %>
+				<p><%= tracker.day.strftime("%A,%B %d") %></p>
+			<% end %>
+		<% end %>
+	<% end %>
+<% end %>

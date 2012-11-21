@@ -14,7 +14,7 @@
 	<% end %>
 	<ul data-role="listview" data-inset="true">
 		<% if @habit.started? %>
-			<li><%= link_to "Progress", "habit_trackers_path(@habit)" %>
+			<li><%= link_to "Progress", habit_trackers_path(@habit) %>
 			</li>
 			<li><%= link_to "Stats", "#stats" %>
 			</li>
@@ -34,7 +34,7 @@
 <%= content_for :other_page do %>
 	<% if @habit.started? %>
 		<div data-role="page" id="stats">
-			<%= render 'layout/header' %>
+			<%= render 'layouts/header' %>
 			<header data-role="header" data-theme="b">
 					<%= link_to 'Back', :back, "data-role"=>"button", "data-icon"=>"arrow-l"%>
 				<h1 id="statement"><%= @habit.statement %></h1>

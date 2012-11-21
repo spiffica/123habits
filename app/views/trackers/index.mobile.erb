@@ -1,0 +1,30 @@
+<header data-role="header" data-theme="b">
+		<%= link_to 'Back', @habit, "data-role"=>"button", "data-icon"=>"arrow-l"%>
+	<h1>Progress</h1>
+		<%#= link_to 'Add', new_habit_step_path(@habit), "data-role"=>"button", "data-icon"=>"plus" %>
+</header>
+
+<div data-role="content">
+	<p><%= @habit.statement %></p>
+		<%= link_to 'Show all notes', "#notes", "data-ajax"=>"false", "data-role"=>"button"%>
+	<ul data-role="listview" data-split-icon="delete" data-inset="true">
+		<%= render @trackers %>
+	</ul>
+
+
+
+</div>
+
+<%= content_for :other_page do %>
+	<div data-role="page" id="notes">
+		<div data-role="content">
+			<%= link_to "back", habit_trackers_path(@habit) %>
+			<% @trackers.each do |t| %>
+				<% unless t.notes.blank? %>
+					<p><%= t.notes %></p>
+					<hr>
+				<% end %>
+			<% end %>
+		</div>
+	</div>
+<% end %>

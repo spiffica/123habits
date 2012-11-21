@@ -1,7 +1,7 @@
 class TrackersController < ApplicationController
   before_filter :set_habit
   def index
-  	@trackers = @habit.trackers.all
+  	@trackers = @habit.trackers.order("id")
   end
 
   def show
@@ -22,6 +22,7 @@ class TrackersController < ApplicationController
 		  		end
   				redirect_to @habit
   			end
+        format.mobile { redirect_to habit_trackers_path(@habit) }
   			format.js
       else
         format.html do

@@ -1,29 +1,26 @@
-<div data-role="page">
-  <h1 data-role="header">Welcome to the Habit Buster</h1>
-  <h2 class="italics">...where habits go to die!!</h2>
-  <%= link_to "Sign Up Now!", signup_path, class: "btn btn-large btn-primary" %>
-  <%= link_to "Login", '#signin', data:{role: 'button',inline:'true',rel:'popup'} %>
-  <div id='signin' data-role="popup">
-  	<%= link_to 'Close',"#",data:{role:"button",theme: "b",icon:"delete",
-  		iconpos:"notext"}, class: "ui-btn-right"  %>
-		<header data-role="header">
-			<h1>Sign in</h1>
-		</header>
-		<div data-role="content">
-			<%= simple_form_for :session, url: sessions_path, :html => {"data-ajax" => false} do |f| %>
-			  <div data-role="fieldcontain">
-			  	<%= f.input :email, autofocus: true %>
-			  </div>
-			  <div data-role="fieldcontain">
-			  	<%= f.input :password %>
-				</div>
-			  <div data-role="fieldcontain">
-			 		<%= f.submit 'Sign in', class: 'btn btn-large btn-primary' %>
-			 	</div>
-			<% end %>
+  <h1 class="title" data-role="header">Welcome to the Habit Buster</h1>
+  <h2 class="tagline">...where habits go to die!!</h2>
+  <div class="home_btns">
+	  <%= link_to "Sign Up Now!", signup_path, data: {role: "button",inline: true,theme:'b'} %>
+	  <%= link_to "Login", '#signin', data:{role: 'button',inline:'true',rel:'popup',theme:'d'} %>
+  </div>
+	  <div id='signin' data-role="popup">
+	  	<%= link_to 'Close',"#",data:{role:"button",theme: "b",icon:"delete",
+	  		iconpos:"notext", rel: 'back'}, class: "ui-btn-right"  %>
+			<header data-role="header">
+				<h1>Sign in</h1>
+			</header>
+			<div data-role="content">
+				<%= simple_form_for :session, url: sessions_path, :html => {"data-ajax" => false} do |f| %>
+				  <div data-role="fieldcontain">
+				  	<%= f.input :email, autofocus: true %>
+				  </div>
+				  <div data-role="fieldcontain">
+				  	<%= f.input :password %>
+					</div>
+				  <div data-role="fieldcontain">
+				 		<%= f.submit 'Sign in', class: 'btn btn-large btn-primary' %>
+				 	</div>
+				<% end %>
+			</div>
 		</div>
-	</div>
-
-
-
-</div>

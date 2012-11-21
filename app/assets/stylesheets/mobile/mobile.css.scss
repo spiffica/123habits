@@ -30,3 +30,32 @@ div.alert-notice, div.alert-success{
 	margin-bottom: 0px;
 	padding-top: 10px;
 }
+li.tracker{
+	&.pass{
+		background-color: hsl(98, 63%, 80%);
+	}
+	&.pending {
+		background-color: lightblue;
+	}
+	&.current {
+		background-color: hsl(60, 100%, 70%);
+	}
+	&.overdue {
+		background-color: hsl(40, 100%, 70%);
+	}
+	&.fail {
+		background-color: hsl(0, 85%, 95%);
+	}
+}
+.tagline {
+	text-align: center;
+}
+.title {
+	padding: 5px;
+	background-color:blue;
+	text-align:center;
+	margin-top:0px;
+}
+.home_btns {
+	text-align:center;
+}

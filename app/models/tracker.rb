@@ -28,7 +28,7 @@ class Tracker < ActiveRecord::Base
   end
 
   scope :marked, where(:outcome => ['fail','pass']).order("id")
-  scope :unmarked, where(:outcome => ['overdue','current','pending'])
+  scope :unmarked, where(:outcome => ['overdue','current','pending']).order("id")
   scope :markable, where(:outcome => ['overdue','current']).order("id")
   scope :day_is_today, lambda { |tz| where("day = ?", Time.now.in_time_zone(tz).to_date) }
   scope :day_is_past, lambda { |tz| where("day < ?", Time.now.in_time_zone(tz).to_date) }
