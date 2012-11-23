@@ -1,3 +1,11 @@
+// $(function() {
+
+//   $('body').on('touchstart.dropdown.data-api','.dropdown-menu',function (e) {
+//     e.stopPropagation();
+//     console.log("what??");
+//     e.preventDefault();
+//   });
+// });
 
   function removePreviousErrors()
   {

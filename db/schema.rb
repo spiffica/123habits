@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121115040058) do
+ActiveRecord::Schema.define(:version => 20121123075825) do
 
   create_table "affirmations", :force => true do |t|
     t.string   "message"
@@ -56,7 +56,7 @@ ActiveRecord::Schema.define(:version => 20121115040058) do
 
   create_table "trackers", :force => true do |t|
     t.date     "day"
-    t.string   "notes"
+    t.text     "notes"
     t.integer  "habit_id"
     t.datetime "created_at",                        :null => false
     t.datetime "updated_at",                        :null => false
