@@ -6,4 +6,4 @@ class ChangeNotesTypeTextOnTracker < ActiveRecord::Migration
   def down
   	change_column :trackers, :notes, :string
   end
-end
+end 
