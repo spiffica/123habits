@@ -4,8 +4,8 @@
           <%= link_to "Habit Buster", root_path, id:"logo" %>
           <nav class="nav pull-right">
               <% if signed_in? %>
-                    <%= link_to "Settings", edit_user_path(current_user), class: "btn btn-mini" %>
-                    <%= link_to 'Sign out', signout_path, method: :delete, class: "btn btn-mini" %>
+                    <%= link_to "Settings", edit_user_path(current_user), class: "btn btn-mini btn-inverse" %>
+                    <%= link_to 'Sign out', signout_path, method: :delete, class: "btn btn-mini btn-inverse" %>
               <% else %>
                 <li><%= link_to "Sign in", signin_path %></li>
               <% end %>
