@@ -27,7 +27,7 @@ class HabitsController < ApplicationController
     @steps = @habit.steps.order("created_at ASC")
     @affirmation = @habit.affirmations.build
     @affirmations = @habit.affirmations.order("created_at ASC")
-    @trackers = @habit.trackers
+    @trackers = @habit.trackers.order("id")
   end
 
   def edit

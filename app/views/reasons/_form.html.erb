@@ -1,6 +1,6 @@
 <div id="reasons_form" >
     <%= simple_form_for [@habit,@reason], remote: true, class: "reason_form" do |f| %>
-      <%= f.input :message, label: false, autofocus: true %>
-      <%= f.submit class: "btn btn-primary" %>
+      <%= f.input :message, label: false %>
+      <%= f.submit class: "btn btn-primary", disable_with: "Saving..." %>
     <% end %>
 </div>

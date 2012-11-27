@@ -2,27 +2,13 @@
       <div class="navbar-inner">
         <div class="container-fluid">
           <%= link_to "Habit Buster", root_path, id:"logo" %>
-          <nav>
-            <ol class="nav pull-right">
+          <nav class="nav pull-right">
               <% if signed_in? %>
-                <%= render 'layouts/habits_dropdown' %>
-
-                <li id="fat-menu" class="dropdown">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                    Account <b class="caret"></b>
-                  </a>
-                  <ul class="dropdown-menu">
-                    <li><%= link_to "Settings", edit_user_path(current_user) %>
-                    </li>
-                    <li class="divider"></li>
-                    <li><%= link_to 'Sign out', signout_path, method: :delete %>
-                    </li>
-                  </ul>
-                </li>
+                    <%= link_to "Settings", edit_user_path(current_user), class: "btn btn-mini" %>
+                    <%= link_to 'Sign out', signout_path, method: :delete, class: "btn btn-mini" %>
               <% else %>
                 <li><%= link_to "Sign in", signin_path %></li>
               <% end %>
-            </ol>
           </nav>
         </div>
       </div>
