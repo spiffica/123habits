@@ -17,5 +17,8 @@ $ ->
 	$('form.edit_tracker').change ->
 		$('form.edit_tracker').submit()
 
-	$('img.notes-icon').popover( placement: 'top', trigger: 'hover')
+	$('img.notes-icon').popover( 
+											trigger: "hover",
+											html: true,
+											placement: 'top')
 
