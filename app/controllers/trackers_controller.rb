@@ -1,5 +1,7 @@
 class TrackersController < ApplicationController
   before_filter :set_habit
+  include ActionView::Helpers::TextHelper
+
   def index
   	@trackers = @habit.trackers.order("id")
   end
@@ -18,7 +20,9 @@ class TrackersController < ApplicationController
       if @tracker.update_attributes(params[:tracker])
   			format.html do
 		  		if @tracker.outcome == "fail"
-		  			flash[:notice] = "This failed day extended your habit."
+            penalty = pluralize(@habit.penalty, 'day')
+		  			flash[:notice] = "Your habit has been extended by 
+            #{penalty}."
 		  		end
   				redirect_to @habit
   			end
