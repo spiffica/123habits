@@ -191,7 +191,7 @@ end
 #
 #  id         :integer         not null, primary key
 #  day        :date
-#  notes      :string(255)
+#  notes      :text
 #  habit_id   :integer
 #  created_at :datetime        not null
 #  updated_at :datetime        not null
