@@ -24,6 +24,9 @@ class TrackersController < ApplicationController
 		  			flash[:notice] = "Your habit has been extended by 
             #{penalty}."
 		  		end
+          if @tracker == @habit.trackers.last && @tracker.outcome == "pass"
+            flash[:success] = "Congratulations! You have completed this habit."
+          end
   				redirect_to @habit
   			end
         format.mobile { redirect_to habit_trackers_path(@habit) }

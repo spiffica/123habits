@@ -3,4 +3,7 @@
     	<p><%= when_habit_started @habit %></p>
     <% else %>
     	<%= render 'start_form' if @habit.pending? %>
+    	<% if @habit.completed? %>
+    		<p><%= @habit.completed_date %></p>
+  		<% end %>
     <% end %>

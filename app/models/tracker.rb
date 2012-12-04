@@ -8,7 +8,9 @@ class Tracker < ActiveRecord::Base
   STATES = %w{pending current overdue pass fail}
 
    before_save :add_penalty_on_fail
+   after_save :check_completed
 
+   # before_save 
   validates :outcome, :inclusion => { :in => STATES }
   validates :habit_id, :presence => true
 
@@ -79,20 +81,6 @@ class Tracker < ActiveRecord::Base
   end
 
   private
-  
-    # def mark_todays_tracker_current
-    #   if (self.pending? || self.overdue?) && self.day == Time.zone.today
-    #     self.update_attribute(:outcome, "current")
-    #   end
-    # end
-
-    # def mark_overdue_trackers
-    #   if (self.pending? || self.current?) && self.day < Time.zone.today
-    #     self.update_attribute(:outcome, "overdue")
-    #   end
-    # end
-
-
     
     def self.update_to_current(user_timezone)
       self.unmarked.day_is_today(user_timezone).update_all :outcome => "current"
@@ -128,6 +116,15 @@ class Tracker < ActiveRecord::Base
         add_penalty_trackers(self.habit.penalty)
       end
     end
+
+    def check_completed
+      if self == self.habit.trackers.last && self.outcome == "pass"
+        self.habit.status = "completed"
+        self.habit.save
+      end
+    end
+
+
 end
 # == Schema Information
 #
@@ -135,7 +132,7 @@ end
 #
 #  id         :integer         not null, primary key
 #  day        :date
-#  notes      :string(255)
+#  notes      :text
 #  habit_id   :integer
 #  created_at :datetime        not null
 #  updated_at :datetime        not null
