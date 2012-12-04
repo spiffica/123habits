@@ -23,35 +23,35 @@ describe "Habits" do
     end
 
     context "with one habit started" do
+      #NOTE these all work individually; not sure what the problem is
       before do
-        # @habit.status = "started"
-        # @habit.save
-        click_link "I will"
+        click_link "I will stop 1"
         click_button "Start Habit Now!!"
       end
       describe "three bad days followed by 2 good days" do
         before do
           Timecop.travel 5.days
           @habit.trackers.count.should == 21
-          3.times do |x|
-            @habit.trackers[x-1].outcome = "fail"
-            @habit.trackers[x-1].save
+          3.times do 
+            choose "tracker_outcome_fail"
+            click_button "Submit"
           end
-          2.times do |x|
-            @habit.trackers[x+2].outcome = "pass"
-            @habit.trackers[x+2].save
+          2.times do 
+            choose "tracker_outcome_pass"
+            click_button "Submit"
           end
         end
         it "shows stats box on habit#show page" do
           @habit.trackers.pass.count.should == 2
-          page.should have_css "aside#stats"
+          page.should have_css "table.stats"
+          save_and_open_page
         end
         it "displays streak of 2" do
-          #TODO not working here, but working in actual
-          within(:css, "aside#stats") do
-            page.should have_css "#streak"
-            @habit.trackers.unmarked.count.should == 19
-            page.should have_content("Streak: 2 days")
+          Date.today.should == "July 6"
+          within(:css, "table.stats") do
+            page.should have_content "Streak"
+            @habit.trackers.unmarked.count.should == 37
+            page.should have_content("2 days")
           end
         end
         it "displays percent success" do
@@ -63,6 +63,30 @@ describe "Habits" do
         it "displays end date" do
           pending
         end
+      end
+    end
+    describe "when habit is completed" do
+      before do
+        click_link "Create new habit"
+        fill_in "Statement", with: "Quit wasting"
+        click_button "Create Habit"
+        click_button "Start Habit Now!!"
+        @my_habit = Habit.find_by_statement "Quit wasting"
+        Timecop.travel @my_habit.end_date
+        21.times do
+          choose "tracker_outcome_pass"
+          click_button "Submit"
+        end
+      end
+      it "changes status to completed when last day successful" do
+        page.should have_content "COMPLETED"
+        #above works proving below should too!!..but not
+        @my_habit.status.should == "completed"
+      end
+    
+      it "gives option to continue monitoring habit"
+      it "gives a congratulatory message" do
+        page.should have_content "Congratulations"
       end
     end
   end

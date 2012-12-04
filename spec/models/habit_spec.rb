@@ -171,16 +171,16 @@ end
 #
 # Table name: habits
 #
-#  id         :integer         not null, primary key
-#  statement  :string(255)
-#  goal_date  :date
-#  user_id    :integer
-#  created_at :datetime        not null
-#  updated_at :datetime        not null
-#  habit_type :string(255)     default("kick")
-#  status     :string(255)     default("pending")
-#  start_date :date
-#  reward     :string(255)
-#  penalty    :integer         default(7)
+#  id             :integer         not null, primary key
+#  statement      :string(255)
+#  user_id        :integer
+#  created_at     :datetime        not null
+#  updated_at     :datetime        not null
+#  habit_type     :string(255)     default("kick")
+#  status         :string(255)     default("pending")
+#  start_date     :date
+#  reward         :string(255)
+#  penalty        :integer         default(7)
+#  completed_date :date
 #
 
