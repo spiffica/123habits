@@ -17,9 +17,23 @@ em.overdue_notice {
 	background-color: red;
 	padding: 0 5px;
 }
+h4.progress_title {
+	padding: 10px;
+	margin: 0px;
+	text-align: center;
+	&.false {
+		background-color: hsl(0, 53%, 77%);
+	}
+	&.true {
+    background-color: hsl(102, 44%, 89%);
+	}
+}
 span.statement {
 	font-weight: bold;
 }
 .center a.new_habit_link {
 	margin-top: 0px;
+}
+aside em{
+	font-weight: bold;
 }

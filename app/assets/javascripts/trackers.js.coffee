@@ -22,3 +22,4 @@ $ ->
 											html: true,
 											placement: 'top')
 
+ 

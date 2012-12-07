@@ -147,7 +147,8 @@ describe Habit do
         @habit.update_attribute :status, "started"
       end
       it "returns true when first started" do
-        @habit.up_to_date?.should == true
+        # @habit.up_to_date?.should == true
+        expect{@habit.up_to_date?}.to eq(true)
       end
       it "returns false with one unmarked yesterday" do
         Timecop.travel 1.day
@@ -158,6 +159,14 @@ describe Habit do
         Timecop.travel 2.days
         @habit.trackers.all
         @habit.up_to_date?.should == false
+      end
+    end
+
+    describe "#pass_count" do
+      it { should respond_to :pass_count }
+      it "returns proper number of passed days" do
+        @habit.stub_chain(:trackers, :pass, :count).and_return(5)
+        @habit.pass_count.should == 5
       end
     end
   end

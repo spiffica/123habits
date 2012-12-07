@@ -41,6 +41,10 @@ module HabitsHelper
 
   end
 
+  def up_to_date_state(habit)
+    habit.up_to_date? ? "Up to date" : "Not up to date"
+  end
+
 
 
   def habit_status(habit)
