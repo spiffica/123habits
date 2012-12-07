@@ -1,4 +1,5 @@
-<%= calendar @trackers do |tracker| %>
+<%= calendar(@trackers,{:month=>@trackers.first_markable_month,
+							:year=>@trackers.first_markable_year}) do |tracker| %>
 	<%= display_article(tracker)  do %>
 		<% if tracker.first_markable? %>
 			<%= render 'trackers/form', :tracker => tracker %>
