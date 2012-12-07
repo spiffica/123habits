@@ -1,0 +1,7 @@
+<progress class="up-to-date-<%= habit.up_to_date? %>" 
+	value="<%= habit.pass_count %>" max="<%= habit.total_days %>" rel="popover" 
+	data-original-title="<h4 class='progress_title <%= habit.up_to_date? %>'><%= up_to_date_state(habit) %></h4>" 
+	data-content="<%= render 'habits/stats', :habit=>habit %>">
+</progress>
+
+<%#= habit.pass_count.to_s + ' of ' + habit.total_days.to_s %>

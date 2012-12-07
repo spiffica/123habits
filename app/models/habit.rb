@@ -80,6 +80,14 @@ class Habit < ActiveRecord::Base
   def up_to_date?
     self.trackers.overdue.any? ? false : true
   end
+
+  def pass_count
+    self.trackers.pass.count
+  end
+
+  def total_days
+    self.trackers.count
+  end
   
 
 

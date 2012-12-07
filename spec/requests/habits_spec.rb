@@ -28,6 +28,15 @@ describe "Habits" do
         click_link "I will stop 1"
         click_button "Start Habit Now!!"
       end
+      describe "progress bar" do
+        before do
+          visit root_path
+        end
+        it "is displayed" do
+          save_and_open_page
+          page.should have_css("progress")
+        end
+      end
       describe "three bad days followed by 2 good days" do
         before do
           Timecop.travel 5.days
@@ -47,7 +56,7 @@ describe "Habits" do
           save_and_open_page
         end
         it "displays streak of 2" do
-          Date.today.should == "July 6"
+          # Date.today.should == "July 6"
           within(:css, "table.stats") do
             page.should have_content "Streak"
             @habit.trackers.unmarked.count.should == 37

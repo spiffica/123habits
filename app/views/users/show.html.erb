@@ -13,6 +13,9 @@
 	 			<td class="span6">
 	 				<%= link_to content_tag(:span,truncate(s.statement,length:50),class: "statement"), habit_path(s.id) %>
 	 				<small>(<%= s.day_streak %> day streak)</small>
+	 				<p>
+	 					<%= render 'habits/progress', :habit => s %>
+	 				</p>
 	  		</td>	
 	  		<td class="span3 actions">
 	  			<%= render 'habits/action_links', :habit => s %>
@@ -34,7 +37,7 @@
 	 		<% end %>
 	 	<% end %>
  	<% if @completed.any? %>
-	 	<tr id="completed_habits" class="info"><td class="span9">Completed(<%= @completed.count %>)</td><td></td></tr>
+	 	<tr id="completed_habits" class="info"><td class="span9"><h4>COMPLETED(<%= @completed.count %>)</h4></td><td></td></tr>
 	 	<% @completed.each do |c| %>
 	 		<tr>
 	 			<td class="span6">
