@@ -5,10 +5,10 @@
 			<%= habit.percent_success %>% (<%= habit.pass_count %>/<%= habit.trackers.marked.count %>)</p>
 		<p id='completed_days'><em>Completed </em>
 			<%= habit.pass_count.to_s + ' of ' + habit.total_days.to_s + ' days' %></p>
-		<p id='started'><em>Started:</em>
+		<p id='started'><em>Started</em>
 			<%= when_habit_started habit %>
 			(<%= habit.start_date.to_formatted_s(:short) %>)</p>
-		<p id='end_date'><em>Ending:</em> 
+		<p id='end_date'><em>Ending</em> 
 			in <%= pluralize(habit.days_left,'day')%> 
 			(<%= habit.end_date.to_formatted_s(:short) %>)</p>
 </aside>
