@@ -11,11 +11,13 @@
 	 	<% @started.each do |s| %>
 	 		<tr>
 	 			<td class="span6">
-	 				<%= link_to content_tag(:span,truncate(s.statement,length:50),class: "statement"), habit_path(s.id) %>
-	 				<small>(<%= s.day_streak %> day streak)</small>
-	 				<p>
-	 					<%= render 'habits/progress', :habit => s %>
-	 				</p>
+	 				<%= link_to  habit_path(s.id) do %>
+	 					<%= content_tag(:span,truncate(s.statement,length:50),class: "statement") %>
+		 				<small>(<%= s.day_streak %> day streak)</small>
+		 				<p>
+		 					<%= render 'habits/progress', :habit => s %>
+		 				</p>
+	  			<% end %>
 	  		</td>	
 	  		<td class="span3 actions">
 	  			<%= render 'habits/action_links', :habit => s %>
