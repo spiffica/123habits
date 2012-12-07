@@ -36,7 +36,13 @@ class Tracker < ActiveRecord::Base
   scope :day_is_past, lambda { |tz| where("day < ?", Time.now.in_time_zone(tz).to_date) }
   scope :day_is_future, lambda { |tz| where("day > ?", Time.now.in_time_zone(tz).to_date) }
 
+  def self.first_markable_month
+    first_markable.day.month
+  end
 
+  def self.first_markable_year
+    first_markable.day.year
+  end
 
   def self.first_markable
     markable.first

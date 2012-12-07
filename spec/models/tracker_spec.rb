@@ -184,6 +184,30 @@ describe Tracker do
       Tracker.day_is_past.count.should == 50      
     end
   end
+  describe "calendar" do
+    # before do
+    #   @first = 
+  
+    describe "::first_markable_month" do
+      it "responds to method" do
+        Tracker.should respond_to :first_markable_month
+      end
+      it "returns month of first markable tracker" do
+        Tracker.stub_chain(:first_markable,:day,:month).and_return(5)
+        Tracker.first_markable_month.should eq(5)
+      end
+    end
+    describe "::first_markable_year" do
+      it "responds to method" do
+        Tracker.should respond_to :first_markable_year
+      end
+      it "returns year of first markable tracker" do
+        Tracker.stub_chain(:first_markable,:day,:year).and_return(2010)
+        Tracker.first_markable_year.should eq(2010)
+      end
+      
+    end
+  end
 end
 # == Schema Information
 #
