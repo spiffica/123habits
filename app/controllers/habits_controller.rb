@@ -28,6 +28,9 @@ class HabitsController < ApplicationController
     @affirmation = @habit.affirmations.build
     @affirmations = @habit.affirmations.order("created_at ASC")
     @trackers = @habit.trackers.order("id")
+    @t_options = @trackers.markable.any? && !params[:month] ?
+                { month: @trackers.first_markable_month,
+                  year: @trackers.first_markable_year } : {}
   end
 
   def edit
