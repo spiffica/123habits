@@ -1,6 +1,4 @@
-<% options = @trackers.markable.any? && !params[:month] ? {:month=>@trackers.first_markable_month,
-						:year=>@trackers.first_markable_year} : {} %>
-<%= calendar(@trackers, options) do |tracker| %>
+<%= calendar(@trackers, @t_options) do |tracker| %>
 	<%= display_article(tracker)  do %>
 		<% if tracker.first_markable? %>
 			<%= render 'trackers/form', :tracker => tracker %>

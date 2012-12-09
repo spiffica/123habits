@@ -42,7 +42,7 @@ describe Tracker do
       @trackers[7].update_attributes(:outcome => "fail")
       # @trackers[3].update_attribute(:outcome, "fail")
       
-      @trackers.count.should eq(29)
+      @trackers.count.should eq(28)
     end
     it "does nothing when :outcome => 'pass'" do
       @trackers[9].update_attribute(:outcome, "pass")
@@ -60,8 +60,6 @@ describe Tracker do
       self.habit.trackers.stub_chain(:unmarked,:count).and_return(4)
       habit.trackers.unmarked.count.should == 4
       habit.trackers.count.should eq(21) 
-      # habit.trackers.pending.count.should == 17
-      (21-4+1).to_i.should == 18
       habit.trackers.first.trackers_to_add.should == 18
     end
   end
