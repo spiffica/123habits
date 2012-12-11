@@ -17,6 +17,7 @@ class UsersController < ApplicationController
     @started = @habits.started.start_order
     @pending = @habits.pending
     @completed = @habits.completed
+    @monitoring = @habits.monitoring
     
   end
 
