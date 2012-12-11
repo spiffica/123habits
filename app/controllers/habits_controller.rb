@@ -61,6 +61,7 @@ class HabitsController < ApplicationController
     end
   end
 
+
   def destroy
     @habit = current_user.habits.find(params[:id])
     @habit.destroy
@@ -72,6 +73,14 @@ class HabitsController < ApplicationController
       format.mobile { redirect_to current_user }
       format.js
     end
+  end
+
+
+
+  def continue
+    @habit = current_user.habits.find(params[:id])
+    @habit.continue_habit
+    redirect_to @habit
   end
 
 end

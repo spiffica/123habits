@@ -1,9 +1,16 @@
-    <h3 class="status"><%= @habit.status.upcase %></h3>
-    <% if @habit.started? %>
-    	<p><%= when_habit_started @habit %></p>
-    <% else %>
-    	<%= render 'start_form' if @habit.pending? %>
-    	<% if @habit.completed? %>
-    		<p><%= @habit.completed_date %></p>
-  		<% end %>
-    <% end %>
+<% if @habit.started? %>
+  <h3 class="status">STARTED</h3>
+	<p><%= when_habit_started @habit %></p>
+<% elsif @habit.pending? %>
+  <h3 class="status">PENDING</h3>
+	<%= render 'start_form' %>
+<% elsif @habit.completed? %>
+  <h3 class="status">COMPLETED</h3>
+	<p><%= @habit.completed_date %></p>
+	<%= link_to 'Keep Tracking Habit', "/habits/#{@habit.id}/continue",
+		method: :post, class: 'btn btn-info' %>
+<% else %>
+	<h3 class="status">COMPLETED</h3>
+	<p><%= @habit.completed_date %></p>
+	<h5>Still monitoring habit</h4>
+<% end %>

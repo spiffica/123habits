@@ -25,6 +25,25 @@
 	 		</tr>
 	 		<% end %>
 	 	<% end %>
+ 	<% if @monitoring.any? %>
+	 	<tr id="monitoring_habits" class="info"><td class="span9"><h4>MONITORING(<%= @monitoring.count %>)</h4></td><td></td></tr>
+	 	<% @monitoring.each do |m| %>
+	 		<tr>
+	 			<td class="span6">
+	 				<%= link_to habit_path(m.id) do %>
+	 					<%= content_tag(:span,truncate(m.statement,length: 50),class: "statement") %>
+	 					<small>(<%= m.day_streak %> day streak)</small>
+		 				<p>
+		 					<%= render 'habits/progress', :habit => m %>
+		 				</p>
+	  			<% end %>
+	  		</td>	
+	  		<td class="span3 actions">
+	  			<%= render 'habits/action_links', :habit => m %>
+	  		</td>
+	 		</tr>
+ 		<% end %>
+ 	<% end %>
  	<% if @pending.any? %>
 	 	<tr id="pending_habits" class="warning"><td class="span9"><h4>PENDING(<%= @pending.count %>)</h4></td><td></td></tr>
 	 	<% @pending.each do |p| %>
@@ -36,10 +55,10 @@
 	  			<%= render 'habits/action_links', :habit => p %>
 	  		</td>
 	 		</tr>
-	 		<% end %>
-	 	<% end %>
+ 		<% end %>
+ 	<% end %>
  	<% if @completed.any? %>
-	 	<tr id="completed_habits" class="info"><td class="span9"><h4>COMPLETED(<%= @completed.count %>)</h4></td><td></td></tr>
+	 	<tr id="completed_habits" class="success"><td class="span9"><h4>COMPLETED(<%= @completed.count %>)</h4></td><td></td></tr>
 	 	<% @completed.each do |c| %>
 	 		<tr>
 	 			<td class="span6">

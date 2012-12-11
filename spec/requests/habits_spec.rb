@@ -1,4 +1,5 @@
 require 'spec_helper'
+# include Rails.application.routes.url_helpers
 
 describe "Habits" do
   let (:start_of_month) { Date.parse('1st July 2012') }
@@ -13,7 +14,7 @@ describe "Habits" do
 	      fill_in "Email", with: @user.email 
 	      fill_in "Password", with: @user.password 
 	      click_button "Sign in"
-	   end
+	  end
     it "shows list of users habits" do
       page.should have_content("I will stop 1")
     end
@@ -86,17 +87,50 @@ describe "Habits" do
           choose "tracker_outcome_pass"
           click_button "Submit"
         end
+        save_and_open_page
+      end
+      it "responds to status" do
+        @my_habit.should respond_to :status
+      end
+      it "allows status to be changed" do
+        @my_habit.status = 'monitor'
+        @my_habit.save
+        @my_habit.status.should == 'monitor'
       end
       it "changes status to completed when last day successful" do
         page.should have_content "COMPLETED"
+        @my_habit.status.should == 'completed'
+        @my_habit.completed_date.should == Time.now.to_date
         #above works proving below should too!!..but not
-        @my_habit.status.should == "completed"
+        @my_habit.completed?.should == true
       end
-    
-      it "gives option to continue monitoring habit"
       it "gives a congratulatory message" do
         page.should have_content "Congratulations"
+      end
+    
+      it "gives option to keep monitoring habit" do
+        page.should have_css("a", text: "Keep Tracking Habit")
+      end
+      context "and in monitor mode" do
+        before do 
+          click_link 'Keep Tracking Habit'
+        end
+        it "adds 21 trackers to habit only if status is 'completed'" do
+          @my_habit.trackers.count.should == 42
+          page.should_not have_content "Keep Tracking Habit"
+        end
+        it "changes status to 'monitoring'" do
+          #as line 94, not working in test
+          @my_habit.status.should == 'monitoring'
+        end
+        it "displays 'completed on ___ in _status" do 
+          page.should have_content "COMPLETED"
+        end
+        it "displays 'Still Monitoring' in _status" do
+          page.should have_content "Still monitoring habit"
+        end
       end
     end
   end
 end
+

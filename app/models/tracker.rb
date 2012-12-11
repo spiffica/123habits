@@ -61,6 +61,9 @@ class Tracker < ActiveRecord::Base
 
   def self.create_initial_trackers(habit)
   	date = Time.zone.now.to_date
+    if habit.completed_date && habit.completed_date == date
+      date += 1.day
+    end
     (Habit::LENGTH).times do |x|
       state = x == 0? "current" : "pending"
       habit.trackers.create(day:date, outcome: state)
@@ -123,8 +126,16 @@ class Tracker < ActiveRecord::Base
       end
     end
 
+    def last_tracker
+      self.habit.trackers.last
+    end
+
+    def last_tracker?
+      self == last_tracker
+    end
+
     def check_completed
-      if self == self.habit.trackers.last && self.outcome == "pass"
+      if last_tracker? && self.outcome == "pass"
         self.habit.status = "completed"
         self.habit.save
       end
