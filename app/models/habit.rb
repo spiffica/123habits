@@ -111,6 +111,8 @@ class Habit < ActiveRecord::Base
           Tracker.delete_trackers(self)
           when "completed"
           self.completed_date = self.trackers.last.day
+          when "monitoring"
+          Tracker.create_initial_trackers(self)
         end
       end
     end

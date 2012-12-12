@@ -4,49 +4,42 @@ describe Habit do
   describe "#day_streak" do
     before do
       @habit = FactoryGirl.create(:habit)
-      @habit.update_attributes(:status => "started")      
+      @fail = mock(Tracker, :outcome => "fail")
+      @pass = mock(Tracker, :outcome => "pass")
+      # @habit.update_attribute(:status, "started")      
     end
-    context "with two passed days followed by 3 success days" do
+    context "with two failed days followed by 3 success days" do
       it "should return 3" do
-        #TODO figure out why not working; works in reality
-        # It seems to be reversing the order of index in test
-        # Timecop.travel 7.days
-        @habit.trackers[0].update_attributes(outcome: "pass")
-        @habit.trackers[1].update_attributes(outcome: "fail")
-        @habit.trackers[2].update_attributes(outcome: "pass")
-        @habit.trackers[3].update_attributes(outcome: "fail")
-        # @habit.trackers.marked.count.should ==4
-        @habit.trackers[20].day.should == Date.today
-        # @habit.trackers[4].update_attributes(outcome: "pass")
-        # @habit.trackers.count.should == 21
-        # @habit.trackers[2].outcome.should == "fail"
-        @habit.day_streak.should == 2
+        @habit.stub_chain(:trackers,:marked).and_return(
+          [@fail,@fail,@pass,@pass,@pass])
+          
+        @habit.day_streak.should == 3
       end    
     end
     context "on first day, with nothing marked" do
       it "returns 0" do
+        @habit.stub_chain(:trackers,:marked).and_return([])
+
         @habit.day_streak.should == 0
       end
     end
     context "with one day marked 'pass'" do
       it "returns 1" do
-        @habit.trackers.first.update_attributes(outcome: "pass")
+        @habit.stub_chain(:trackers,:marked).and_return([@pass])
         @habit.day_streak.should == 1
       end
     end
     context "with one day marked 'fail'" do
       it "returns 0" do
-        @habit.trackers.first.update_attributes(outcome: "fail")
+        @habit.stub_chain(:trackers,:marked).and_return([@fail])
         @habit.day_streak.should == 0
       end
     end
     context "with two days marked 'pass'" do
       it "returns 2" do
-        Timecop.travel 1.day
-        @habit.trackers.first.update_attributes(outcome: "pass")
-        @habit.trackers[1].update_attributes(outcome: "pass")
+        @habit.stub_chain(:trackers,:marked).and_return([@pass,@pass])
+
         @habit.day_streak.should == 2
-        @habit.trackers.first.day.should == Date.today
       end
     end
   end
@@ -70,13 +63,13 @@ describe Habit do
   describe "date calculations" do
     before do    
       @habit = FactoryGirl.create(:habit)
-      @habit.update_attribute(:status, "started")
     end
     describe "#end_date" do
       it "is the last trackers day value" do
+        @habit.stub(:pending?).and_return(false)
+        @habit.stub_chain(:trackers,:last,:day).and_return(Date.today)
 
-        @habit.trackers.last.day.should == @habit.end_date
-        @habit.trackers.last.day.should == Date.today + 20
+        @habit.end_date.should == Date.today
       end
     end
     describe "#days_left" do
@@ -88,10 +81,12 @@ describe Habit do
     end
     describe "#days_ago_started" do
       it "returns 0 on first day" do
+        @habit.stub(:start_date).and_return(Date.today)
         @habit.days_ago_started.should == 0
       end
       it "returns 20 on the last day" do
-        Timecop.travel( 20.days)
+        @habit.stub(:start_date).and_return(Date.today - 20.days)
+
         @habit.days_ago_started.should == 20
       end
     end
@@ -107,10 +102,14 @@ describe Habit do
       before do
         @habit.status = "started"
         @habit.save
+        # probably better to let it touch callback on its own
+        # @habit.stub(:status_changed?).and_return(true)
+        # @habit.stub(:status).and_return("started")
+
       end
       it "sets start date to today" do
         @habit.start_date.should == Time.zone.today
-        # expect { @habit.save }.to change(@habit, :start_date).to(Time.zone.today)
+        # @habit.send(:status_check)
       end
       it "adds 21 trackers" do
         @habit.trackers.count.should eq(21)
@@ -131,6 +130,14 @@ describe Habit do
         @habit.trackers.count.should eq(0)
       end
     end
+    context "when status changed to 'monitoring'" do
+      before do
+        @habit.update_attribute(:status, 'monitoring')
+      end
+      it "adds 21 trackers" do
+        Tracker.count.should == 21
+      end
+    end
     context "when Habit saved" do
       it "sets start_date to nil" do
         @habit.start_date.should == nil
@@ -147,17 +154,11 @@ describe Habit do
         @habit.update_attribute :status, "started"
       end
       it "returns true when first started" do
-        # @habit.up_to_date?.should == true
-        expect{@habit.up_to_date?}.to eq(true)
+        @habit.stub_chain(:trackers, :overdue,:any?).and_return(false)
+        @habit.up_to_date?.should == true
       end
       it "returns false with one unmarked yesterday" do
-        Timecop.travel 1.day
-        @habit.trackers.all
-        @habit.up_to_date?.should == false
-      end
-      it "returns false with two unmarked days in past" do
-        Timecop.travel 2.days
-        @habit.trackers.all
+        @habit.stub_chain(:trackers, :overdue, :any?).and_return(true)
         @habit.up_to_date?.should == false
       end
     end

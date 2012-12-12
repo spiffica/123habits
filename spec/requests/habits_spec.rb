@@ -113,7 +113,7 @@ describe "Habits" do
       end
       context "and in monitor mode" do
         before do 
-          click_link 'Keep Tracking Habit'
+          click_button 'Keep Tracking Habit'
         end
         it "adds 21 trackers to habit only if status is 'completed'" do
           @my_habit.trackers.count.should == 42
