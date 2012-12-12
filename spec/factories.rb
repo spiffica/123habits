@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :user do
     name      "Trevor Smith"
-    email     "trevor@example.com"
+    sequence(:email)     { |x| "trevor#{x}@example.com" }
     password  "foobar"
     password_confirmation "foobar"
   end
@@ -12,6 +12,10 @@ FactoryGirl.define do
   	trait :starting do
   		habit_type 	"start"
   	end
+  end
+  factory :tracker do
+    outcome    "pending"
+    habit
   end
   factory :reason do
     sequence(:message) { |m| "message#{m}"} 
