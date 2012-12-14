@@ -198,8 +198,6 @@ describe Tracker do
     end
   end
   describe "calendar" do
-    # before do
-    #   @first = 
   
     describe "::first_markable_month" do
       it "responds to method" do

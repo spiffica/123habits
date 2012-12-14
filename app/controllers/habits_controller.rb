@@ -1,6 +1,6 @@
  
 class HabitsController < ApplicationController
-
+ 
   def new
     @habit = current_user.habits.build
   end
