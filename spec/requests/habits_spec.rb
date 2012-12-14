@@ -8,22 +8,16 @@ describe "Habits" do
       fill_in "Statement", with: "Eat breakfast"
       click_button "Create Habit"
   end
-  def create_and_start_habit
-    add_habit
-    click_button "Start Habit"
-  end
     
   let (:start_of_month) { Date.parse('1st July 2012') }
   before do
     Timecop.travel start_of_month
     @user = FactoryGirl.create(:user)
     @user2 = FactoryGirl.create(:user, email: "knob@here.com")
-    # @habit = FactoryGirl.create(:habit, user: @user)
     visit signin_path
     fill_in "Email", with: @user.email 
     fill_in "Password", with: @user.password 
     click_button "Sign in"
-    @num = 5
   end
   describe "create new" do
     before do
@@ -33,7 +27,6 @@ describe "Habits" do
       page.should have_content("PENDING")
       page.should have_content("Eat breakfast")
       expect(Habit.count).to eq 1
-      expect(@num).to eq 5
     end
     it "redirects to Habit show path" do
       expect(current_path).to eq(habit_path(1))
@@ -54,8 +47,6 @@ describe "Habits" do
     end
     context "three bad days followed by 2 good days" do
      before do
-        save_and_open_page
-        # create_and_start_habit
         click_button "Start Habit"
         Timecop.travel 5.days
         expect(Habit.first.statement).to eq "Eat breakfast"
@@ -111,7 +102,6 @@ describe "Habits" do
     describe "when habit is completed" do
       before do
         click_button "Start Habit Now!!"
-        # @my_habit = Habit.first
         Timecop.travel Habit.first.end_date
         21.times do
           choose "tracker_outcome_pass"
@@ -123,10 +113,9 @@ describe "Habits" do
       end
       it "changes status to completed when last day successful" do
         page.should have_content "COMPLETED"
-                save_and_open_page
+        Habit.first.id.should eq 1
         Habit.first.status.should == 'completed'
         Habit.first.completed_date.should == Time.now.to_date
-        #above works proving below should too!!..but not
         Habit.first.completed?.should == true
       end
       it "gives a congratulatory message" do
@@ -141,7 +130,6 @@ describe "Habits" do
           page.should_not have_content "Keep Tracking Habit"
         end
         it "changes status to 'monitoring'" do
-          #as line 94, not working in test
           Habit.first.status.should == 'monitoring'
         end
         it "displays 'completed on ___ in _status" do 
