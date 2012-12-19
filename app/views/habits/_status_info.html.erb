@@ -7,8 +7,15 @@
 <% elsif @habit.completed? %>
   <h3 class="status">COMPLETED</h3>
 	<p><%= @habit.completed_date %></p>
-	<%= link_to 'Keep Tracking Habit', "/habits/#{@habit.id}/continue",
+
+
+	<%#= link_to 'Keep Tracking Habit', "/habits/#{@habit.id}/continue",
 		method: :post, class: 'btn btn-info' %>
+
+	<%= simple_form_for @habit do |f| %>
+		<%= f.hidden_field :status, value: "monitoring" %>
+		<%= f.submit "Keep Tracking Habit", class: "btn btn-info" %>
+	<% end %>
 <% else %>
 	<h3 class="status">COMPLETED</h3>
 	<p><%= @habit.completed_date %></p>

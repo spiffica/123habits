@@ -33,7 +33,7 @@ gem 'jquery-rails'
 gem 'thin'
 
 group :test, :development do
-  gem 'rspec-rails', '2.10.0'
+  gem 'rspec-rails', '~>2.12'
   gem 'guard-rspec', '0.5.5'
   gem 'guard-spork', '0.3.2'
   gem 'guard-cucumber'

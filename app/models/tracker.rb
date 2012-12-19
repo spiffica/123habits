@@ -8,7 +8,7 @@ class Tracker < ActiveRecord::Base
   STATES = %w{pending current overdue pass fail}
 
    before_save :add_penalty_on_fail
-   after_save :check_completed
+   after_update :check_completed
 
    # before_save 
   validates :outcome, :inclusion => { :in => STATES }

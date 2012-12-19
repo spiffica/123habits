@@ -5,7 +5,7 @@ Habits::Application.routes.draw do
 
   root to: 'static_pages#home'
 
-  match 'habits/:id/continue' => 'habits#continue', via: "post"
+  #match 'habits/:id/continue' => 'habits#continue', via: "post"
 
   match '/about',    to: "static_pages#about"
   match '/help',    to: "static_pages#help"

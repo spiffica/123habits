@@ -4,7 +4,7 @@ class Habit < ActiveRecord::Base
   STATUS  = %w(started pending completed monitoring) #["started", "pending", "completed"]
   LENGTH = 21
 
-  belongs_to :user
+  belongs_to :user 
   has_many :reasons, dependent: :destroy
   has_many :steps, dependent: :destroy
   has_many :affirmations, dependent: :destroy
@@ -111,6 +111,8 @@ class Habit < ActiveRecord::Base
           Tracker.delete_trackers(self)
           when "completed"
           self.completed_date = self.trackers.last.day
+          when "monitoring"
+          Tracker.create_initial_trackers(self)
         end
       end
     end

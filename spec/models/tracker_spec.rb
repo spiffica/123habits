@@ -3,6 +3,7 @@ require 'spec_helper'
 describe Tracker do
   let(:habit) { FactoryGirl.create(:habit, statement: "indecisive", 
                 user_id: 5) }
+  let(:my_tracker) { FactoryGirl.create :tracker }
   describe "#create_initial_trackers" do
     it "adds 21 tracker days to habit" do
       Tracker.create_initial_trackers habit
@@ -65,51 +66,50 @@ describe Tracker do
       habit.update_attribute(:status, "started")
     end
     it "adds proper number of days" do
-      # add_penalty_on_fail works properly and relies on this method
-      #TODO not sure why this test not working
-      habit.trackers.stub_chain(:unmarked,:count).and_return(4)
-      habit.trackers.unmarked.count.should == 4
-      # habit.trackers.count.should eq(21) 
-      habit.trackers.first.trackers_to_add.should == 18
+      my_tracker.stub_chain(:habit,:trackers,:unmarked,:count).and_return(4)
+      my_tracker.trackers_to_add.should == 18
     end
   end
 
   describe "#first_markable?" do
     it "returns true for first markable tracker" do
-      habit.class.should == Habit
-      habit.update_attribute(:status, "started")
-      first_tracker = habit.trackers.first
-      first_tracker.first_markable?.should == true
+      my_tracker.stub_chain(:habit,:trackers,:markable,:first).and_return(my_tracker)
+      my_tracker.first_markable?.should eq true
     end
   end
   describe "#marked" do
     it "returns true for all marked trackers in habit" do
-      habit.update_attribute(:status, "started")
-      @trackers = habit.trackers      
-      @first = @trackers.first
-      @first.stub(:outcome).and_return("pass")
-      @first.marked?.should == true
-      @first.stub(:outcome).and_return("fail")
-      @first.marked?.should == true
+      my_tracker.stub(:outcome).and_return("fail")
+      my_tracker.marked?.should eq true
+      my_tracker.stub(:outcome).and_return("pass")
+      my_tracker.marked?.should eq true
+      my_tracker.stub(:outcome).and_return("pending")
+      my_tracker.marked?.should eq false
+      my_tracker.stub(:outcome).and_return("overdue")
+      my_tracker.marked?.should eq false
+      my_tracker.stub(:outcome).and_return("current")
+      my_tracker.marked?.should eq false
+
     end
   end
   describe "#first_markable" do
-    before do
-      habit.update_attribute(:status, "started")
-      # habit.trackers.count.should == 21
-      Timecop.travel(Date.today + 5.days)
-      @trackers = habit.trackers
-    end
     it "returns only first tracker not yet filled" do
-      first_returned = @trackers.markable.first
-      @trackers.first_markable.should === first_returned
+      @first_unfilled = FactoryGirl.create :tracker, :outcome => "overdue"
+      @unfilled = FactoryGirl.create :tracker, :outcome => "overdue"
+
+      Tracker.first_markable.should == @first_unfilled
+
+      # notice how rspec creates local factories before global
+      my_tracker.id.should == 3
+      @first_unfilled.id.should == 1
+      @unfilled.id.should == 2
     end
     it "returns 3rd tracker after first two filled in" do
-      @trackers[0].update_attribute(:outcome, "pass")
-      @trackers[1].update_attribute(:outcome, "pass")
-      @trackers.update_unmarked_trackers "Madrid"
-      @trackers.first_markable.should == @trackers[2]
-      @trackers[2].first_markable?.should == true
+      @first_unfilled = FactoryGirl.create :tracker, :outcome => "pass"
+      @unfilled = FactoryGirl.create :tracker, :outcome => "pass"
+      @third = FactoryGirl.create :tracker, :outcome => "overdue"
+
+      Tracker.first_markable.should eq @third
     end
   end
   
@@ -118,10 +118,8 @@ describe Tracker do
   describe "scope :unmarked" do
     it "returns 21 on new habit" do
       habit.update_attribute(:status,"started")
+
       habit.trackers.unmarked.count.should == 21
-      # had to call a find query to reset pending to current for first day
-      # as this is set to change only after 'after_find' callback
-      # habit.trackers.all
       habit.trackers.current.count.should == 1
       habit.trackers.markable.count.should == 1
     end
@@ -133,7 +131,7 @@ describe Tracker do
       Tracker.marked.count.should == 0
       Tracker.update_all(outcome: "pass")
       Tracker.last.update_attribute(:outcome, "fail")
-      Tracker.update_unmarked_trackers "Madrid"
+      Tracker.update_unmarked_trackers "Pacific Time (US & Canada)"
 
       Tracker.marked.count.should == 21
       Tracker.unmarked.count.should == 7
@@ -151,7 +149,7 @@ describe Tracker do
       habit.trackers.current.count.should == 1
       Timecop.travel 1.day
 
-      habit.trackers.update_unmarked_trackers "Madrid"
+      habit.trackers.update_unmarked_trackers "Pacific Time (US & Canada)"
       
       habit.trackers.current.count.should == 1
       habit.trackers.markable.count.should == 5
@@ -164,52 +162,42 @@ describe Tracker do
   describe "::update_to_current" do
     it "shows count" do
       100.times do |n|
-        Tracker.stub(:trackers)
-        Tracker.create :habit_id => (20 + n), :day => Time.zone.today 
+        # Tracker.stub(:trackers)
+        # Tracker.create :habit_id => (20 + n), :day => Time.zone.today 
+        FactoryGirl.create :tracker, day: Date.today
       end
       50.times { Tracker.create(:habit_id => 8888, :day => Date.yesterday) }
-      Tracker.update_to_current "Madrid"
+      Tracker.update_to_current "Pacific Time (US & Canada)"
       Tracker.current.count.should == 100
     end
-    it "works?" do 
-      habit.update_attribute(:status, "started")
-      Tracker.current.count.should == 1
-      Tracker.pending.count.should == 20
-
-    end      
   end
 
   describe "scope :day_is_today" do
     it "returns all trackers with day =to today" do
-      100.times { Tracker.create :habit_id => 1, :day => Time.zone.today }
-      50.times { Tracker.create(:habit_id => 1, :day => Date.yesterday) }
-      # Timecop.travel 5.days
-      # Tracker.last.day.should == Date.tomorrow
-      # Time.zone.today.should == 'oct 5'
+      100.times { FactoryGirl.create :tracker, :day => Time.zone.today }
+      50.times { FactoryGirl.create(:tracker, :day => Date.yesterday) }
+    
       Tracker.count.should == 150
-      Tracker.day_is_today.count.should == 100
+      Tracker.day_is_today('Pacific Time (US & Canada)').count.should == 100
     end
   end
   describe "::update_to_overdue" do
-      #currently already done ahead by mark_overdue_trackers
     it "updates trackers' :outcome to 'overdue' if in past" do
       100.times { Tracker.create :habit_id => 8888, :day => Time.zone.today }
       50.times { Tracker.create(:habit_id => 8888, :day => Date.yesterday) }
-      Tracker.update_to_overdue
+      Tracker.update_to_overdue('Pacific Time (US & Canada)')
+
       Tracker.overdue.count.should == 50
-      
     end
   end
   describe "scope :day_is_past" do
     it "returns all trackers with :day in past" do
-      100.times { Tracker.create :habit_id => 8888, :day => Time.zone.today }
-      50.times { Tracker.create(:habit_id => 8888, :day => Date.yesterday) }
-      Tracker.day_is_past.count.should == 50      
+      100.times { FactoryGirl.create :tracker, :day => Time.zone.today }
+      50.times { FactoryGirl.create :tracker, :day => Date.yesterday }
+      Tracker.day_is_past('Pacific Time (US & Canada)').count.should == 50      
     end
   end
   describe "calendar" do
-    # before do
-    #   @first = 
   
     describe "::first_markable_month" do
       it "responds to method" do

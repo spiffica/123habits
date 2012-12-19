@@ -16,10 +16,38 @@ $ ->
 # submit the form as soon as the image is clicked
 	$('form.edit_tracker').change ->
 		$('form.edit_tracker').submit()
+	
+# can't seem to get this to work in popover
+	pop_placement = (x) -> 
+	  if $(x).closest("td").hasClass("wday-0")
+	    place = "right"
+	  else if $(x).closest("td").hasClass("wday-6")
+	    place = "left"
+	  else
+	    place = "bottom"
+	    options = {
+	    	html: true,placement: 'right'} 
+			options
 
+# this does work; no need for it though
+	# $('img.notes-icon').hover ->
+	# 	$(this).toggleClass(pop_placement(this))	
+
+
+
+	$('td.wday-0 img.notes-icon').popover({ 
+											trigger: "hover",
+											html: true,
+											placement: 'right'
+											})
+	$('td.wday-6 img.notes-icon').popover( 
+											trigger: "hover",
+											html: true,
+											placement: 'left'
+											)
 	$('img.notes-icon').popover( 
 											trigger: "hover",
 											html: true,
-											placement: 'top')
-
- 
+											placement: 'bottom'
+											)
+	

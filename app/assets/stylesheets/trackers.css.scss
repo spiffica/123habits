@@ -3,6 +3,7 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 .calendar td { height: 100px; width: 14.28%; }
+td div.day_number{font-size:18px;font-weight:bold;}
 table.calendar {
   td.day {
     &.current {background-color: hsl(60, 100%, 70%) }
@@ -45,6 +46,18 @@ a.notes_link{
   position:relative;
   bottom:0px;
   right:0px;
+  &:hover{
+    background-color: transparent;
+    text-decoration: none;
+  }
+}
+article a#edit_notes {
+  display: block;
+}
+article.tracker img {
+  position: relative;
+  top: -20px;
+  float: right;
 }
 
 h4.fail{
