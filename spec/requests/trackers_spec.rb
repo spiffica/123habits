@@ -14,7 +14,7 @@ describe "Trackers" do
 		describe "habit has been started" do
 			before do
 				click_button "Start Habit Now!!"
-				click_link "tracking_link"
+				# click_link "tracking_link"
 			end
 			context "with no failed days" do
 				it "has 21 trackers" do
@@ -26,9 +26,9 @@ describe "Trackers" do
 			end
 
 			context "with one failed day" do
-				it "has 22 trackers", js: true do
+				it "has 28 trackers", js: true do
 					find("img.click_pic_fail").click
-					page.should have_css("article.tracker", count: 22)
+					page.should have_css("article.tracker", count: 28)
 				end
 			end
 			
@@ -44,14 +44,14 @@ describe "Trackers" do
 	describe "#index with calendar view" do
 		context "habit not yet started" do
 			it "has no link to tracking" do
-				page.should_not have_css "tracking_link"
+				page.should_not have_css "a", text: "Progress"
 			end
 		end
 		context "habit started" do
 			context "today" do
 				before do
 					click_button "Start Habit Now!!"
-					click_link "tracking_link"
+					# click_link "tracking_link"
 				end
 				it "displays 21 trackers" do
 					page.should have_css("article.tracker", count: 21)
@@ -64,7 +64,7 @@ describe "Trackers" do
 				before do
 					click_button "Start Habit Now!!"
 					Timecop.travel(start_of_month + 5.days)
-					click_link "tracking_link"
+					# click_link "tracking_link"
 				end
 				describe "with no forms submitted" do
 					it "shows 1 form" do
@@ -80,7 +80,7 @@ describe "Trackers" do
 						# click "click_pic"
 						# click "click_pic"
 						page.should have_css("form.edit_tracker", count: 1)
-						page.should have_css("article.tracker", count: 23)
+						page.should have_css("article.tracker", count: 35)
 					end
 					it "displays only one form" do
 						page.should have_css("form.edit_tracker", count: 1)
@@ -112,7 +112,7 @@ describe "Trackers" do
 	describe "notes", js: true do
 		before do
 			click_button "Start Habit Now!!"
-			click_link "tracking_link"
+			# click_link "tracking_link"
 			@tracker = @habit.trackers.first
 			find("img.click_pic_fail").click
 			@tracker.update_attribute(:notes, "It was a tough day")
