@@ -19,6 +19,7 @@ group :development do
   gem 'quiet_assets'
   # changes server from webrick to thin to avoid the error msg
   gem 'thin'
+  gem 'pry-rails'
 end
 
 # Gems used only for assets and not required

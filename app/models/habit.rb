@@ -3,7 +3,7 @@ class Habit < ActiveRecord::Base
   TYPE = %w(kick start)  #[['Start a healthy habit', 'start'],['Kick an ugly habit','kick']] #["grow", "break"]
   STATUS  = %w(started pending completed monitoring) #["started", "pending", "completed"]
   LENGTH = 21
-
+ 
   belongs_to :user 
   has_many :reasons, dependent: :destroy
   has_many :steps, dependent: :destroy
@@ -91,7 +91,7 @@ class Habit < ActiveRecord::Base
   
   def continue_habit
     if self.status == "completed"
-      Tracker.create_initial_trackers(self)
+      TrackerManager.new(self).create_initial_trackers
       self.status = "monitoring"
       self.save
     end
@@ -102,17 +102,18 @@ class Habit < ActiveRecord::Base
 
     def status_check
       if self.status_changed? 
+        tm = TrackerManager.new(self)
         case self.status 
           when "started"
           self.start_date = Time.zone.today
-          Tracker.create_initial_trackers(self)
+          tm.create_initial_trackers
           when "pending"
           self.start_date = nil
-          Tracker.delete_trackers(self)
+          tm.delete_trackers
           when "completed"
           self.completed_date = self.trackers.last.day
           when "monitoring"
-          Tracker.create_initial_trackers(self)
+          tm.create_initial_trackers
         end
       end
     end

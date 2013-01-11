@@ -5,7 +5,7 @@ class Tracker < ActiveRecord::Base
   belongs_to :habit
   has_one :user, through: :habit
 
-  STATES = %w{pending current overdue pass fail}
+  STATES = %w{pending current overdue pass fail messy}
 
    before_save :add_penalty_on_fail
    after_update :check_completed
@@ -58,37 +58,6 @@ class Tracker < ActiveRecord::Base
   end
 
 
-
-  def self.create_initial_trackers(habit)
-  	date = Time.zone.now.to_date
-    if habit.completed_date && habit.completed_date == date
-      date += 1.day
-    end
-    (Habit::LENGTH).times do |x|
-      state = x == 0? "current" : "pending"
-      habit.trackers.create(day:date, outcome: state)
-      date += 1.day
-    end
-  end
-
-  def add_penalty_trackers(number)
-    date = self.habit.trackers.last.day
-    number.times do |n|
-      date += 1.day
-      habit.trackers.create(day:date)
-    end
-  end
-
-  # no longer being used as user selects penalty
-  def trackers_to_add
-    (Habit::LENGTH - self.habit.trackers.unmarked.count + 1).to_i
-  end    
-
-
-  def self.delete_trackers(habit)
-    habit.trackers.delete_all
-  end
-
   private
     
     def self.update_to_current(user_timezone)
@@ -122,7 +91,7 @@ class Tracker < ActiveRecord::Base
 
     def add_penalty_on_fail
       if self.outcome_changed? && self.fail?
-        add_penalty_trackers(self.habit.penalty)
+        TrackerManager.new(self.habit).add_penalty_trackers
       end
     end
 
