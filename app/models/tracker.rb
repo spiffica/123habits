@@ -5,7 +5,7 @@ class Tracker < ActiveRecord::Base
   belongs_to :habit
   has_one :user, through: :habit
 
-  STATES = %w{pending current overdue pass fail messy}
+  STATES = %w{pending current overdue pass fail}
 
    before_save :add_penalty_on_fail
    after_update :check_completed
