@@ -4,38 +4,6 @@ describe Tracker do
   let(:habit) { FactoryGirl.create(:habit, statement: "indecisive", 
                 user_id: 5) }
   let(:my_tracker) { FactoryGirl.create :tracker }
-  describe "#create_initial_trackers" do
-    it "adds 21 tracker days to habit" do
-      Tracker.create_initial_trackers habit
-      habit.should have(21).trackers
-      habit.trackers.first.id.should_not be_nil
-    end
-    it "starts first day on today" do
-      Tracker.create_initial_trackers habit
-      Tracker.first.day.should == Date.today
-    end
-    it "starts first day on day after completed date if exists" do
-      habit.stub(:completed_date).and_return(Date.today)
-      Tracker.create_initial_trackers habit
-      Tracker.first.day.should == Date.today + 1.day
-    end
-
-  end
-  describe "#add_penalty_trackers(x)" do
-    it "add x days to the habits' day count" do
-      habit.update_attribute(:status, "started")
-      track1 = habit.trackers.first
-      track1.add_penalty_trackers(10)
-
-      habit.trackers.count.should eq(31)
-    end
-    it "gracefully handles negative numbers" do
-      habit.update_attribute(:status, "started")
-      track1 = habit.trackers.first
-      track1.add_penalty_trackers(-10)
-      habit.trackers.count.should eq(21)
-    end
-  end
   describe "#add_penalty_on_fail" do
     before do
       habit.update_attribute(:status, "started")
@@ -61,15 +29,7 @@ describe Tracker do
       @trackers.count.should eq 21
     end
   end
-  describe "#trackers_to_add" do
-    before do
-      habit.update_attribute(:status, "started")
-    end
-    it "adds proper number of days" do
-      my_tracker.stub_chain(:habit,:trackers,:unmarked,:count).and_return(4)
-      my_tracker.trackers_to_add.should == 18
-    end
-  end
+
 
   describe "#first_markable?" do
     it "returns true for first markable tracker" do

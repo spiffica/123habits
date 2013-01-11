@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.8'
+gem 'rails', '3.2.11'
 gem 'bootstrap-sass', '~> 2.2.1.1'
 gem 'bcrypt-ruby', '3.0.1'
 gem 'faker', '1.0.1'
@@ -19,6 +19,7 @@ group :development do
   gem 'quiet_assets'
   # changes server from webrick to thin to avoid the error msg
   gem 'thin'
+  gem 'pry-rails'
 end
 
 # Gems used only for assets and not required
