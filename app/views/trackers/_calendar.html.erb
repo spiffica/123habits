@@ -4,12 +4,17 @@
 			<%= render 'trackers/form', :tracker => tracker %>
 		<% end %>
 		<% if tracker.marked? %>
-			<%= link_to image_tag('notes-icon.png', class: "notes-icon",
-						rel: 'popover', title: tracker.outcome.capitalize, 
+			<%= link_to image_tag('notes-icon.png', 
+						class: "notes-icon",
+						rel: 'popover', 
+						title: tracker.outcome.capitalize, 
 						:"data-content"=>simple_format(tracker.notes)), 
 					edit_habit_tracker_path(@habit,tracker), 
-					class: "notes_link", id:"edit_notes", title:"click to edit note",
-					:'data-toggle' =>'modal', remote: true   %>
+						class: "notes_link", 
+						id:"edit_notes", 
+						title:"click to edit note",
+						:'data-toggle' =>'modal', 
+						remote: true   %>
 				
 				
 		<% end %>
