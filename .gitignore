@@ -21,3 +21,5 @@ doc/
 .projects
 .DS_Store
 bundler_stubs/
+
+/config/initializers/secret_token.rb
