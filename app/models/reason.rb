@@ -3,7 +3,7 @@ class Reason < ActiveRecord::Base
   attr_accessible :importance, :message
 
   validates :message, presence:true, length: { minimum: 4}
-end 
+end
 # == Schema Information
 #
 # Table name: reasons

@@ -76,11 +76,4 @@ class HabitsController < ApplicationController
   end
 
 
-
-  # def continue
-  #   @habit = current_user.habits.find(params[:id])
-  #   @habit.continue_habit
-  #   redirect_to @habit
-  # end
-
 end

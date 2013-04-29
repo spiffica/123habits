@@ -100,20 +100,31 @@ class Habit < ActiveRecord::Base
 
   private
 
+    def tracker_manager 
+      @tracker_manager ||= TrackerManager.new(self)
+    end
+    def create_initial_trackers
+      tracker_manager.create_initial_trackers
+    end
+    def delete_trackers
+      tracker_manager.delete_trackers
+    end
+
     def status_check
       if self.status_changed? 
-        tm = TrackerManager.new(self)
+        # tm = TrackerManager.new(self)
         case self.status 
           when "started"
           self.start_date = Time.zone.today
-          tm.create_initial_trackers
+          # tm.create_initial_trackers
+          create_initial_trackers
           when "pending"
           self.start_date = nil
-          tm.delete_trackers
+          delete_trackers
           when "completed"
           self.completed_date = self.trackers.last.day
           when "monitoring"
-          tm.create_initial_trackers
+            create_initial_trackers
         end
       end
     end
