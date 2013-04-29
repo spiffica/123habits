@@ -1,6 +1,9 @@
-This is an app I've been developing to better understand Rails.
+# Habits
+***
+This is an app I've been developing to better understand Rails. It is hosted on heroku [here](http://mighty-brushlands-7897.herokuapp.com)
 
 The basic functionality of the app is to log and track habits you are trying to start or break. It is said that if you can take an action 21 days, that action will become permanent.
+
 Every habit starts with 21 days to follow your habit. If you have a failed day, 7 days are added to your habit. You can adjust this to between 0 and 7 days.
 
 To help keep tabs on your progress, you can also enter notes for each day in each habit. These will potentially help you identify your struggling points and your strong points.
