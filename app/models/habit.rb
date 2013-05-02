@@ -1,7 +1,7 @@
 class Habit < ActiveRecord::Base
 
-  TYPE = %w(kick start)  #[['Start a healthy habit', 'start'],['Kick an ugly habit','kick']] #["grow", "break"]
-  STATUS  = %w(started pending completed monitoring) #["started", "pending", "completed"]
+  TYPE = %w(kick start)  
+  STATUS  = %w(started pending completed monitoring)
   LENGTH = 21
  
   belongs_to :user 
@@ -66,7 +66,7 @@ class Habit < ActiveRecord::Base
   end
 
   def days_left
-    (self.trackers.last.day - Time.zone.today).to_i 
+    (end_date - Time.zone.today).to_i 
   end
 
   def percent_success
